@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.entity.NoopRenderer;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
 // Wires the gun client: keys, payloads, particles, per-tick and per-frame handlers, HUD layers and trails.
 public final class GunClient {
@@ -29,6 +30,10 @@ public final class GunClient {
         EntityRendererRegistry.register(GunEntities.BLAZE_PROJECTILE, NoopRenderer::new);
         EntityRendererRegistry.register(GunEntities.SPECTRE_PROJECTILE, NoopRenderer::new);
         EntityRendererRegistry.register(GunEntities.ROCKET, NoopRenderer::new);
+        EntityRendererRegistry.register(GunEntities.GRENADE, ThrownItemRenderer::new);
+        EntityRendererRegistry.register(GunEntities.STUN_GRENADE, ThrownItemRenderer::new);
+        EntityRendererRegistry.register(GunEntities.SMOKE_GRENADE, ThrownItemRenderer::new);
+        EntityRendererRegistry.register(GunEntities.MOLOTOV_COCKTAIL, ThrownItemRenderer::new);
 
         ClientTickEvents.START_CLIENT_TICK.register(GunClient::startTick);
         ClientTickEvents.END_CLIENT_TICK.register(GunClient::endTick);
@@ -44,6 +49,7 @@ public final class GunClient {
         HudElementRegistry.replaceElement(VanillaHudElements.CROSSHAIR, vanilla -> CrosshairClient.get().wrap(vanilla));
         HudElementRegistry.attachElementAfter(VanillaHudElements.MISC_OVERLAYS, MmsArsenal.id("gun_scope"), GunHud::renderScope);
         HudElementRegistry.attachElementAfter(VanillaHudElements.HOTBAR, MmsArsenal.id("gun_hud"), GunHud::renderHud);
+        HudElementRegistry.attachElementAfter(VanillaHudElements.MISC_OVERLAYS, MmsArsenal.id("flash_blind"), StunEffectsClient::renderBlindness);
     }
 
     private static void startTick(Minecraft mc) {
@@ -67,6 +73,7 @@ public final class GunClient {
         CrosshairClient.get().tick();
         AimHandler.get().tickOthers(mc);
         BulletTrails.get().tick(mc);
+        StunEffectsClient.tick(mc);
     }
 
     // Per-frame updates: smoothed aim, the camera's recoil kick and the gun model's recoil.

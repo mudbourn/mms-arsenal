@@ -1,6 +1,11 @@
 package info.mudbourn.mmsarsenal.gun.entity;
 
 import info.mudbourn.mmsarsenal.MmsArsenal;
+import info.mudbourn.mmsarsenal.gun.throwable.GrenadeEntity;
+import info.mudbourn.mmsarsenal.gun.throwable.MolotovCocktailEntity;
+import info.mudbourn.mmsarsenal.gun.throwable.SmokeGrenadeEntity;
+import info.mudbourn.mmsarsenal.gun.throwable.StunGrenadeEntity;
+import info.mudbourn.mmsarsenal.gun.throwable.TimedThrowableEntity;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -9,7 +14,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 
-// Projectile entity types: bullets stay on the server and are drawn only as client-side trails; rockets are tracked so clients see them.
+// Projectile entity types: bullets stay on the server and are drawn only as client-side trails; rockets and thrown grenades are tracked so clients see them.
 public final class GunEntities {
 
     public static final EntityType<ProjectileEntity> PROJECTILE = bullet("projectile", ProjectileEntity::new);
@@ -26,6 +31,11 @@ public final class GunEntities {
             .noSave()
     );
 
+    public static final EntityType<GrenadeEntity> GRENADE = thrown("grenade", GrenadeEntity::new);
+    public static final EntityType<StunGrenadeEntity> STUN_GRENADE = thrown("stun_grenade", StunGrenadeEntity::new);
+    public static final EntityType<SmokeGrenadeEntity> SMOKE_GRENADE = thrown("smoke_grenade", SmokeGrenadeEntity::new);
+    public static final EntityType<MolotovCocktailEntity> MOLOTOV_COCKTAIL = thrown("molotov_cocktail", MolotovCocktailEntity::new);
+
     private GunEntities() {
     }
 
@@ -41,6 +51,16 @@ public final class GunEntities {
                 .noSummon()
                 .fireImmune()
                 .noSave()
+        );
+    }
+
+    private static <T extends TimedThrowableEntity> EntityType<T> thrown(String path, EntityType.EntityFactory<T> factory) {
+        return register(
+            path,
+            EntityType.Builder.of(factory, MobCategory.MISC)
+                .sized(0.25F, 0.25F)
+                .clientTrackingRange(8)
+                .updateInterval(2)
         );
     }
 

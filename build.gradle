@@ -29,6 +29,7 @@ dependencies {
     modImplementation "info.mudbourn:mms-render-common:${project.render_common_version}"
     modImplementation "info.mudbourn:mms-weapons:${project.weapons_version}"
     modImplementation "info.mudbourn:mms-combat:${project.combat_version}"
+    modCompileOnly "maven.modrinth:better-combat:${project.better_combat_version}"
     runtimeMods "maven.modrinth:better-combat:${project.better_combat_version}"
     runtimeMods "maven.modrinth:player-animation-library:${project.player_animation_library_version}"
 }
@@ -61,12 +62,20 @@ jar {
     }
 }
 
+// Third-party mods mms-weapons requires, taken from its own dev run minus the ones listed in runtimeMods.
+def weaponsRunMods = fileTree("${providers.gradleProperty('mmsSiblingRoot').getOrElse('..')}/mms-weapons/run/mods") {
+    include "*.jar"
+    exclude "bettercombat-*", "PlayerAnimationLib*", "cloth-config-*"
+}
+
 // Copies the required runtime mods into the dev run's mods folder.
 tasks.register("syncRuntimeMods") {
     inputs.files(configurations.runtimeMods)
+    inputs.files(weaponsRunMods)
     doLast {
         copy {
             from configurations.runtimeMods
+            from weaponsRunMods
             into file("run/mods")
         }
     }

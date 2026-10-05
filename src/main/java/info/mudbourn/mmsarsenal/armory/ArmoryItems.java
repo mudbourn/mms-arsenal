@@ -12,6 +12,7 @@ import info.mudbourn.mmsarsenal.armory.item.MurasamaSheathedItem;
 import info.mudbourn.mmsarsenal.armory.item.OriginiumCatalystItem;
 import info.mudbourn.mmsarsenal.armory.item.OriginiumKatanaItem;
 import info.mudbourn.mmsarsenal.armory.item.PunisherItem;
+import info.mudbourn.mmsarsenal.gun.GunItems;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
@@ -124,7 +125,10 @@ public final class ArmoryItems {
             FabricItemGroup.builder()
                 .title(Component.translatable("itemGroup.mms_arsenal.armory"))
                 .icon(() -> new ItemStack(DRAGON_SLAYER))
-                .displayItems((parameters, output) -> CREATIVE_ORDER.forEach(output::accept))
+                .displayItems((parameters, output) -> {
+                    CREATIVE_ORDER.forEach(output::accept);
+                    output.acceptAll(GunItems.creativeStacks());
+                })
                 .build()
         );
     }

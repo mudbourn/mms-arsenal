@@ -1,21 +1,23 @@
 package info.mudbourn.mmsarsenal.gun;
 
 import info.mudbourn.mmsarsenal.MmsArsenal;
+import info.mudbourn.mmsarsenal.gun.throwable.GrenadeItem;
+import info.mudbourn.mmsarsenal.gun.throwable.MolotovCocktailItem;
+import info.mudbourn.mmsarsenal.gun.throwable.SmokeGrenadeItem;
+import info.mudbourn.mmsarsenal.gun.throwable.StunGrenadeItem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 
-// The guns and the ammo they fire.
+// The guns, the ammo they fire and the throwables.
 public final class GunItems {
 
     private static final List<Item> CREATIVE_ORDER = new ArrayList<>();
@@ -36,19 +38,21 @@ public final class GunItems {
     public static final Item SPECTRE_ROUND = ammo("spectre_round", new Item.Properties());
     public static final Item BLAZE_ROUND = ammo("blaze_round", new Item.Properties());
 
+    public static final Item GRENADE = register("grenade", GrenadeItem::new, new Item.Properties().stacksTo(16));
+    public static final Item STUN_GRENADE = register("stun_grenade", StunGrenadeItem::new, new Item.Properties().stacksTo(16));
+    public static final Item SMOKE_GRENADE = register("smoke_grenade", SmokeGrenadeItem::new, new Item.Properties().stacksTo(16));
+    public static final Item MOLOTOV_COCKTAIL = register("molotov_cocktail", MolotovCocktailItem::new, new Item.Properties().stacksTo(16));
+
     private GunItems() {
     }
 
+    // Loads this class so its items register before the registries freeze.
     public static void register() {
-        Registry.register(
-            BuiltInRegistries.CREATIVE_MODE_TAB,
-            MmsArsenal.id("guns"),
-            FabricItemGroup.builder()
-                .title(Component.translatable("itemGroup.mms_arsenal.guns"))
-                .icon(() -> new ItemStack(ASSAULT_RIFLE))
-                .displayItems((parameters, output) -> CREATIVE_ORDER.forEach(item -> output.accept(fullyLoaded(item))))
-                .build()
-        );
+    }
+
+    // The guns and ammo in creative order, each gun with a full magazine.
+    public static List<ItemStack> creativeStacks() {
+        return CREATIVE_ORDER.stream().map(GunItems::fullyLoaded).toList();
     }
 
     // A creative stack of a gun with a full magazine, or the item itself for anything else.

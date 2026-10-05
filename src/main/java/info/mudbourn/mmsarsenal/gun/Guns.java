@@ -44,6 +44,7 @@ public final class Guns {
         GunMobEffects.register();
         GunEntities.register();
         GunItems.register();
+        GunGameRules.register();
         ResourceLoader.get(PackType.SERVER_DATA).registerReloader(GunManager.ID, new GunManager());
         registerPayloads();
         registerReceivers();

@@ -53,6 +53,10 @@
   "item.mms_arsenal.stun_grenade": "Stun Grenade",
   "item.mms_arsenal.smoke_grenade": "Smoke Grenade",
   "item.mms_arsenal.molotov_cocktail": "Molotov Cocktail",
+  "entity.mms_arsenal.grenade": "Grenade",
+  "entity.mms_arsenal.stun_grenade": "Stun Grenade",
+  "entity.mms_arsenal.smoke_grenade": "Smoke Grenade",
+  "entity.mms_arsenal.molotov_cocktail": "Molotov Cocktail",
   "info.mms_arsenal.shift_tooltip": "Press SHIFT for details!",
   "info.mms_arsenal.fire_mode": "Fire Mode: ",
   "info.mms_arsenal.ammo_type": "Ammo Type: %s",
@@ -99,5 +103,6 @@
   "key.mms_arsenal.melee": "Melee Attack",
   "key.mms_arsenal.inspect": "Inspect Gun",
   "key.category.mms_arsenal.guns": "Guns",
-  "itemGroup.mms_arsenal.guns": "Guns"
+  "gamerule.mms_arsenal.gun_griefing": "Gun griefing",
+  "gamerule.mms_arsenal.gun_griefing.description": "Whether bullets, burning rounds and rockets can break, melt or ignite blocks"
 }

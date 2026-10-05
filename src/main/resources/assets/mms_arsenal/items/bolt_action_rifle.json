@@ -1,9 +1,25 @@
 {
   "model": {
-    "type": "mms_arsenal:gun",
-    "base": "mms_arsenal:item/gun/bolt_action_rifle",
-    "geo": "mms_arsenal:geo/item/gun/bolt_action_rifle.geo.json",
-    "texture": "mms_arsenal:textures/gun/bolt_action_rifle.png",
-    "animations": "mms_arsenal:animations/item/bolt_action_rifle.animation.json"
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": [
+          "firstperson_righthand",
+          "firstperson_lefthand"
+        ],
+        "model": {
+          "type": "mms_arsenal:gun",
+          "base": "mms_arsenal:item/gun/bolt_action_rifle",
+          "geo": "mms_arsenal:geo/item/gun/bolt_action_rifle.geo.json",
+          "texture": "mms_arsenal:textures/gun/bolt_action_rifle.png",
+          "animations": "mms_arsenal:animations/item/bolt_action_rifle.animation.json"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "mms_arsenal:item/gun/bolt_action_rifle"
+    }
   }
 }

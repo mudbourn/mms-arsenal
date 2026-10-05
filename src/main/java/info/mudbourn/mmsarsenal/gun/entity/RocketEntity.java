@@ -2,6 +2,7 @@ package info.mudbourn.mmsarsenal.gun.entity;
 
 import info.mudbourn.mmsarsenal.config.ArsenalConfig;
 import info.mudbourn.mmsarsenal.gun.Gun;
+import info.mudbourn.mmsarsenal.gun.GunGameRules;
 import info.mudbourn.mmsarsenal.gun.GunNetwork;
 import info.mudbourn.mmsarsenal.gun.GunParticles;
 import info.mudbourn.mmsarsenal.gun.GunTags;
@@ -95,7 +96,9 @@ public class RocketEntity extends ProjectileEntity {
     }
 
     private void explode(ServerLevel level) {
-        boolean keepBlocks = !(this.getShooter() instanceof Player) || !ArsenalConfig.get().enableBlockRemovalOnExplosions;
+        boolean keepBlocks = !(this.getShooter() instanceof Player)
+            || !ArsenalConfig.get().enableBlockRemovalOnExplosions
+            || !level.getGameRules().get(GunGameRules.GUN_GRIEFING);
         level.explode(
             this,
             level.damageSources().explosion(this, this.getShooter()),

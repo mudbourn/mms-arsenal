@@ -6,6 +6,7 @@ import info.mudbourn.mmsarsenal.gun.Gun;
 import info.mudbourn.mmsarsenal.gun.GunNetwork;
 import info.mudbourn.mmsarsenal.gun.GunSounds;
 import info.mudbourn.mmsarsenal.gun.GunState;
+import info.mudbourn.mmsarsenal.gun.GunGameRules;
 import info.mudbourn.mmsarsenal.gun.GunTags;
 import info.mudbourn.mmsarsenal.gun.HeadshotBoxes;
 import info.mudbourn.mmsarsenal.gun.SpreadTracker;
@@ -389,6 +390,9 @@ public class ProjectileEntity extends Entity {
 
     // Glass shatters; wood splinters under heavy or burning rounds.
     private void breakBlocks(ServerLevel level, BlockPos pos, BlockState state) {
+        if (!level.getGameRules().get(GunGameRules.GUN_GRIEFING)) {
+            return;
+        }
         ArsenalConfig config = ArsenalConfig.get();
         if (config.enableGlassBreaking && state.is(GunTags.FRAGILE)) {
             float destroySpeed = state.getDestroySpeed(level, pos);
@@ -468,7 +472,7 @@ public class ProjectileEntity extends Entity {
 
     // Sets fire on the face a burning round struck, when fire spreading is allowed.
     protected void igniteFace(ServerLevel level, BlockPos pos, Direction face, Vec3 hitVec) {
-        if (!ArsenalConfig.get().setFireToBlocks) {
+        if (!ArsenalConfig.get().setFireToBlocks || !level.getGameRules().get(GunGameRules.GUN_GRIEFING)) {
             return;
         }
         BlockPos firePos = pos.relative(face);

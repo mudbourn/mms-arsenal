@@ -1,9 +1,25 @@
 {
   "model": {
-    "type": "mms_arsenal:gun",
-    "base": "mms_arsenal:item/gun/rocket_launcher",
-    "geo": "mms_arsenal:geo/item/gun/rocket_launcher.geo.json",
-    "texture": "mms_arsenal:textures/gun/rocket_launcher.png",
-    "animations": "mms_arsenal:animations/item/rocket_launcher.animation.json"
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": [
+          "firstperson_righthand",
+          "firstperson_lefthand"
+        ],
+        "model": {
+          "type": "mms_arsenal:gun",
+          "base": "mms_arsenal:item/gun/rocket_launcher",
+          "geo": "mms_arsenal:geo/item/gun/rocket_launcher.geo.json",
+          "texture": "mms_arsenal:textures/gun/rocket_launcher.png",
+          "animations": "mms_arsenal:animations/item/rocket_launcher.animation.json"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "mms_arsenal:item/gun/rocket_launcher"
+    }
   }
 }
