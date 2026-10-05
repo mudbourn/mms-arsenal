@@ -1,0 +1,25 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": [
+          "gui",
+          "ground",
+          "fixed"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "mms_arsenal:item/originium_catalyst_inventory"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "mms_render_common:geo",
+      "base": "mms_arsenal:item/originium_catalyst_held",
+      "geo": "mms_arsenal:geo/item/originium_catalyst.geo.json",
+      "texture": "mms_arsenal:textures/item/originium_catalyst.png"
+    }
+  }
+}

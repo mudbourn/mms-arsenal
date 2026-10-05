@@ -1,0 +1,11 @@
+pluginManagement {
+    repositories {
+        maven { url = 'https://maven.fabricmc.net/' }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+// Sibling mms mods resolve as composite builds; mmsSiblingRoot overrides the parent dir in CI.
+def siblingRoot = providers.gradleProperty('mmsSiblingRoot').getOrElse('..')
+includeBuild "$siblingRoot/mms-render-common"

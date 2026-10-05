@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "mms_arsenal",
+  "version": "${version}",
+  "name": "MMS Arsenal",
+  "description": "The Armory of Destiny melee weapons and a port of the Just Enough Guns firearms, ammo and throwables for MMSLive01.",
+  "authors": [
+    "mudbourn"
+  ],
+  "contributors": [
+    "Just Enough Guns: Rui Mao, MigaMi, Leander"
+  ],
+  "license": "GPL-3.0-only",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "info.mudbourn.mmsarsenal.MmsArsenal"
+    ],
+    "client": [
+      "info.mudbourn.mmsarsenal.client.MmsArsenalClient"
+    ]
+  },
+  "mixins": [
+    "mms_arsenal.armory.mixins.json",
+    {
+      "config": "mms_arsenal.armory.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*",
+    "mms_render_common": "*",
+    "bettercombat": ">=3.1.0"
+  }
+}
