@@ -34,7 +34,7 @@
     "damage": 28.0,
     "ejectsCasing": true,
     "gravity": true,
-    "headshotMultiplier": 1.5,
+    "headshotMultiplier": 3.0,
     "hideTrail": true,
     "item": "mms_arsenal:rocket",
     "life": 600,

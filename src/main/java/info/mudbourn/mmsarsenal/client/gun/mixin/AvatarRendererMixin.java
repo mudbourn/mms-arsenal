@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-// Records how a player holds their gun for the model and hand layer, and turns the body toward the gun.
+// Records how a player holds their gun for the model and hand layer, and turns the body toward the gun while the head keeps facing the look direction.
 @Mixin(AvatarRenderer.class)
 public abstract class AvatarRendererMixin {
 
@@ -32,6 +32,9 @@ public abstract class AvatarRendererMixin {
         boolean resting = player == mc.player && state.walkAnimationPos == 0.0F;
         GunHold hold = new GunHold(gunItem.getGun(true).general().gripType(), pitch, aim, rightHanded, player.isCrouching(), resting);
         state.setData(GunHold.KEY, hold);
+        float headYaw = state.bodyRot + state.yRot;
         state.bodyRot = Mth.rotLerp(partialTick, player.yRotO, player.getYRot()) + hold.pose().bodyYawOffset(pitch, aim, rightHanded);
+        // Keeps the head facing where the player looks once the body has turned toward the gun.
+        state.yRot = Mth.wrapDegrees(headYaw - state.bodyRot);
     }
 }

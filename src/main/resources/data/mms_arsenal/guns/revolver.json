@@ -36,7 +36,7 @@
     "advantage": "mms_arsenal:none",
     "damage": 5.0,
     "gravity": true,
-    "headshotMultiplier": 1.5,
+    "headshotMultiplier": 3.0,
     "item": "mms_arsenal:pistol_ammo",
     "life": 40,
     "size": 0.05,

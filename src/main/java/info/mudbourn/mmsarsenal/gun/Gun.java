@@ -134,7 +134,7 @@ public record Gun(
                 GsonHelper.getAsBoolean(json, "ignoresBlocks", false),
                 GsonHelper.getAsBoolean(json, "collateral", false),
                 GsonHelper.getAsFloat(json, "damage", 0.0F),
-                GsonHelper.getAsFloat(json, "headshotMultiplier", 1.5F),
+                GsonHelper.getAsFloat(json, "headshotMultiplier", 3.0F),
                 identifier(json, "advantage", "mms_arsenal:none"),
                 GsonHelper.getAsFloat(json, "size", 0.0F),
                 GsonHelper.getAsDouble(json, "speed", 0.0),

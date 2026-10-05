@@ -54,6 +54,8 @@ public final class GunParticleClient {
             new Explosion(level, x, y, z, dx, dy, dz, sprites, 2.0F));
         registry.register(GunParticles.SMOKE, sprites -> (type, level, x, y, z, dx, dy, dz, random) ->
             new Smoke(level, x, y, z, dx, dy, dz, sprites.get(random)));
+        registry.register(GunParticles.SMOKE_CLOUD, sprites -> (type, level, x, y, z, dx, dy, dz, random) ->
+            new SmokeCloud(level, x, y, z, dx, dy, dz, sprites.get(random)));
     }
 
     // Adds a bullet hole decal on the face a projectile struck, tinted and textured like the block.
@@ -348,6 +350,43 @@ public final class GunParticleClient {
         public float getQuadSize(float partialTick) {
             float progress = (this.age + partialTick) / this.lifetime;
             return this.quadSize * ((1.0F + progress * progress) * 30.0F);
+        }
+    }
+
+    // Smoke grenade cloud: a wide campfire smoke puff that hangs in place for most of the smoke's life, overlapping its neighbours into a solid wall.
+    private static final class SmokeCloud extends SingleQuadParticle {
+
+        private static final float FADE_TICKS = 20.0F;
+        private static final int MIN_LIFETIME = 240;
+        private static final int LIFETIME_SPREAD = 80;
+
+        // The x speed carries the smoke column's remaining ticks, which caps the puff's life.
+        SmokeCloud(ClientLevel level, double x, double y, double z, double columnTicksLeft, double dy, double dz, TextureAtlasSprite sprite) {
+            super(level, x, y, z, 0.0, 0.0, 0.0, sprite);
+            this.friction = 1.0F;
+            this.gravity = 0.0F;
+            this.xd = 0.0;
+            this.yd = 0.0;
+            this.zd = 0.0;
+            this.hasPhysics = false;
+            this.quadSize = 1.4F + this.random.nextFloat() * 0.6F;
+            this.lifetime = Math.max(1, Math.min(MIN_LIFETIME + this.random.nextInt(LIFETIME_SPREAD), (int) columnTicksLeft));
+            float shade = 0.7F + this.random.nextFloat() * 0.15F;
+            this.setColor(shade, shade, shade);
+            this.alpha = 0.0F;
+        }
+
+        @Override
+        public void tick() {
+            super.tick();
+            float in = this.age / FADE_TICKS;
+            float out = (this.lifetime - this.age) / FADE_TICKS;
+            this.alpha = Mth.clamp(Math.min(in, out), 0.0F, 1.0F) * 0.9F;
+        }
+
+        @Override
+        protected Layer getLayer() {
+            return Layer.TRANSLUCENT;
         }
     }
 

@@ -44,7 +44,7 @@
     "advantage": "mms_arsenal:very_heavy",
     "damage": 9.0,
     "ejectsCasing": true,
-    "headshotMultiplier": 1.5,
+    "headshotMultiplier": 3.0,
     "hitsRubberFruit": true,
     "item": "mms_arsenal:blaze_round",
     "life": 100,

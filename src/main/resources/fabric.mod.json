@@ -23,6 +23,7 @@
   "mixins": [
     "mms_arsenal.armory.mixins.json",
     "mms_arsenal.dummy.mixins.json",
+    "mms_arsenal.gun.mixins.json",
     {
       "config": "mms_arsenal.armory.client.mixins.json",
       "environment": "client"

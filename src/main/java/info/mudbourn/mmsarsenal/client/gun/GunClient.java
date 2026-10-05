@@ -25,6 +25,7 @@ public final class GunClient {
         GunKeys.register();
         GunClientNetwork.register();
         GunParticleClient.register();
+        SmokeFogEnvironment.register();
         GunItem.setShiftDown(() -> Minecraft.getInstance().hasShiftDown());
         EntityRendererRegistry.register(GunEntities.PROJECTILE, NoopRenderer::new);
         EntityRendererRegistry.register(GunEntities.BLAZE_PROJECTILE, NoopRenderer::new);

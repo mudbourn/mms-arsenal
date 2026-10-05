@@ -4,7 +4,8 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "ArmorStandDummyMixin",
-    "LivingEntityDummyMixin"
+    "LivingEntityDummyMixin",
+    "TextDisplayAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -6,6 +6,7 @@ import info.mudbourn.mmsarsenal.armory.ArmoryEvents;
 import info.mudbourn.mmsarsenal.armory.ArmoryItems;
 import info.mudbourn.mmsarsenal.armory.ArmorySounds;
 import info.mudbourn.mmsarsenal.dummy.TrainingDummy;
+import info.mudbourn.mmsarsenal.gun.throwable.SmokeGrenadeEntity;
 import info.mudbourn.mmsarsenal.gun.Guns;
 import info.mudbourn.mmsarsenal.net.NonexistencePayload;
 import net.fabricmc.api.ModInitializer;
@@ -32,6 +33,7 @@ public class MmsArsenal implements ModInitializer {
         PayloadTypeRegistry.playS2C().register(NonexistencePayload.TYPE, NonexistencePayload.CODEC);
         Guns.register();
         TrainingDummy.register();
+        SmokeGrenadeEntity.register();
 
         LOG.info("MMS Arsenal loaded");
     }

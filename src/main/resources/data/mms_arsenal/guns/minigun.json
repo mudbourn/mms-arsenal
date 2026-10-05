@@ -35,7 +35,7 @@
     "damage": 4.0,
     "damageReduceOverLife": true,
     "ejectsCasing": true,
-    "headshotMultiplier": 1.5,
+    "headshotMultiplier": 3.0,
     "item": "mms_arsenal:pistol_ammo",
     "life": 80,
     "size": 0.05,

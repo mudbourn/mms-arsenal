@@ -75,7 +75,7 @@ public final class ArsenalConfig {
 
     public double missileExplosionRadius = 5.0;
     public double grenadeExplosionRadius = 5.0;
-    public double smokeGrenadeCloudDiameter = 6.0;
+    public double smokeGrenadeCloudDiameter = 18.0;
     public double smokeGrenadeDamage = 0.0;
     public double smokeGrenadeCloudDuration = 20.0;
 

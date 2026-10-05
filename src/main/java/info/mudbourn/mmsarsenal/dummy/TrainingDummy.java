@@ -2,6 +2,7 @@ package info.mudbourn.mmsarsenal.dummy;
 
 import info.mudbourn.mmsarsenal.MmsArsenal;
 import info.mudbourn.mmsarsenal.armory.ArmoryEvents;
+import info.mudbourn.mmsarsenal.dummy.mixin.TextDisplayAccessor;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -43,12 +44,23 @@ public final class TrainingDummy {
     private static final String TALLY_TAG = "mms_combat_dummy_tally";
     private static final int ALL_SLOTS_DISABLED = 4144959;
     private static final int NUMBER_TICKS = 20;
-    // Five seconds without a hit clears the running total.
+    // Five seconds without a hit zeroes the running total.
     private static final int TALLY_RESET_TICKS = 100;
+    // How long the zeroed total stays up before it disappears.
+    private static final int TALLY_CLEARED_TICKS = 40;
+    // The total at which the readout is fully red.
+    private static final float TALLY_FULL_RED = 100.0F;
     private static final double TALLY_HEIGHT = 2.4;
     private static final double NUMBER_SPACING = 0.35;
-    private static final double SOURCELESS_LIFT = 0.5;
-    private static final double TALLY_SPACING = 0.6;
+    private static final double TALLY_SPACING = 0.5;
+    private static final int NUMBER_PLACEMENT_TRIES = 16;
+    // Heights above the dummy's feet that damage numbers spawn between: the lower torso up to mid-head.
+    private static final double NUMBER_LOWEST = 0.9;
+    private static final double NUMBER_HIGHEST = 1.7;
+    // How far in front of the dummy's center the numbers' plane sits, past its half-block-wide hitbox.
+    private static final double NUMBER_FORWARD = 0.7;
+    // How wide the numbers' plane is.
+    private static final double NUMBER_WIDTH = 1.0;
 
     public static final EntityDimensions DIMENSIONS = EntityDimensions.fixed(1.0F, 2.0F).withEyeHeight(1.7775F);
 
@@ -61,6 +73,7 @@ public final class TrainingDummy {
         private final Display.TextDisplay display;
         private float total;
         private int idle;
+        private int cleared;
 
         private Tally(Display.TextDisplay display) {
             this.display = display;
@@ -127,23 +140,28 @@ public final class TrainingDummy {
         }
     }
 
-    // Floats the number toward the attacker, or above the flames for damage with no source like burning, then lifts it clear of other numbers.
+    // Floats the number between the lower torso and mid-head on a plane in front of the dummy facing the attacker, at the first spot clear of other numbers and the total.
     private static void showNumber(ServerLevel level, ArmorStand dummy, DamageSource source, float dealt) {
-        Vec3 pos = dummy.getEyePosition();
+        Vec3 base = dummy.position();
         Vec3 attacker = source.getSourcePosition();
-        Vec3 toward = attacker == null ? Vec3.ZERO : attacker.subtract(pos).multiply(1, 0, 1);
-        if (toward.lengthSqr() > 0) {
-            pos = pos.add(toward.normalize().scale(0.5));
-        } else {
-            pos = pos.add(0, SOURCELESS_LIFT, 0);
-        }
-        pos = pos.add(
-            (level.getRandom().nextDouble() - 0.5) * 0.4,
-            level.getRandom().nextDouble() * 0.3,
-            (level.getRandom().nextDouble() - 0.5) * 0.4
-        );
-        while (crowded(level, pos)) {
-            pos = pos.add(0, NUMBER_SPACING, 0);
+        Vec3 toward = attacker == null ? Vec3.ZERO : attacker.subtract(base).multiply(1, 0, 1);
+        Vec3 facing = toward.lengthSqr() > 0 ? toward.normalize() : Vec3.directionFromRotation(0.0F, dummy.getYRot());
+        Vec3 sideways = new Vec3(-facing.z, 0, facing.x);
+        Vec3 center = base.add(facing.scale(NUMBER_FORWARD)).add(0, (NUMBER_LOWEST + NUMBER_HIGHEST) / 2.0, 0);
+        Vec3 pos = center;
+        double best = -1.0;
+        for (int i = 0; i < NUMBER_PLACEMENT_TRIES; i++) {
+            Vec3 candidate = center
+                .add(sideways.scale((level.getRandom().nextDouble() - 0.5) * NUMBER_WIDTH))
+                .add(0, (level.getRandom().nextDouble() - 0.5) * (NUMBER_HIGHEST - NUMBER_LOWEST), 0);
+            double clearance = clearance(level, candidate);
+            if (clearance > best) {
+                best = clearance;
+                pos = candidate;
+            }
+            if (clearance >= NUMBER_SPACING) {
+                break;
+            }
         }
 
         Display.TextDisplay display = new Display.TextDisplay(EntityType.TEXT_DISPLAY, level);
@@ -151,29 +169,28 @@ public final class TrainingDummy {
         display.setText(Component.literal(String.format("-%.1f", dealt)).withStyle(ChatFormatting.RED));
         display.setBillboardConstraints(Display.BillboardConstraints.CENTER);
         display.addTag(NUMBER_TAG);
+        clearBackground(display);
         numbers.put(display, NUMBER_TICKS);
         level.addFreshEntity(display);
     }
 
-    // Whether a live damage number or readout in this level sits too close to the given spot.
-    private static boolean crowded(ServerLevel level, Vec3 pos) {
+    // Distance from a spot to the nearest live damage number, or to the total less its wider margin.
+    private static double clearance(ServerLevel level, Vec3 pos) {
+        double nearest = Double.MAX_VALUE;
         for (Display.TextDisplay other : numbers.keySet()) {
-            if (near(level, other, pos, NUMBER_SPACING)) {
-                return true;
+            if (other.level() == level && !other.isRemoved()) {
+                nearest = Math.min(nearest, other.position().distanceTo(pos));
             }
         }
         for (Tally tally : tallies.values()) {
-            if (near(level, tally.display, pos, TALLY_SPACING)) {
-                return true;
+            if (tally.display.level() == level && !tally.display.isRemoved()) {
+                nearest = Math.min(nearest, tally.display.position().distanceTo(pos) - (TALLY_SPACING - NUMBER_SPACING));
             }
         }
-        return false;
+        return nearest;
     }
 
-    private static boolean near(ServerLevel level, Display.TextDisplay display, Vec3 pos, double spacing) {
-        return display.level() == level && !display.isRemoved() && display.position().distanceToSqr(pos) < spacing * spacing;
-    }
-
+    // Adds a hit to the total above the dummy, shading it from yellow toward red as it grows.
     private static void tally(ServerLevel level, ArmorStand dummy, float dealt) {
         Tally tally = tallies.get(dummy);
         if (tally == null || tally.display.isRemoved()) {
@@ -181,16 +198,27 @@ public final class TrainingDummy {
             display.setPos(dummy.position().add(0, TALLY_HEIGHT, 0));
             display.setBillboardConstraints(Display.BillboardConstraints.CENTER);
             display.addTag(TALLY_TAG);
-            level.addFreshEntity(display);
+            clearBackground(display);
             tally = new Tally(display);
             tallies.put(dummy, tally);
+            level.addFreshEntity(display);
         }
         tally.total += dealt;
         tally.idle = TALLY_RESET_TICKS;
-        tally.display.setText(Component.empty()
-            .append(Component.literal(String.format("Last %.1f", dealt)).withStyle(ChatFormatting.RED))
-            .append("\n")
-            .append(Component.literal(String.format("Total %.1f", tally.total)).withStyle(ChatFormatting.GOLD)));
+        tally.cleared = 0;
+        float heat = Math.min(tally.total / TALLY_FULL_RED, 1.0F);
+        int green = Math.round(255 * (1.0F - heat));
+        tally.display.setText(Component.literal(formatTotal(tally.total)).withStyle(style -> style.withBold(true).withColor(0xFF0000 | green << 8)));
+    }
+
+    // Drops the translucent backing quad, which otherwise hides the dummy model drawn behind it.
+    private static void clearBackground(Display.TextDisplay display) {
+        ((TextDisplayAccessor) display).mmsArsenal$setBackgroundColor(0);
+    }
+
+    // A whole total without decimals, anything else to one place.
+    private static String formatTotal(float total) {
+        return total == Math.round(total) ? Integer.toString(Math.round(total)) : String.format("%.1f", total);
     }
 
     private static boolean isStaleReadout(Display.TextDisplay display) {
@@ -218,8 +246,14 @@ public final class TrainingDummy {
         while (tallyIt.hasNext()) {
             Map.Entry<ArmorStand, Tally> entry = tallyIt.next();
             Tally tally = entry.getValue();
-            tally.idle--;
-            if (tally.idle <= 0 || entry.getKey().isRemoved() || tally.display.isRemoved()) {
+            if (tally.idle > 0 && --tally.idle == 0) {
+                tally.total = 0.0F;
+                tally.cleared = TALLY_CLEARED_TICKS;
+                tally.display.setText(Component.literal("0").withStyle(style -> style.withBold(true).withColor(ChatFormatting.WHITE)));
+            } else if (tally.idle == 0) {
+                tally.cleared--;
+            }
+            if (tally.idle == 0 && tally.cleared <= 0 || entry.getKey().isRemoved() || tally.display.isRemoved()) {
                 tally.display.discard();
                 tallyIt.remove();
             } else {

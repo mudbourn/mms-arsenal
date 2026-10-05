@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-// A flashbang: deafens everything in range and blinds whatever is looking at it with a clear view.
+// A flashbang: deafens and blinds everything in range, longest for whatever looks at it with a clear view; stunned mobs lose their senses and wander.
 public class StunGrenadeEntity extends TimedThrowableEntity {
 
     private static final double EFFECT_RADIUS = 12.0;
@@ -68,12 +68,12 @@ public class StunGrenadeEntity extends TimedThrowableEntity {
             int deafenedTicks = Mth.floor(60.0 + 160.0 * distanceFactor);
             target.addEffect(new MobEffectInstance(GunMobEffects.DEAFENED, deafenedTicks, 0, false, false, true));
             double facing = facingFactor(target, center);
-            if (facing > 0.2 && this.hasLineOfSight(target, center)) {
-                int blindedTicks = Mth.floor(20.0 + 100.0 * distanceFactor * facing);
-                target.addEffect(new MobEffectInstance(GunMobEffects.BLINDED, blindedTicks, 0, false, false, true));
-                if (target instanceof Mob mob) {
-                    mob.setTarget(null);
-                }
+            double sight = facing > 0.2 && this.hasLineOfSight(target, center) ? facing : 0.0;
+            int blindedTicks = Mth.floor(40.0 + 80.0 * distanceFactor + 60.0 * distanceFactor * sight);
+            target.addEffect(new MobEffectInstance(GunMobEffects.BLINDED, blindedTicks, 0, false, false, true));
+            if (target instanceof Mob mob) {
+                mob.setTarget(null);
+                mob.getNavigation().stop();
             }
         }
     }

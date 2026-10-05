@@ -30,7 +30,7 @@ public abstract class ThrowableWeaponItem extends Item {
 
     @Override
     public ItemUseAnimation getUseAnimation(ItemStack stack) {
-        return ItemUseAnimation.SPEAR;
+        return ItemUseAnimation.BOW;
     }
 
     @Override
