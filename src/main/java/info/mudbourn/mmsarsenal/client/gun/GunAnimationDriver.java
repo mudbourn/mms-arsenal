@@ -171,6 +171,9 @@ public final class GunAnimationDriver {
         }
         boolean shootAnimation = animator.isPlaying("shoot") || animator.isPlaying("aim_shoot");
         if (this.action == Action.SHOOTING || shootAnimation && animator.state() != GunAnimator.State.PAUSED) {
+            if (shootAnimation && !animator.resetPending()) {
+                return animator.isPlaying("aim_shoot") ? AIM_SHOOT : SHOOT;
+            }
             return aiming ? AIM_SHOOT : SHOOT;
         }
         if (this.action == Action.MELEEING || animator.isPlaying("melee") && animator.state() != GunAnimator.State.PAUSED) {

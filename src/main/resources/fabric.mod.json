@@ -22,6 +22,7 @@
   },
   "mixins": [
     "mms_arsenal.armory.mixins.json",
+    "mms_arsenal.dummy.mixins.json",
     {
       "config": "mms_arsenal.armory.client.mixins.json",
       "environment": "client"
@@ -31,6 +32,7 @@
       "environment": "client"
     }
   ],
+  "accessWidener": "mms_arsenal.accesswidener",
   "depends": {
     "fabricloader": ">=0.16.0",
     "minecraft": "~1.21.11",

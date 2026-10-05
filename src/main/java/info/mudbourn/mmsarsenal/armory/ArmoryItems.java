@@ -12,6 +12,7 @@ import info.mudbourn.mmsarsenal.armory.item.MurasamaSheathedItem;
 import info.mudbourn.mmsarsenal.armory.item.OriginiumCatalystItem;
 import info.mudbourn.mmsarsenal.armory.item.OriginiumKatanaItem;
 import info.mudbourn.mmsarsenal.armory.item.PunisherItem;
+import info.mudbourn.mmsarsenal.dummy.TrainingDummy;
 import info.mudbourn.mmsarsenal.gun.GunItems;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.core.Registry;
@@ -128,6 +129,7 @@ public final class ArmoryItems {
                 .displayItems((parameters, output) -> {
                     CREATIVE_ORDER.forEach(output::accept);
                     output.acceptAll(GunItems.creativeStacks());
+                    output.accept(TrainingDummy.ITEM);
                 })
                 .build()
         );

@@ -5,6 +5,10 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
+loom {
+    accessWidenerPath = file("src/main/resources/mms_arsenal.accesswidener")
+}
+
 base {
     archivesName = project.archives_base_name
 }

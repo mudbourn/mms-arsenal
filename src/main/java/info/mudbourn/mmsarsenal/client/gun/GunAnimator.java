@@ -84,6 +84,11 @@ public final class GunAnimator {
         this.startNext(nowTicks);
     }
 
+    // Whether a forced restart is waiting for the next set.
+    public boolean resetPending() {
+        return this.forceReset;
+    }
+
     public boolean hasCurrent() {
         return this.stage != null;
     }
