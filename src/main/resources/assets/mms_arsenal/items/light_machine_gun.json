@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "mms_arsenal:gun",
+    "base": "mms_arsenal:item/gun/light_machine_gun",
+    "geo": "mms_arsenal:geo/item/gun/light_machine_gun.geo.json",
+    "texture": "mms_arsenal:textures/gun/light_machine_gun.png",
+    "animations": "mms_arsenal:animations/item/light_machine_gun.animation.json"
+  }
+}

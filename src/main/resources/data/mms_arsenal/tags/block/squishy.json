@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cocoa",
+    "minecraft:melon",
+    "minecraft:pumpkin",
+    "minecraft:carved_pumpkin",
+    "minecraft:jack_o_lantern",
+    "minecraft:bee_nest",
+    "minecraft:beehive",
+    "minecraft:sculk_sensor",
+    "minecraft:calibrated_sculk_sensor"
+  ]
+}

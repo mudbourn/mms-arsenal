@@ -27,6 +27,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.141.4+1.21.11"
     modImplementation "info.mudbourn:mms-render-common:${project.render_common_version}"
+    modImplementation "info.mudbourn:mms-weapons:${project.weapons_version}"
+    modImplementation "info.mudbourn:mms-combat:${project.combat_version}"
     runtimeMods "maven.modrinth:better-combat:${project.better_combat_version}"
     runtimeMods "maven.modrinth:player-animation-library:${project.player_animation_library_version}"
 }

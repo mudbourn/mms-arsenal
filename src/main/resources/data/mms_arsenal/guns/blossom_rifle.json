@@ -1,0 +1,74 @@
+{
+  "display": {
+    "flash": {
+      "size": 0.8,
+      "yOffset": 4.4,
+      "zOffset": -9.7
+    }
+  },
+  "general": {
+    "alwaysSpread": true,
+    "drawTimer": 20,
+    "fireMode": "mms_arsenal:automatic",
+    "gripType": "mms_arsenal:two_handed",
+    "jamTimer": 70,
+    "rate": 2,
+    "recoilAngle": 2.0,
+    "recoilKick": 0.45,
+    "spread": 3.0
+  },
+  "modules": {
+    "attachments": {
+      "barrel": {
+        "yOffset": 5.1,
+        "zOffset": -9.4
+      },
+      "magazine": {
+        "scale": 0.0
+      },
+      "scope": {
+        "yOffset": 6.0,
+        "zOffset": 3.0
+      },
+      "special": {
+        "xOffset": -1.1,
+        "yOffset": 5.0,
+        "zOffset": -6.2
+      },
+      "underBarrel": {
+        "yOffset": 3.9
+      }
+    },
+    "zoom": {
+      "fovModifier": 0.6,
+      "yOffset": 4.75,
+      "zOffset": -1.5
+    }
+  },
+  "projectile": {
+    "advantage": "mms_arsenal:undead",
+    "damage": 6.75,
+    "ejectsCasing": true,
+    "headshotMultiplier": 1.5,
+    "item": "mms_arsenal:spectre_round",
+    "life": 80,
+    "size": 0.1,
+    "speed": 8.0,
+    "trailColor": -16720641,
+    "trailLengthMultiplier": 2.0
+  },
+  "reloads": {
+    "additionalReloadTimer": 0,
+    "maxAmmo": 30,
+    "reloadTimer": 80,
+    "reloadType": "mms_arsenal:mag_fed"
+  },
+  "sounds": {
+    "enchantedFire": "mms_arsenal:item.blossom_rifle.enchanted_fire",
+    "fire": "mms_arsenal:item.blossom_rifle.fire",
+    "reloadEnd": "minecraft:block.beehive.exit",
+    "reloadLoad": "mms_arsenal:item.water_drop",
+    "reloadStart": "mms_arsenal:item.assault_rifle.reload_magazine_out",
+    "silencedFire": "mms_arsenal:item.blossom_rifle.silenced_fire"
+  }
+}

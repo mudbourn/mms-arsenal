@@ -1,0 +1,13 @@
+{
+  "model": {
+    "type": "mms_arsenal:gun",
+    "base": "mms_arsenal:item/gun/soulhunter_mk2",
+    "geo": "mms_arsenal:geo/item/gun/soulhunter_mk2.geo.json",
+    "texture": {
+      "texture": "mms_arsenal:textures/gun/soulhunter_mk2.png",
+      "frames": 4,
+      "frame_ticks": 5
+    },
+    "animations": "mms_arsenal:animations/item/soulhunter_mk2.animation.json"
+  }
+}

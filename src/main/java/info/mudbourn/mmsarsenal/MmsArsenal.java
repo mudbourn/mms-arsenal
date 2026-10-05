@@ -5,6 +5,7 @@ import info.mudbourn.mmsarsenal.armory.ArmoryEffects;
 import info.mudbourn.mmsarsenal.armory.ArmoryEvents;
 import info.mudbourn.mmsarsenal.armory.ArmoryItems;
 import info.mudbourn.mmsarsenal.armory.ArmorySounds;
+import info.mudbourn.mmsarsenal.gun.Guns;
 import info.mudbourn.mmsarsenal.net.NonexistencePayload;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -13,7 +14,7 @@ import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// Wires the Armory weapons and their Non-Existence payload.
+// Wires the Armory weapons and the guns.
 public class MmsArsenal implements ModInitializer {
     public static final String MOD_ID = "mms_arsenal";
     public static final Logger LOG = LoggerFactory.getLogger(MOD_ID);
@@ -28,6 +29,7 @@ public class MmsArsenal implements ModInitializer {
         ArmoryItems.register();
         ArmoryEvents.register();
         PayloadTypeRegistry.playS2C().register(NonexistencePayload.TYPE, NonexistencePayload.CODEC);
+        Guns.register();
 
         LOG.info("MMS Arsenal loaded");
     }

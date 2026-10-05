@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "mms_arsenal:gun",
+    "base": "mms_arsenal:item/gun/minigun",
+    "geo": "mms_arsenal:geo/item/gun/minigun.geo.json",
+    "texture": "mms_arsenal:textures/gun/minigun.png",
+    "animations": "mms_arsenal:animations/item/minigun.animation.json"
+  }
+}

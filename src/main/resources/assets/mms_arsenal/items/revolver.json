@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "mms_arsenal:gun",
+    "base": "mms_arsenal:item/gun/revolver",
+    "geo": "mms_arsenal:geo/item/gun/revolver.geo.json",
+    "texture": "mms_arsenal:textures/gun/revolver.png",
+    "animations": "mms_arsenal:animations/item/revolver.animation.json"
+  }
+}

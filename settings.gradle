@@ -9,3 +9,5 @@ pluginManagement {
 // Sibling mms mods resolve as composite builds; mmsSiblingRoot overrides the parent dir in CI.
 def siblingRoot = providers.gradleProperty('mmsSiblingRoot').getOrElse('..')
 includeBuild "$siblingRoot/mms-render-common"
+includeBuild "$siblingRoot/mms-weapons"
+includeBuild "$siblingRoot/mms-combat"

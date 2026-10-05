@@ -1,0 +1,63 @@
+{
+  "display": {
+    "flash": {
+      "size": 0.8,
+      "yOffset": 4.695,
+      "zOffset": -2.785
+    }
+  },
+  "general": {
+    "drawTimer": 20,
+    "fireMode": "mms_arsenal:semi_automatic",
+    "gripType": "mms_arsenal:one_handed",
+    "jamTimer": 70,
+    "rate": 3,
+    "recoilAngle": 4.0,
+    "recoilKick": 0.33,
+    "spread": 3.0
+  },
+  "modules": {
+    "attachments": {
+      "barrel": {
+        "yOffset": 4.69,
+        "zOffset": -3.2
+      },
+      "stock": {
+        "scale": 0.0
+      }
+    },
+    "zoom": {
+      "fovModifier": 0.6,
+      "yOffset": 3.85,
+      "zOffset": -1.75
+    }
+  },
+  "projectile": {
+    "advantage": "mms_arsenal:none",
+    "damage": 5.0,
+    "gravity": true,
+    "headshotMultiplier": 1.5,
+    "item": "mms_arsenal:pistol_ammo",
+    "life": 40,
+    "size": 0.05,
+    "speed": 10.0,
+    "trailColor": -256,
+    "trailLengthMultiplier": 2.0
+  },
+  "reloads": {
+    "additionalReloadTimer": 40,
+    "maxAmmo": 8,
+    "reloadTimer": 20,
+    "reloadType": "mms_arsenal:manual"
+  },
+  "sounds": {
+    "ejectorPull": "minecraft:block.iron_trapdoor.open",
+    "ejectorRelease": "minecraft:block.iron_trapdoor.close",
+    "enchantedFire": "mms_arsenal:item.revolver.enchanted_fire",
+    "fire": "mms_arsenal:item.revolver.fire",
+    "reloadEnd": "mms_arsenal:item.revolver.chamber_spin",
+    "reloadLoad": "mms_arsenal:item.revolver.reload_bullet_in",
+    "reloadStart": "mms_arsenal:item.revolver.reload_bullets_out",
+    "silencedFire": "mms_arsenal:item.revolver.silenced_fire"
+  }
+}

@@ -121,5 +121,540 @@
       "mms_arsenal:dragon_slayer_swing_2",
       "mms_arsenal:dragon_slayer_swing_3"
     ]
+  },
+  "block.hit.metal": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      {
+        "name": "mms_arsenal:block/hit/metal1",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:block/hit/metal2",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:block/hit/metal3",
+        "stream": true
+      }
+    ]
+  },
+  "block.hit.squishy": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      {
+        "name": "minecraft:mob/turtle/egg/egg_break1",
+        "stream": true
+      },
+      {
+        "name": "minecraft:mob/turtle/egg/egg_break2",
+        "stream": true
+      }
+    ]
+  },
+  "block.hit.stone": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      {
+        "name": "mms_arsenal:block/hit/stone1",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:block/hit/stone2",
+        "stream": true
+      }
+    ]
+  },
+  "block.hit.wood": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      {
+        "name": "mms_arsenal:block/hit/wood1",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:block/hit/wood2",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:block/hit/wood3",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:block/hit/wood4",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:block/hit/wood5",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:block/hit/wood6",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:block/hit/wood7",
+        "stream": true
+      }
+    ]
+  },
+  "entity.bullet.close": {
+    "subtitle": "subtitles.mms_arsenal.bullet_close",
+    "sounds": [
+      {
+        "name": "mms_arsenal:entity/bullet/close1",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:entity/bullet/close2",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:entity/bullet/close3",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:entity/bullet/close4",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:entity/bullet/close5",
+        "stream": true
+      }
+    ]
+  },
+  "entity.bullet.hit": {
+    "subtitle": "subtitles.mms_arsenal.bullet_hit",
+    "sounds": [
+      {
+        "name": "mms_arsenal:entity/bullet/hit",
+        "stream": true
+      }
+    ]
+  },
+  "entity.molotov.explosion": {
+    "subtitle": "subtitles.mms_arsenal.molotov.explosion",
+    "sounds": [
+      {
+        "name": "mms_arsenal:entity/molotov/explosion",
+        "volume": 0.75,
+        "stream": true
+      }
+    ]
+  },
+  "entity.smoke_grenade.explosion": {
+    "subtitle": "subtitles.mms_arsenal.smoke_grenade.explosion",
+    "sounds": [
+      {
+        "name": "mms_arsenal:entity/smoke_grenade/explosion",
+        "volume": 0.75,
+        "stream": true
+      }
+    ]
+  },
+  "entity.stun_grenade.explosion": {
+    "subtitle": "subtitles.mms_arsenal.stun.explosion",
+    "sounds": [
+      {
+        "name": "mms_arsenal:entity/stun_grenade/explosion",
+        "stream": true
+      }
+    ]
+  },
+  "entity.stun_grenade.ring": {
+    "subtitle": "subtitles.mms_arsenal.stun.ring",
+    "sounds": [
+      {
+        "name": "mms_arsenal:entity/stun_grenade/ring",
+        "stream": true
+      }
+    ]
+  },
+  "item.assault_rifle.ejector_pull": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/assault_rifle/ejector_pull"
+      }
+    ]
+  },
+  "item.assault_rifle.ejector_release": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/assault_rifle/ejector_release"
+      }
+    ]
+  },
+  "item.assault_rifle.enchanted_fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/assault_rifle/enchanted_fire"
+      }
+    ]
+  },
+  "item.assault_rifle.fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/assault_rifle/fire"
+      }
+    ]
+  },
+  "item.assault_rifle.reload_ejector": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/assault_rifle/reload_ejector"
+      }
+    ]
+  },
+  "item.assault_rifle.reload_magazine_in": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/assault_rifle/reload_magazine_in"
+      }
+    ]
+  },
+  "item.assault_rifle.reload_magazine_out": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/assault_rifle/reload_magazine_out"
+      }
+    ]
+  },
+  "item.assault_rifle.silenced_fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/assault_rifle/silenced_fire"
+      }
+    ]
+  },
+  "item.blossom_rifle.enchanted_fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/blossom_rifle/enchanted_fire"
+      }
+    ]
+  },
+  "item.blossom_rifle.fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/blossom_rifle/fire"
+      }
+    ]
+  },
+  "item.blossom_rifle.silenced_fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/blossom_rifle/silenced_fire"
+      }
+    ]
+  },
+  "item.bolt_action_rifle.bolt_pull": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/bolt_action_rifle/bolt_pull"
+      }
+    ]
+  },
+  "item.bolt_action_rifle.bolt_release": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/bolt_action_rifle/bolt_release"
+      }
+    ]
+  },
+  "item.bolt_action_rifle.bullet_in": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/bolt_action_rifle/bullet_in"
+      }
+    ]
+  },
+  "item.bolt_action_rifle.enchanted_fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/bolt_action_rifle/enchanted_fire"
+      }
+    ]
+  },
+  "item.bolt_action_rifle.fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/bolt_action_rifle/fire"
+      }
+    ]
+  },
+  "item.bolt_action_rifle.silenced_fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/bolt_action_rifle/silenced_fire"
+      }
+    ]
+  },
+  "item.combat_rifle.ejector_pull": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/combat_rifle/ejector_pull"
+      }
+    ]
+  },
+  "item.combat_rifle.ejector_release": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/combat_rifle/ejector_release"
+      }
+    ]
+  },
+  "item.grenade.pin": {
+    "subtitle": "subtitles.mms_arsenal.grenade.pin",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/grenade/pin"
+      }
+    ]
+  },
+  "item.gun_rustle": {
+    "subtitle": "subtitles.mms_arsenal.gun_rustle",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/gun_rustle/rustle1",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/gun_rustle/rustle2",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/gun_rustle/rustle3",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/gun_rustle/rustle4",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/gun_rustle/rustle5",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/gun_rustle/rustle6",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/gun_rustle/rustle7",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/gun_rustle/rustle8",
+        "stream": true
+      }
+    ]
+  },
+  "item.gun_screw": {
+    "subtitle": "subtitles.mms_arsenal.gun_rustle",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/gun_rustle/screw1",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/gun_rustle/screw2",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/gun_rustle/screw3",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/gun_rustle/screw4",
+        "stream": true
+      }
+    ]
+  },
+  "item.hypersonic_cannon.charge": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/hypersonic_cannon/charge1",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/hypersonic_cannon/charge2",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/hypersonic_cannon/charge3",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/hypersonic_cannon/charge4",
+        "stream": true
+      }
+    ]
+  },
+  "item.light_machine_gun.enchanted_fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/light_machine_gun/enchanted_fire"
+      }
+    ]
+  },
+  "item.light_machine_gun.fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/light_machine_gun/fire"
+      }
+    ]
+  },
+  "item.light_machine_gun.silenced_fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/light_machine_gun/silenced_fire"
+      }
+    ]
+  },
+  "item.revolver.chamber_spin": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/revolver/chamber_spin"
+      }
+    ]
+  },
+  "item.revolver.enchanted_fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/revolver/enchanted_fire"
+      }
+    ]
+  },
+  "item.revolver.fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/revolver/fire"
+      }
+    ]
+  },
+  "item.revolver.reload_bullet_in": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/revolver/reload_bullet_in"
+      }
+    ]
+  },
+  "item.revolver.reload_bullets_out": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/revolver/reload_bullets_out"
+      }
+    ]
+  },
+  "item.revolver.silenced_fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/revolver/silenced_fire"
+      }
+    ]
+  },
+  "item.rocket_launcher.fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/rocket_launcher/fire"
+      }
+    ]
+  },
+  "item.rocket_launcher.lid_close": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/rocket_launcher/lid_close"
+      }
+    ]
+  },
+  "item.rocket_launcher.lid_open": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/rocket_launcher/lid_open"
+      }
+    ]
+  },
+  "item.rocket_launcher.rocket_in": {
+    "subtitle": "subtitles.mms_arsenal.reload",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/rocket_launcher/rocket_in"
+      }
+    ]
+  },
+  "item.soulhunter_mk2.enchanted_fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/soulhunter_mk2/enchanted_fire"
+      }
+    ]
+  },
+  "item.soulhunter_mk2.fire": {
+    "subtitle": "subtitles.mms_arsenal.fire",
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/soulhunter_mk2/fire"
+      }
+    ]
+  },
+  "item.water_drop": {
+    "sounds": [
+      {
+        "name": "mms_arsenal:item/water_drop/1",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/water_drop/2",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/water_drop/3",
+        "stream": true
+      },
+      {
+        "name": "mms_arsenal:item/water_drop/4",
+        "stream": true
+      }
+    ]
+  },
+  "ui.medal.headshot": {
+    "sounds": [
+      {
+        "name": "mms_arsenal:ui/medal/headshot",
+        "stream": true
+      }
+    ]
   }
 }

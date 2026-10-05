@@ -25,6 +25,10 @@
     {
       "config": "mms_arsenal.armory.client.mixins.json",
       "environment": "client"
+    },
+    {
+      "config": "mms_arsenal.gun.client.mixins.json",
+      "environment": "client"
     }
   ],
   "depends": {
@@ -33,6 +37,8 @@
     "java": ">=21",
     "fabric-api": "*",
     "mms_render_common": "*",
+    "mms_weapons": "*",
+    "mms_combat": "*",
     "bettercombat": ">=3.1.0"
   }
 }

@@ -1,0 +1,62 @@
+{
+  "display": {
+    "flash": {
+      "size": 1.0,
+      "yOffset": -1.1,
+      "zOffset": -13.0
+    }
+  },
+  "general": {
+    "canBeBlueprinted": false,
+    "drawTimer": 30,
+    "fireMode": "mms_arsenal:automatic",
+    "gripType": "mms_arsenal:mini_gun",
+    "infinityDisabled": true,
+    "jamTimer": 70,
+    "overheatTimer": 120,
+    "projectileAmount": 3,
+    "rate": 1,
+    "recoilAngle": 0.8,
+    "recoilKick": 0.15,
+    "shooterPushback": -0.075,
+    "spread": 10.0,
+    "witheredDisabled": true
+  },
+  "modules": {
+    "attachments": {
+      "special": {
+        "yOffset": 1.2,
+        "zOffset": 4.0
+      }
+    }
+  },
+  "projectile": {
+    "advantage": "mms_arsenal:heavy",
+    "damage": 4.0,
+    "damageReduceOverLife": true,
+    "ejectsCasing": true,
+    "headshotMultiplier": 1.5,
+    "item": "mms_arsenal:pistol_ammo",
+    "life": 80,
+    "size": 0.05,
+    "speed": 13.0,
+    "trailColor": -256,
+    "trailLengthMultiplier": 2.0
+  },
+  "reloads": {
+    "additionalReloadTimer": 0,
+    "maxAmmo": 1,
+    "reloadTimer": 18,
+    "reloadType": "mms_arsenal:inventory_fed"
+  },
+  "sounds": {
+    "ejectorPull": "mms_arsenal:item.assault_rifle.ejector_pull",
+    "ejectorRelease": "mms_arsenal:item.assault_rifle.ejector_release",
+    "enchantedFire": "mms_arsenal:item.light_machine_gun.enchanted_fire",
+    "fire": "mms_arsenal:item.light_machine_gun.fire",
+    "reloadEnd": "mms_arsenal:item.assault_rifle.reload_ejector",
+    "reloadLoad": "mms_arsenal:item.assault_rifle.reload_magazine_out",
+    "reloadStart": "mms_arsenal:item.assault_rifle.reload_magazine_in",
+    "silencedFire": "mms_arsenal:item.light_machine_gun.silenced_fire"
+  }
+}

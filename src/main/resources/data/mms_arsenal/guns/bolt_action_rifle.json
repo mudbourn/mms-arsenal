@@ -1,0 +1,72 @@
+{
+  "display": {
+    "flash": {
+      "size": 0.8,
+      "yOffset": 4.915,
+      "zOffset": -15.155
+    }
+  },
+  "general": {
+    "alwaysSpread": true,
+    "drawTimer": 30,
+    "fireMode": "mms_arsenal:semi_automatic",
+    "gripType": "mms_arsenal:two_handed",
+    "jamTimer": 70,
+    "rate": 28,
+    "recoilAngle": 4.0,
+    "recoilKick": 0.25,
+    "spread": 0.25
+  },
+  "modules": {
+    "attachments": {
+      "barrel": {
+        "yOffset": 4.905,
+        "zOffset": -14.5
+      },
+      "scope": {
+        "yOffset": 5.0,
+        "zOffset": -4.4
+      },
+      "special": {
+        "xOffset": -1.0,
+        "yOffset": 4.0,
+        "zOffset": -7.0
+      }
+    },
+    "zoom": {
+      "fovModifier": 0.6,
+      "yOffset": 4.35,
+      "zOffset": -1.25
+    }
+  },
+  "projectile": {
+    "advantage": "mms_arsenal:very_heavy",
+    "damage": 21.0,
+    "ejectsCasing": true,
+    "gravity": true,
+    "headshotMultiplier": 1.5,
+    "hitsRubberFruit": true,
+    "item": "mms_arsenal:rifle_ammo",
+    "life": 60,
+    "size": 0.05,
+    "speed": 24.0,
+    "trailColor": -256,
+    "trailLengthMultiplier": 2.0
+  },
+  "reloads": {
+    "additionalReloadTimer": 10,
+    "maxAmmo": 4,
+    "reloadTimer": 20,
+    "reloadType": "mms_arsenal:manual"
+  },
+  "sounds": {
+    "ejectorPull": "mms_arsenal:item.bolt_action_rifle.bolt_pull",
+    "ejectorRelease": "mms_arsenal:item.bolt_action_rifle.bolt_release",
+    "enchantedFire": "mms_arsenal:item.bolt_action_rifle.enchanted_fire",
+    "fire": "mms_arsenal:item.bolt_action_rifle.fire",
+    "reloadEnd": "mms_arsenal:item.bolt_action_rifle.bullet_in",
+    "reloadLoad": "mms_arsenal:item.bolt_action_rifle.bullet_in",
+    "reloadStart": "mms_arsenal:item.bolt_action_rifle.bullet_in",
+    "silencedFire": "mms_arsenal:item.bolt_action_rifle.silenced_fire"
+  }
+}

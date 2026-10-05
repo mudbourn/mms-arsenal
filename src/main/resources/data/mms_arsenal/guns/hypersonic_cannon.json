@@ -1,0 +1,63 @@
+{
+  "display": {
+    "flash": {
+      "size": 0.8,
+      "yOffset": 3.935,
+      "zOffset": -2.285
+    }
+  },
+  "general": {
+    "canBeBlueprinted": false,
+    "canFireUnderwater": true,
+    "drawTimer": 10,
+    "fireMode": "mms_arsenal:pulse",
+    "fireTimer": 20,
+    "gripType": "mms_arsenal:two_handed",
+    "infinityDisabled": true,
+    "jamTimer": 70,
+    "rate": 10,
+    "recoilAngle": 4.0,
+    "recoilKick": 0.55,
+    "shooterPushback": -1.0,
+    "spread": 3.0
+  },
+  "modules": {
+    "zoom": {
+      "fovModifier": 0.6,
+      "yOffset": 3.9,
+      "zOffset": -2.25
+    }
+  },
+  "projectile": {
+    "advantage": "mms_arsenal:none",
+    "damage": 13.0,
+    "ejectsCasing": true,
+    "gravity": true,
+    "headshotMultiplier": 1.5,
+    "hideTrail": true,
+    "item": "minecraft:sculk_catalyst",
+    "life": 60,
+    "noProjectile": true,
+    "size": 0.05,
+    "speed": 12.0,
+    "trailLengthMultiplier": 2.0
+  },
+  "reloads": {
+    "additionalReloadTimer": 0,
+    "maxAmmo": 15,
+    "reloadItem": "minecraft:sculk_catalyst",
+    "reloadTimer": 60,
+    "reloadType": "mms_arsenal:single_item"
+  },
+  "sounds": {
+    "ejectorPull": "mms_arsenal:item.assault_rifle.ejector_pull",
+    "ejectorRelease": "mms_arsenal:item.assault_rifle.ejector_release",
+    "enchantedFire": "minecraft:entity.warden.sonic_boom",
+    "fire": "minecraft:entity.warden.sonic_boom",
+    "preFire": "mms_arsenal:item.hypersonic_cannon.charge",
+    "reloadEnd": "minecraft:entity.item_frame.remove_item",
+    "reloadLoad": "minecraft:entity.item.pickup",
+    "reloadStart": "mms_arsenal:item.hypersonic_cannon.charge",
+    "silencedFire": "minecraft:entity.warden.sonic_boom"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "display": {
+    "flash": {
+      "size": 1.3,
+      "yOffset": 4.695,
+      "zOffset": -8.015
+    }
+  },
+  "general": {
+    "alwaysSpread": true,
+    "canBeBlueprinted": false,
+    "drawTimer": 40,
+    "fireMode": "mms_arsenal:semi_automatic",
+    "fireTimer": 7,
+    "gripType": "mms_arsenal:bazooka",
+    "infinityDisabled": true,
+    "jamTimer": 70,
+    "rate": 100,
+    "recoilAngle": 7.0,
+    "recoilKick": 0.25,
+    "shooterPushback": -1.0,
+    "spread": 1.0
+  },
+  "modules": {
+    "zoom": {
+      "fovModifier": 0.6,
+      "xOffset": 2.8,
+      "yOffset": 3.4,
+      "zOffset": -1.75
+    }
+  },
+  "projectile": {
+    "advantage": "mms_arsenal:very_heavy",
+    "damage": 28.0,
+    "ejectsCasing": true,
+    "gravity": true,
+    "headshotMultiplier": 1.5,
+    "hideTrail": true,
+    "item": "mms_arsenal:rocket",
+    "life": 600,
+    "size": 0.05,
+    "speed": 5.0,
+    "trailLengthMultiplier": 2.0
+  },
+  "reloads": {
+    "additionalReloadTimer": 14,
+    "maxAmmo": 1,
+    "reloadTimer": 45,
+    "reloadType": "mms_arsenal:manual"
+  },
+  "sounds": {
+    "ejectorPull": "mms_arsenal:item.combat_rifle.ejector_pull",
+    "ejectorRelease": "mms_arsenal:item.combat_rifle.ejector_release",
+    "enchantedFire": "mms_arsenal:item.rocket_launcher.fire",
+    "fire": "mms_arsenal:item.rocket_launcher.fire",
+    "reloadEnd": "mms_arsenal:item.rocket_launcher.lid_close",
+    "reloadLoad": "mms_arsenal:item.rocket_launcher.rocket_in",
+    "reloadStart": "mms_arsenal:item.rocket_launcher.lid_open",
+    "silencedFire": "mms_arsenal:item.rocket_launcher.fire"
+  }
+}

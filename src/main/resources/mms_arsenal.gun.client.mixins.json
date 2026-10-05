@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "info.mudbourn.mmsarsenal.client.gun.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "AvatarRendererMixin",
+    "GameRendererMixin",
+    "ItemInHandLayerMixin",
+    "ItemInHandRendererMixin",
+    "ItemModelsMixin",
+    "MinecraftMixin",
+    "MouseHandlerMixin",
+    "PlayerModelMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

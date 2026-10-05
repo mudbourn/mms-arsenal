@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "mms_arsenal:gun",
+    "base": "mms_arsenal:item/gun/blossom_rifle",
+    "geo": "mms_arsenal:geo/item/gun/blossom_rifle.geo.json",
+    "texture": "mms_arsenal:textures/gun/blossom_rifle.png",
+    "animations": "mms_arsenal:animations/item/blossom_rifle.animation.json"
+  }
+}
