@@ -115,6 +115,8 @@ public final class GunEffects {
     private static final double BEAM_RANGE = 100.0;
     // How far from its centre line the beam hits, in blocks, matching the drawn width of the sonic boom shockwaves along it.
     private static final double BEAM_RADIUS = 1.5;
+    // What the beam deals to a player; sonic boom damage already ignores armor, toughness and Protection, so this is what they lose.
+    private static final float BEAM_PLAYER_DAMAGE = 15.0F;
 
     // The Hypersonic Cannon's sonic beam: a wide blast through everything living in a hundred blocks, deafening, weakening and darkening each one.
     private static void hypersonicBlast(ServerLevel level, LivingEntity shooter, float damage) {
@@ -133,7 +135,7 @@ public final class GunEffects {
                 level.sendParticles(ParticleTypes.CLOUD, target.getX(), target.getY() + 1.0, target.getZ(), 6, 0.3, 0.3, 0.3, 0.0);
             }
             level.sendParticles(ParticleTypes.SCULK_CHARGE_POP, centre.x, centre.y, centre.z, 12, 0.2, 0.0, 0.3, 0.1);
-            target.hurtServer(level, level.damageSources().sonicBoom(shooter), damage);
+            target.hurtServer(level, level.damageSources().sonicBoom(shooter), target instanceof Player ? BEAM_PLAYER_DAMAGE : damage);
             target.addEffect(new MobEffectInstance(GunMobEffects.DEAFENED, 100, 0, false, false));
             target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 50));
             target.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 120));
