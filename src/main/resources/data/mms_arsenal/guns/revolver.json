@@ -14,7 +14,7 @@
     "rate": 3,
     "recoilAngle": 4.0,
     "recoilKick": 0.33,
-    "spread": 3.0
+    "spread": 1.5
   },
   "modules": {
     "attachments": {
@@ -34,7 +34,7 @@
   },
   "projectile": {
     "advantage": "mms_arsenal:none",
-    "damage": 5.0,
+    "damage": 9.0,
     "gravity": true,
     "headshotMultiplier": 3.0,
     "item": "mms_arsenal:pistol_ammo",
@@ -45,10 +45,10 @@
     "trailLengthMultiplier": 2.0
   },
   "reloads": {
-    "additionalReloadTimer": 40,
+    "additionalReloadTimer": 0,
     "maxAmmo": 8,
-    "reloadTimer": 20,
-    "reloadType": "mms_arsenal:manual"
+    "reloadTimer": 50,
+    "reloadType": "mms_arsenal:mag_fed"
   },
   "sounds": {
     "ejectorPull": "minecraft:block.iron_trapdoor.open",

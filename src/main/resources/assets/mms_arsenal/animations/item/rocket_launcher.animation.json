@@ -1486,7 +1486,8 @@
 							"easing": "easeInSine"
 						},
 						"3.7083": {
-							"vector": ["easeInOutSine", "easeInOutSine", "easeInOutSine"]
+							"vector": [0, 0, 2],
+							"easing": "easeOutQuad"
 						},
 						"4.625": {
 							"vector": [0, -8.2, -0.4],
@@ -1520,7 +1521,7 @@
 							"easingArgs": [3]
 						},
 						"8.75": {
-							"vector": ["easeInOutSine", "easeInOutSine", "easeInOutSine"],
+							"vector": [0, 0, 2],
 							"easing": "easeInOutQuad"
 						}
 					}

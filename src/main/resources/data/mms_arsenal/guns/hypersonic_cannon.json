@@ -30,7 +30,7 @@
   },
   "projectile": {
     "advantage": "mms_arsenal:none",
-    "damage": 13.0,
+    "damage": 30.0,
     "ejectsCasing": true,
     "gravity": true,
     "headshotMultiplier": 3.0,
@@ -44,7 +44,7 @@
   },
   "reloads": {
     "additionalReloadTimer": 0,
-    "maxAmmo": 15,
+    "maxAmmo": 1,
     "reloadItem": "minecraft:sculk_catalyst",
     "reloadTimer": 60,
     "reloadType": "mms_arsenal:single_item"

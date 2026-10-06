@@ -20,11 +20,9 @@ import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.monster.zombie.ZombifiedPiglin;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
 // What happens around a shot on the server: casings, wear, pushback, gun-specific blasts, and mobs reacting to the noise.
@@ -113,25 +111,34 @@ public final class GunEffects {
         level.sendParticles(casing, pos.x, pos.y, pos.z, 1, 0.0, 0.0, 0.0, 0.0);
     }
 
-    // The Hypersonic Cannon's sonic beam: hits the first living thing in a hundred blocks, deafening, weakening and darkening it.
+    // How far the Hypersonic Cannon's beam reaches, in blocks.
+    private static final double BEAM_RANGE = 100.0;
+    // How far from its centre line the beam hits, in blocks, matching the drawn width of the sonic boom shockwaves along it.
+    private static final double BEAM_RADIUS = 1.5;
+
+    // The Hypersonic Cannon's sonic beam: a wide blast through everything living in a hundred blocks, deafening, weakening and darkening each one.
     private static void hypersonicBlast(ServerLevel level, LivingEntity shooter, float damage) {
         Vec3 from = shooter.getEyePosition();
-        Vec3 to = from.add(shooter.getLookAngle().scale(100.0));
-        Vec3 path = to.subtract(from);
-        Vec3 normal = path.normalize();
-        EntityHitResult hit = ProjectileUtil.getEntityHitResult(level, shooter, from, to, new AABB(from, to), entity -> entity instanceof LivingEntity && entity != shooter, 0.3F);
-        if (hit != null && hit.getEntity() instanceof LivingEntity target) {
+        Vec3 normal = shooter.getLookAngle().normalize();
+        Vec3 to = from.add(normal.scale(BEAM_RANGE));
+        AABB reach = new AABB(from, to).inflate(BEAM_RADIUS);
+        for (LivingEntity target : level.getEntitiesOfClass(LivingEntity.class, reach, entity -> entity != shooter && entity.isAlive())) {
+            Vec3 centre = target.position().add(0.0, target.getBbHeight() * 0.5, 0.0);
+            double along = Math.max(0.0, Math.min(BEAM_RANGE, centre.subtract(from).dot(normal)));
+            if (target.getBoundingBox().distanceToSqr(from.add(normal.scale(along))) > BEAM_RADIUS * BEAM_RADIUS) {
+                continue;
+            }
             if (target.isOnFire()) {
                 target.clearFire();
                 level.sendParticles(ParticleTypes.CLOUD, target.getX(), target.getY() + 1.0, target.getZ(), 6, 0.3, 0.3, 0.3, 0.0);
             }
-            level.sendParticles(ParticleTypes.SCULK_CHARGE_POP, target.getX(), target.getY() + target.getBbHeight() * 0.5, target.getZ(), 12, 0.2, 0.0, 0.3, 0.1);
+            level.sendParticles(ParticleTypes.SCULK_CHARGE_POP, centre.x, centre.y, centre.z, 12, 0.2, 0.0, 0.3, 0.1);
             target.hurtServer(level, level.damageSources().sonicBoom(shooter), damage);
             target.addEffect(new MobEffectInstance(GunMobEffects.DEAFENED, 100, 0, false, false));
             target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 50));
             target.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 120));
         }
-        for (int i = 3; i < (int) Math.floor(path.length()); i++) {
+        for (int i = 3; i < (int) BEAM_RANGE; i++) {
             Vec3 point = from.add(normal.scale(i));
             GunNetwork.particlesToAll(level, ParticleTypes.SONIC_BOOM, point.x, point.y, point.z, 1, 0.0, 0.0, 0.0, 0.0);
         }

@@ -19,7 +19,7 @@ public class PunisherItem extends ArmoryWeaponItem {
     private static final WeaponStats IGNITED = new WeaponStats(7.0, 0.9, 2.8, 0.0);
 
     public PunisherItem(Properties properties) {
-        super(new WeaponStats(17.0, -3.3, -1.2, 0.0), properties);
+        super(new WeaponStats(17.0, -3.5, -1.2, 0.0), properties);
     }
 
     @Override
