@@ -50,7 +50,7 @@
   },
   "projectile": {
     "advantage": "mms_arsenal:none",
-    "damage": 6.0,
+    "damage": 1.05,
     "ejectsCasing": true,
     "gravity": true,
     "headshotMultiplier": 3.0,

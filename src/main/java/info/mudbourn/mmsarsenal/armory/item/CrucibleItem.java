@@ -33,7 +33,7 @@ public class CrucibleItem extends ArmoryWeaponItem {
     );
 
     public CrucibleItem(Properties properties) {
-        super(new WeaponStats(22.0, -3.2, -1.5, 1.0), properties);
+        super(new WeaponStats(11.0, -3.6, -1.5, 1.0), properties);
     }
 
     // Energy at the given game time: the stored amount plus whatever has refilled since the last swing.

@@ -42,7 +42,7 @@
   },
   "projectile": {
     "advantage": "mms_arsenal:very_heavy",
-    "damage": 9.0,
+    "damage": 0.93,
     "ejectsCasing": true,
     "headshotMultiplier": 3.0,
     "hitsRubberFruit": true,

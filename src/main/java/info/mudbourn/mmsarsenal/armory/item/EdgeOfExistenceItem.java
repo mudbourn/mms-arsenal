@@ -21,7 +21,7 @@ public class EdgeOfExistenceItem extends ArmoryWeaponItem {
     private static final int COOLDOWN = 320;
 
     public EdgeOfExistenceItem(Properties properties) {
-        super(new WeaponStats(11.0, -0.2, -1.0, 1.0), properties);
+        super(new WeaponStats(6.0, -3.4, -1.0, 1.0), properties);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class MurasamaItem extends ArmoryWeaponItem {
     private static final WeaponStats QUICKDRAW = new WeaponStats(12.0, 3.6, 1.4, 0.0);
 
     public MurasamaItem(Properties properties) {
-        super(new WeaponStats(11.0, -0.4, -2.6, 1.0), properties);
+        super(new WeaponStats(6.0, -3.4, -2.6, 1.0), properties);
     }
 
     @Override

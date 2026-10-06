@@ -11,7 +11,7 @@
     "fireMode": "mms_arsenal:semi_automatic",
     "gripType": "mms_arsenal:one_handed",
     "jamTimer": 70,
-    "rate": 3,
+    "rate": 10,
     "recoilAngle": 4.0,
     "recoilKick": 0.33,
     "spread": 1.5
@@ -34,7 +34,7 @@
   },
   "projectile": {
     "advantage": "mms_arsenal:none",
-    "damage": 9.0,
+    "damage": 3.5,
     "gravity": true,
     "headshotMultiplier": 3.0,
     "item": "mms_arsenal:pistol_ammo",

@@ -12,7 +12,7 @@
     "fireMode": "mms_arsenal:semi_automatic",
     "gripType": "mms_arsenal:two_handed",
     "jamTimer": 70,
-    "rate": 28,
+    "rate": 30,
     "recoilAngle": 4.0,
     "recoilKick": 0.25,
     "spread": 0.25
@@ -41,7 +41,7 @@
   },
   "projectile": {
     "advantage": "mms_arsenal:very_heavy",
-    "damage": 21.0,
+    "damage": 10.5,
     "ejectsCasing": true,
     "gravity": true,
     "headshotMultiplier": 3.0,

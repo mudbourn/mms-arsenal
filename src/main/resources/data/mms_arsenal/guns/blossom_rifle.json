@@ -47,7 +47,7 @@
   },
   "projectile": {
     "advantage": "mms_arsenal:undead",
-    "damage": 6.75,
+    "damage": 0.93,
     "ejectsCasing": true,
     "headshotMultiplier": 3.0,
     "item": "mms_arsenal:spectre_round",

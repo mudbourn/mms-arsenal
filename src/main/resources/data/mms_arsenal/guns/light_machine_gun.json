@@ -47,7 +47,7 @@
   },
   "projectile": {
     "advantage": "mms_arsenal:very_heavy",
-    "damage": 7.0,
+    "damage": 0.7,
     "ejectsCasing": true,
     "headshotMultiplier": 3.0,
     "item": "mms_arsenal:rifle_ammo",

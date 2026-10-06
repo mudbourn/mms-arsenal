@@ -32,7 +32,7 @@ public class BloodletterItem extends ArmoryWeaponItem {
     private static final WeaponStats ACTIVE = new WeaponStats(8.0, 2.0, 1.0, 0.0);
 
     public BloodletterItem(Properties properties) {
-        super(new WeaponStats(15.0, -2.0, -0.5, 2.0), properties);
+        super(new WeaponStats(6.0, -3.4, -0.5, 2.0), properties);
     }
 
     // Stores blood from damage dealt while the rapier is dormant.

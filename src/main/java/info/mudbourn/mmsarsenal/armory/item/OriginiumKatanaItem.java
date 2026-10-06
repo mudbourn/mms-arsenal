@@ -16,7 +16,7 @@ public class OriginiumKatanaItem extends ArmoryWeaponItem {
     private static final int POISON_TICKS = 60;
 
     public OriginiumKatanaItem(Properties properties) {
-        super(new WeaponStats(9.0, 0.2, -2.8, 1.0), properties);
+        super(new WeaponStats(6.0, -3.4, -2.8, 1.0), properties);
     }
 
     @Override

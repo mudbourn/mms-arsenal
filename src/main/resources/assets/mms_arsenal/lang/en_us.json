@@ -12,7 +12,7 @@
   "item.mms_arsenal.punisher": "Punisher",
   "item.mms_arsenal.blood_vessel_empty": "Empty Blood Vessel",
   "item.mms_arsenal.blood_vessel_full": "Full Blood Vessel",
-  "item.mms_arsenal.dragon_slayer.damage_dealt": "Damage dealt: %s",
+  "item.mms_arsenal.dragon_slayer.focus": "Focus: %s / %s",
   "item.mms_arsenal.bloodletter.stored_blood": "Stored blood: %s",
   "effect.mms_arsenal.nonexistence": "Non-Existence",
   "subtitles.mms_arsenal.murasama_insert": "Murasama is inserted into sheath",
