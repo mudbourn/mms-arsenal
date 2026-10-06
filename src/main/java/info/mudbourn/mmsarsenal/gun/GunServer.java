@@ -12,6 +12,7 @@ import info.mudbourn.mmsarsenal.gun.net.GunSoundPayload;
 import java.util.ArrayList;
 import java.util.List;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import info.mudbourn.mmscombat.killstreak.Perishable;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -227,14 +228,16 @@ public final class GunServer {
         Item ammo = BuiltInRegistries.ITEM.getValue(gun.projectile().item());
         int maxStack = new ItemStack(ammo).getMaxStackSize();
         for (int i = 0; i < count / maxStack; i++) {
-            giveAmmo(player, new ItemStack(ammo, maxStack));
+            giveAmmo(player, held, new ItemStack(ammo, maxStack));
         }
         if (count % maxStack > 0) {
-            giveAmmo(player, new ItemStack(ammo, count % maxStack));
+            giveAmmo(player, held, new ItemStack(ammo, count % maxStack));
         }
     }
 
-    private static void giveAmmo(ServerPlayer player, ItemStack stack) {
+    // Gives back unloaded ammo, perishable when the gun it came from is.
+    private static void giveAmmo(ServerPlayer player, ItemStack gun, ItemStack stack) {
+        Perishable.copyBinding(gun, stack);
         player.getInventory().add(stack);
         if (stack.getCount() > 0) {
             player.level().addFreshEntity(new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), stack.copy()));

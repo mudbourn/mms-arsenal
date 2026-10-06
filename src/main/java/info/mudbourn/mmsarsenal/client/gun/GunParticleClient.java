@@ -1,6 +1,8 @@
 package info.mudbourn.mmsarsenal.client.gun;
 
 import info.mudbourn.mmsarsenal.gun.GunParticles;
+import java.util.ArrayList;
+import java.util.List;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -19,6 +21,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 
 // Client particles: casings, scrap, sparks, burning round trails, ghost glints, sonic rings, explosions, smoke and bullet holes.
@@ -359,6 +362,18 @@ public final class GunParticleClient {
         private static final float FADE_TICKS = 20.0F;
         private static final int MIN_LIFETIME = 240;
         private static final int LIFETIME_SPREAD = 80;
+        // How often a puff that is due to fade rechecks whether others hide the space it covers, in ticks.
+        private static final int COVER_CHECK_INTERVAL = 5;
+        // How far from its centre, as a fraction of its size, a puff's footprint is sampled for cover.
+        private static final double FOOTPRINT = 0.7;
+        // How much of another puff's size counts as opaque cover, leaving out its soft edge.
+        private static final double COVER_REACH = 0.6;
+        // Every live smoke puff on this client, so one may only fade once the others hide the space behind it.
+        private static final List<SmokeCloud> LIVE = new ArrayList<>();
+
+        // The age at which this puff would like to start fading; it waits past it until it is covered.
+        private final int due;
+        private int fadeStart = -1;
 
         // The x speed carries the smoke column's remaining ticks, which caps the puff's life.
         SmokeCloud(ClientLevel level, double x, double y, double z, double columnTicksLeft, double dy, double dz, TextureAtlasSprite sprite) {
@@ -370,18 +385,66 @@ public final class GunParticleClient {
             this.zd = 0.0;
             this.hasPhysics = false;
             this.quadSize = 1.4F + this.random.nextFloat() * 0.6F;
-            this.lifetime = Math.max(1, Math.min(MIN_LIFETIME + this.random.nextInt(LIFETIME_SPREAD), (int) columnTicksLeft));
+            this.lifetime = Math.max(1, (int) columnTicksLeft);
+            this.due = Math.min(MIN_LIFETIME + this.random.nextInt(LIFETIME_SPREAD), this.lifetime) - (int) FADE_TICKS;
             float shade = 0.7F + this.random.nextFloat() * 0.15F;
             this.setColor(shade, shade, shade);
             this.alpha = 0.0F;
+            LIVE.add(this);
         }
 
         @Override
         public void tick() {
             super.tick();
+            if (this.fadeStart < 0 && this.age >= this.due
+                && (this.age >= this.lifetime - FADE_TICKS || (this.age - this.due) % COVER_CHECK_INTERVAL == 0 && this.covered())) {
+                this.fadeStart = this.age;
+                this.lifetime = Math.min(this.lifetime, this.age + (int) FADE_TICKS);
+            }
             float in = this.age / FADE_TICKS;
             float out = (this.lifetime - this.age) / FADE_TICKS;
             this.alpha = Mth.clamp(Math.min(in, out), 0.0F, 1.0F) * 0.9F;
+        }
+
+        @Override
+        public void remove() {
+            super.remove();
+            LIVE.remove(this);
+        }
+
+        // Whether this puff is fully faded in and not about to leave, so it can stand in for one that is.
+        private boolean steady() {
+            return this.isAlive() && this.fadeStart < 0 && this.age >= FADE_TICKS && this.age < this.due;
+        }
+
+        // Whether steady puffs hide the centre and edges of this puff's footprint from the camera, so fading it opens no hole.
+        private boolean covered() {
+            LIVE.removeIf(cloud -> !cloud.isAlive() || cloud.level != this.level);
+            Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
+            Vec3 eye = camera.position();
+            Vec3 left = new Vec3(camera.leftVector()).scale(this.quadSize * FOOTPRINT);
+            Vec3 up = new Vec3(camera.upVector()).scale(this.quadSize * FOOTPRINT);
+            Vec3 centre = new Vec3(this.x, this.y, this.z);
+            for (Vec3 sample : List.of(centre, centre.add(left), centre.subtract(left), centre.add(up), centre.subtract(up))) {
+                Vec3 ray = sample.subtract(eye).normalize();
+                boolean hidden = false;
+                for (SmokeCloud other : LIVE) {
+                    if (other == this || !other.steady()) {
+                        continue;
+                    }
+                    Vec3 toOther = new Vec3(other.x, other.y, other.z).subtract(eye);
+                    double along = toOther.dot(ray);
+                    double reach = other.quadSize * COVER_REACH;
+                    if (along > 0.0 && toOther.lengthSqr() - along * along <= reach * reach) {
+                        hidden = true;
+                        break;
+                    }
+                }
+                if (!hidden) {
+                    return false;
+                }
+            }
+            return true;
         }
 
         @Override
