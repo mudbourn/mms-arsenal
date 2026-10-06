@@ -110,11 +110,20 @@ public final class TrainingDummy {
             pickUp(dummy, player);
             return;
         }
-        float dealt = dummy.getDamageAfterMagicAbsorb(source, dummy.getDamageAfterArmorAbsorb(source, amount));
+        float dealt = afterAbsorb(dummy, source, amount);
         weaponHit(dummy, source, dealt);
         if (dealt > 0) {
             showNumber(level, dummy, source, dealt);
             tally(level, dummy, dealt);
+        }
+    }
+
+    // The damage left after the dummy's armor and enchantments. Apoli's armor mixin expects state only the normal hurt flow sets, so calling these directly can throw; fall back to the raw amount rather than abort the attacker's shot.
+    private static float afterAbsorb(ArmorStand dummy, DamageSource source, float amount) {
+        try {
+            return dummy.getDamageAfterMagicAbsorb(source, dummy.getDamageAfterArmorAbsorb(source, amount));
+        } catch (RuntimeException e) {
+            return amount;
         }
     }
 
