@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
+import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.entity.NoopRenderer;
@@ -62,6 +63,9 @@ public final class GunClient {
         LocalPlayer player = mc.player;
         if (player != null) {
             DrawTracker.get(player).tick(player, true);
+            if (player.getMainHandItem().getItem() instanceof GunItem && !mc.options.getCameraType().isFirstPerson()) {
+                mc.options.setCameraType(CameraType.FIRST_PERSON);
+            }
             while (GunKeys.INSPECT.consumeClick()) {
                 GunAnimationDriver.get().onInspect(player);
             }

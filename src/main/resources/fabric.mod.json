@@ -31,6 +31,10 @@
     {
       "config": "mms_arsenal.gun.client.mixins.json",
       "environment": "client"
+    },
+    {
+      "config": "mms_arsenal.compat.client.mixins.json",
+      "environment": "client"
     }
   ],
   "accessWidener": "mms_arsenal.accesswidener",

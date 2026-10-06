@@ -180,7 +180,8 @@ public final class TrainingDummy {
 
         Display.TextDisplay display = new Display.TextDisplay(EntityType.TEXT_DISPLAY, level);
         display.setPos(pos);
-        display.setText(Component.literal(String.format("-%.1f", dealt)).withStyle(ChatFormatting.RED));
+        ChatFormatting color = HeadshotBoxes.isHeadshot(dummy) ? ChatFormatting.GOLD : ChatFormatting.RED;
+        display.setText(Component.literal(String.format("-%.1f", dealt)).withStyle(color));
         display.setBillboardConstraints(Display.BillboardConstraints.CENTER);
         display.addTag(NUMBER_TAG);
         clearBackground(display);

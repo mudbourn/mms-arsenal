@@ -49,7 +49,7 @@ public class DragonSlayerItem extends ArmoryWeaponItem {
     private static final double SWEEP_HALF_ANGLE = Math.toRadians(75.0);
 
     public DragonSlayerItem(Properties properties) {
-        super(new WeaponStats(11.0, -3.6, 2.5, 3.0), properties);
+        super(new WeaponStats(11.0, -3.5745, 2.5, 3.0), properties);
     }
 
     // Plays the sweep animation for the local player, who gets no Better Combat packet for their own swing.

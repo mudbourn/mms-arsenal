@@ -567,7 +567,13 @@ public class ProjectileEntity extends Entity {
         if (headshot && entity instanceof Player player && ArsenalConfig.get().playersDropHelmets) {
             damage = this.turtleHelmetHeadshot(level, player, damage);
         }
-        entity.hurtServer(level, source, damage);
+        float dealt = damage;
+        DamageSource hurtSource = source;
+        if (headshot) {
+            HeadshotBoxes.hurtAsHeadshot(entity, () -> entity.hurtServer(level, hurtSource, dealt));
+        } else {
+            entity.hurtServer(level, source, damage);
+        }
         if (!ArsenalConfig.get().enableKnockback) {
             entity.setDeltaMovement(0.0, 0.0, 0.0);
         }
