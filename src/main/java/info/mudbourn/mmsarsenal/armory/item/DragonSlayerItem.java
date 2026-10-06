@@ -3,15 +3,22 @@ package info.mudbourn.mmsarsenal.armory.item;
 import info.mudbourn.mmsarsenal.armory.ArmoryComponents;
 import info.mudbourn.mmsarsenal.armory.ArmorySounds;
 import info.mudbourn.mmsarsenal.armory.WeaponStats;
+import net.bettercombat.logic.AnimatedHand;
+import net.bettercombat.network.Packets;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -29,14 +36,25 @@ import java.util.function.Consumer;
 public class DragonSlayerItem extends ArmoryWeaponItem {
 
     public static final float MAX_FOCUS = 100.0F;
-    private static final int DRAW_TICKS = 20;
+    public static final int DRAW_TICKS = 20;
     private static final int MAX_HOLD_TICKS = 72000;
     private static final double FOCUS_MULTIPLIER = 2.0;
     private static final int PARTICLE_INTERVAL = 2;
+    public static final String SWEEP_ANIMATION = "bettercombat:two_handed_slash_horizontal_right";
+    public static final float SWEEP_LENGTH = 16.0F;
+    public static final float SWEEP_UPSWING = 0.5F;
+    private static Consumer<Player> localSweep = player -> {
+    };
+    private static final DustParticleOptions FOCUS_PARTICLE = new DustParticleOptions(0x101010, 0.6F);
     private static final double SWEEP_HALF_ANGLE = Math.toRadians(75.0);
 
     public DragonSlayerItem(Properties properties) {
         super(new WeaponStats(11.0, -3.6, 2.5, 3.0), properties);
+    }
+
+    // Plays the sweep animation for the local player, who gets no Better Combat packet for their own swing.
+    public static void setLocalSweep(Consumer<Player> sweep) {
+        localSweep = sweep;
     }
 
     public static float focus(ItemStack stack) {
@@ -58,12 +76,13 @@ public class DragonSlayerItem extends ArmoryWeaponItem {
             return InteractionResult.PASS;
         }
         player.startUsingItem(hand);
+        level.playSound(player, player.blockPosition(), ArmorySounds.DRAGON_SLAYER_CHARGE, SoundSource.PLAYERS, 1.0F, 1.0F);
         return InteractionResult.CONSUME;
     }
 
     @Override
     public ItemUseAnimation getUseAnimation(ItemStack stack) {
-        return ItemUseAnimation.SPEAR;
+        return ItemUseAnimation.NONE;
     }
 
     @Override
@@ -73,14 +92,27 @@ public class DragonSlayerItem extends ArmoryWeaponItem {
 
     @Override
     public boolean releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
-        if (!(level instanceof ServerLevel server) || !(entity instanceof Player player)) {
+        if (!(entity instanceof Player player) || MAX_HOLD_TICKS - timeLeft < DRAW_TICKS || !focused(stack)) {
             return false;
         }
-        if (MAX_HOLD_TICKS - timeLeft < DRAW_TICKS || !focused(stack)) {
-            return false;
+        if (!(level instanceof ServerLevel server)) {
+            localSweep.accept(player);
+            return true;
         }
-        player.swing(InteractionHand.MAIN_HAND, true);
-        level.playSound(null, player.blockPosition(), ArmorySounds.DRAGON_SLAYER_SWING, SoundSource.PLAYERS, 1.0F, 0.6F);
+        Packets.AttackAnimation animation = new Packets.AttackAnimation(
+            player.getId(),
+            AnimatedHand.TWO_HANDED,
+            SWEEP_ANIMATION,
+            SWEEP_LENGTH,
+            SWEEP_UPSWING,
+            (float) (player.entityInteractionRange() * FOCUS_MULTIPLIER),
+            (int) (SWEEP_LENGTH * SWEEP_UPSWING),
+            Packets.SwingParticles.EMPTY
+        );
+        for (ServerPlayer viewer : PlayerLookup.tracking(player)) {
+            ServerPlayNetworking.send(viewer, animation);
+        }
+        level.playSound(null, player.blockPosition(), ArmorySounds.DRAGON_SLAYER_SLASH, SoundSource.PLAYERS, 1.0F, 1.0F);
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE) * FOCUS_MULTIPLIER);
         for (LivingEntity target : sweepTargets(player, player.entityInteractionRange() * FOCUS_MULTIPLIER)) {
             target.hurtServer(server, player.damageSources().playerAttack(player), damage);
@@ -114,9 +146,18 @@ public class DragonSlayerItem extends ArmoryWeaponItem {
             return;
         }
         if (level.getGameTime() % PARTICLE_INTERVAL == 0) {
-            Vec3 blade = player.getEyePosition().add(player.getLookAngle().scale(0.8)).add(0.0, -0.5, 0.0);
-            level.sendParticles(ParticleTypes.SQUID_INK, blade.x, blade.y, blade.z, 2, 0.25, 0.4, 0.25, 0.01);
+            Vec3 blade = bladePosition(player);
+            level.sendParticles(FOCUS_PARTICLE, blade.x, blade.y, blade.z, 2, 0.08, 0.35, 0.08, 0.0);
         }
+    }
+
+    // Midpoint of the blade held at the player's side, following body rotation rather than the camera.
+    private static Vec3 bladePosition(Player player) {
+        double yaw = Math.toRadians(player.yBodyRot);
+        double side = player.getMainArm() == HumanoidArm.RIGHT ? -1.0 : 1.0;
+        double x = -Math.sin(yaw) * 0.3 + Math.cos(yaw) * side * 0.45;
+        double z = Math.cos(yaw) * 0.3 + Math.sin(yaw) * side * 0.45;
+        return new Vec3(player.getX() + x, player.getY() + 1.0, player.getZ() + z);
     }
 
     @Override

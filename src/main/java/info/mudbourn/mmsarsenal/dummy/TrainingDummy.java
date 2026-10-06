@@ -3,6 +3,7 @@ package info.mudbourn.mmsarsenal.dummy;
 import info.mudbourn.mmsarsenal.MmsArsenal;
 import info.mudbourn.mmsarsenal.armory.ArmoryEvents;
 import info.mudbourn.mmsarsenal.dummy.mixin.TextDisplayAccessor;
+import info.mudbourn.mmsweapons.headshot.HeadshotBoxes;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -33,6 +34,7 @@ import net.minecraft.world.item.ArmorStandItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.TypedEntityData;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 // A silent invisible armor stand wearing the dummy model that absorbs every hit, floats each hit and keeps a last/total readout; sneak-attacking it picks it back up.
@@ -61,6 +63,8 @@ public final class TrainingDummy {
     private static final double NUMBER_FORWARD = 0.7;
     // How wide the numbers' plane is.
     private static final double NUMBER_WIDTH = 1.0;
+
+    private static final AABB HEAD = new AABB(-0.25, 1.5, -0.25, 0.25, 2.0, 0.25);
 
     public static final EntityDimensions DIMENSIONS = EntityDimensions.fixed(1.0F, 2.0F).withEyeHeight(1.7775F);
 
@@ -95,6 +99,7 @@ public final class TrainingDummy {
             }
         });
         ServerTickEvents.END_SERVER_TICK.register(TrainingDummy::tick);
+        HeadshotBoxes.register(EntityType.ARMOR_STAND, entity -> entity instanceof ArmorStand stand && isDummy(stand) ? HEAD : null);
     }
 
     // Whether an armor stand is a placed dummy, read from state the client also sees.

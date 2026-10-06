@@ -122,6 +122,18 @@
       "mms_arsenal:dragon_slayer_swing_3"
     ]
   },
+  "dragon_slayer_charge": {
+    "subtitle": "subtitles.mms_arsenal.dragon_slayer_charge",
+    "sounds": [
+      "mms_arsenal:dragon_slayer_charge"
+    ]
+  },
+  "dragon_slayer_slash": {
+    "subtitle": "subtitles.mms_arsenal.dragon_slayer_slash",
+    "sounds": [
+      "mms_arsenal:dragon_slayer_slash"
+    ]
+  },
   "block.hit.metal": {
     "subtitle": "subtitles.block.generic.break",
     "sounds": [

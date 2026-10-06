@@ -3,6 +3,8 @@
   "package": "info.mudbourn.mmsarsenal.client.armory.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "DragonSlayerDrawMixin",
+    "DragonSlayerPoseMixin",
     "NonexistenceRenderMixin"
   ],
   "injectors": {

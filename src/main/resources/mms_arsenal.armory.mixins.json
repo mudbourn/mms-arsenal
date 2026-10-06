@@ -5,6 +5,7 @@
   "mixins": [
     "ArmoryDamageMixin",
     "CrucibleArmorMixin",
+    "DragonSlayerDrawPoseMixin",
     "NonexistenceLivingMixin",
     "NonexistenceSoundMixin",
     "NonexistenceTargetMixin"

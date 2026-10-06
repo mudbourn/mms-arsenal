@@ -24,6 +24,8 @@ public final class ArmorySounds {
     public static final SoundEvent CRUCIBLE_DEACTIVATE = register("crucible_deactivate");
     public static final SoundEvent CRUCIBLE_SWING = register("crucible_swing");
     public static final SoundEvent DRAGON_SLAYER_SWING = register("dragon_slayer_swing");
+    public static final SoundEvent DRAGON_SLAYER_CHARGE = register("dragon_slayer_charge");
+    public static final SoundEvent DRAGON_SLAYER_SLASH = register("dragon_slayer_slash");
     public static final SoundEvent EDGE_OF_EXISTENCE_ACTIVATE = register("edge_of_existence_activate");
     public static final SoundEvent EDGE_OF_EXISTENCE_DEACTIVATE = register("edge_of_existence_deactivate");
 

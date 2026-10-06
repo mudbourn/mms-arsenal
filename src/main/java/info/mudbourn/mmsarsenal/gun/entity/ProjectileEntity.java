@@ -8,9 +8,9 @@ import info.mudbourn.mmsarsenal.gun.GunSounds;
 import info.mudbourn.mmsarsenal.gun.GunState;
 import info.mudbourn.mmsarsenal.gun.GunGameRules;
 import info.mudbourn.mmsarsenal.gun.GunTags;
-import info.mudbourn.mmsarsenal.gun.HeadshotBoxes;
 import info.mudbourn.mmsarsenal.gun.SpreadTracker;
 import info.mudbourn.mmsarsenal.gun.net.ProjectileHitPayloads;
+import info.mudbourn.mmsweapons.headshot.HeadshotBoxes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -344,6 +344,19 @@ public class ProjectileEntity extends Entity {
         this.level().addFreshEntity(flying);
     }
 
+    // Knocks a player's helmet off into their own inventory, leaving it worn when there is no room or it is cursed with binding.
+    private void stowHelmet(Player player, ItemStack helmet) {
+        if (helmet.isEmpty() || hasBindingCurse(helmet)) {
+            return;
+        }
+        ItemStack stowed = helmet.copy();
+        if (!player.getInventory().add(stowed)) {
+            return;
+        }
+        player.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+        this.level().playSound(null, player.getOnPos(), GunSounds.HEADSHOT, SoundSource.PLAYERS, 1.0F, 1.0F);
+    }
+
     private static boolean hasBindingCurse(ItemStack stack) {
         return stack.getEnchantments().keySet().stream().anyMatch(holder -> holder.is(Enchantments.BINDING_CURSE));
     }
@@ -578,7 +591,9 @@ public class ProjectileEntity extends Entity {
             helmet.setDamageValue(helmet.getMaxDamage() - 1);
         }
         if (this.gun.projectile().damage() > player.getHealth() && player.getHealth() > 10.0F) {
-            if (!level.getGameRules().get(GameRules.KEEP_INVENTORY)) {
+            if (level.getGameRules().get(GameRules.KEEP_INVENTORY)) {
+                this.stowHelmet(player, helmet);
+            } else {
                 this.removeHelmet(player, helmet);
             }
             player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 0, false, false));

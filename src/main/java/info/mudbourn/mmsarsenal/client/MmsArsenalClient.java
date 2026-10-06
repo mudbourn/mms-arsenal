@@ -2,6 +2,7 @@ package info.mudbourn.mmsarsenal.client;
 
 import info.mudbourn.mmsarsenal.armory.ArmoryClock;
 import info.mudbourn.mmsarsenal.client.armory.ComponentCounterProperty;
+import info.mudbourn.mmsarsenal.client.armory.DragonSlayerSweepClient;
 import info.mudbourn.mmsarsenal.client.armory.ElapsedTicksProperty;
 import info.mudbourn.mmsarsenal.client.armory.NonexistenceClientState;
 import info.mudbourn.mmsarsenal.client.gun.GunClient;
@@ -17,6 +18,7 @@ public class MmsArsenalClient implements ClientModInitializer {
         ComponentCounterProperty.register();
         ElapsedTicksProperty.register();
         NonexistenceClientState.register();
+        DragonSlayerSweepClient.register();
         ArmoryClock.setDisplay(() -> {
             ClientLevel level = Minecraft.getInstance().level;
             return level == null ? ArmoryClock.UNKNOWN : level.getGameTime();

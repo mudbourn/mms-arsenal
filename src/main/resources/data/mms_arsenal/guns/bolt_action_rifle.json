@@ -8,13 +8,13 @@
   },
   "general": {
     "alwaysSpread": true,
-    "drawTimer": 30,
+    "drawTimer": 40,
     "fireMode": "mms_arsenal:semi_automatic",
     "gripType": "mms_arsenal:two_handed",
     "jamTimer": 70,
-    "rate": 30,
-    "recoilAngle": 4.0,
-    "recoilKick": 0.25,
+    "rate": 50,
+    "recoilAngle": 8.0,
+    "recoilKick": 0.5,
     "spread": 0.25
   },
   "modules": {
@@ -41,10 +41,10 @@
   },
   "projectile": {
     "advantage": "mms_arsenal:very_heavy",
-    "damage": 10.5,
+    "damage": 20.0,
     "ejectsCasing": true,
     "gravity": true,
-    "headshotMultiplier": 3.0,
+    "headshotMultiplier": 2.5,
     "hitsRubberFruit": true,
     "item": "mms_arsenal:rifle_ammo",
     "life": 60,
@@ -54,9 +54,9 @@
     "trailLengthMultiplier": 2.0
   },
   "reloads": {
-    "additionalReloadTimer": 10,
+    "additionalReloadTimer": 15,
     "maxAmmo": 4,
-    "reloadTimer": 20,
+    "reloadTimer": 30,
     "reloadType": "mms_arsenal:manual"
   },
   "sounds": {
