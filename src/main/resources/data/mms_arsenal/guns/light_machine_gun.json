@@ -49,7 +49,7 @@
     "advantage": "mms_arsenal:very_heavy",
     "damage": 0.7,
     "ejectsCasing": true,
-    "headshotMultiplier": 3.0,
+    "headshotMultiplier": 2.0,
     "item": "mms_arsenal:rifle_ammo",
     "life": 80,
     "size": 0.05,

@@ -49,7 +49,7 @@
     "advantage": "mms_arsenal:undead",
     "damage": 0.93,
     "ejectsCasing": true,
-    "headshotMultiplier": 3.0,
+    "headshotMultiplier": 2.0,
     "item": "mms_arsenal:spectre_round",
     "life": 80,
     "size": 0.1,

@@ -33,7 +33,7 @@
     "damage": 30.0,
     "ejectsCasing": true,
     "gravity": true,
-    "headshotMultiplier": 3.0,
+    "headshotMultiplier": 2.0,
     "hideTrail": true,
     "item": "minecraft:sculk_catalyst",
     "life": 60,

@@ -44,7 +44,7 @@
     "damage": 20.0,
     "ejectsCasing": true,
     "gravity": true,
-    "headshotMultiplier": 2.5,
+    "headshotMultiplier": 2.0,
     "hitsRubberFruit": true,
     "item": "mms_arsenal:rifle_ammo",
     "life": 60,

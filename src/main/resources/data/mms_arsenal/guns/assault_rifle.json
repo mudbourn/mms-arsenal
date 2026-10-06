@@ -53,7 +53,7 @@
     "damage": 1.05,
     "ejectsCasing": true,
     "gravity": true,
-    "headshotMultiplier": 3.0,
+    "headshotMultiplier": 2.0,
     "item": "mms_arsenal:rifle_ammo",
     "life": 60,
     "size": 0.05,
