@@ -2,6 +2,7 @@ package info.mudbourn.mmsarsenal.gun.entity;
 
 import info.mudbourn.mmsarsenal.MmsArsenal;
 import info.mudbourn.mmsarsenal.config.ArsenalConfig;
+import info.mudbourn.mmsarsenal.dummy.TrainingDummy;
 import info.mudbourn.mmsarsenal.gun.Gun;
 import info.mudbourn.mmsarsenal.gun.GunNetwork;
 import info.mudbourn.mmsarsenal.gun.GunSounds;
@@ -46,6 +47,7 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -313,7 +315,7 @@ public class ProjectileEntity extends Entity {
 
     // A headshot on a helmeted mob may knock the helmet off and blind it briefly, wearing the helmet down to its last point.
     private void helmetHit(LivingEntity living, ItemStack helmet) {
-        if (living instanceof Player || !ArsenalConfig.get().mobsDropHelmets) {
+        if (living instanceof Player || living instanceof ArmorStand stand && TrainingDummy.isDummy(stand) || !ArsenalConfig.get().mobsDropHelmets) {
             return;
         }
         boolean veryHeavyRound = this.advantage().equals("very_heavy");
