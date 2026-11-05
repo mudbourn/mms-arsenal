@@ -5,12 +5,15 @@ import info.mudbourn.mmsarsenal.armory.ArmoryEffects;
 import info.mudbourn.mmsarsenal.armory.ArmoryEvents;
 import info.mudbourn.mmsarsenal.armory.ArmoryItems;
 import info.mudbourn.mmsarsenal.armory.ArmorySounds;
+import info.mudbourn.mmsarsenal.armory.item.DragonSlayerItem;
 import info.mudbourn.mmsarsenal.dummy.TrainingDummy;
 import info.mudbourn.mmsarsenal.gun.throwable.SmokeGrenadeEntity;
 import info.mudbourn.mmsarsenal.gun.Guns;
+import info.mudbourn.mmsarsenal.net.DragonSlayerSweepPayload;
 import info.mudbourn.mmsarsenal.net.NonexistencePayload;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
@@ -31,6 +34,9 @@ public class MmsArsenal implements ModInitializer {
         ArmoryItems.register();
         ArmoryEvents.register();
         PayloadTypeRegistry.playS2C().register(NonexistencePayload.TYPE, NonexistencePayload.CODEC);
+        PayloadTypeRegistry.playC2S().register(DragonSlayerSweepPayload.TYPE, DragonSlayerSweepPayload.CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(DragonSlayerSweepPayload.TYPE, (payload, context) ->
+            DragonSlayerItem.strike(context.player(), payload.targets()));
         Guns.register();
         TrainingDummy.register();
         SmokeGrenadeEntity.register();

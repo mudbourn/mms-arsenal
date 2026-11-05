@@ -29,7 +29,10 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 // Greatsword that builds focus from damage dealt and spends a full bar on a drawn-out focus sweep.
@@ -38,7 +41,7 @@ public class DragonSlayerItem extends ArmoryWeaponItem {
     public static final float MAX_FOCUS = 100.0F;
     public static final int DRAW_TICKS = 20;
     private static final int MAX_HOLD_TICKS = 72000;
-    private static final double FOCUS_MULTIPLIER = 2.0;
+    public static final double FOCUS_MULTIPLIER = 2.0;
     private static final int PARTICLE_INTERVAL = 2;
     public static final String SWEEP_ANIMATION = "bettercombat:two_handed_slash_horizontal_right";
     public static final float SWEEP_LENGTH = 16.0F;
@@ -46,7 +49,11 @@ public class DragonSlayerItem extends ArmoryWeaponItem {
     private static Consumer<Player> localSweep = player -> {
     };
     private static final DustParticleOptions FOCUS_PARTICLE = new DustParticleOptions(0x101010, 0.6F);
-    private static final double SWEEP_HALF_ANGLE = Math.toRadians(75.0);
+    // Ticks from release to the blade coming through, when the client picks the sweep's targets.
+    public static final int STRIKE_DELAY_TICKS = (int) (SWEEP_LENGTH * SWEEP_UPSWING);
+    // How long after release the server accepts the client's hit report: 5 seconds.
+    private static final int STRIKE_WINDOW_TICKS = 100;
+    private static final Map<UUID, ArmedSweep> ARMED = new HashMap<>();
 
     public DragonSlayerItem(Properties properties) {
         super(new WeaponStats(11.0, -3.5745, 2.5, 3.0), properties);
@@ -106,7 +113,7 @@ public class DragonSlayerItem extends ArmoryWeaponItem {
             SWEEP_LENGTH,
             SWEEP_UPSWING,
             (float) (player.entityInteractionRange() * FOCUS_MULTIPLIER),
-            (int) (SWEEP_LENGTH * SWEEP_UPSWING),
+            STRIKE_DELAY_TICKS,
             Packets.SwingParticles.EMPTY
         );
         for (ServerPlayer viewer : PlayerLookup.tracking(player)) {
@@ -114,30 +121,29 @@ public class DragonSlayerItem extends ArmoryWeaponItem {
         }
         level.playSound(null, player.blockPosition(), ArmorySounds.DRAGON_SLAYER_SLASH, SoundSource.PLAYERS, 1.0F, 1.0F);
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE) * FOCUS_MULTIPLIER);
-        for (LivingEntity target : sweepTargets(player, player.entityInteractionRange() * FOCUS_MULTIPLIER)) {
-            target.hurtServer(server, player.damageSources().playerAttack(player), damage);
-        }
-        Vec3 front = player.getEyePosition().add(player.getLookAngle().scale(1.5));
-        server.sendParticles(ParticleTypes.SWEEP_ATTACK, front.x, front.y - 0.4, front.z, 3, 1.0, 0.1, 1.0, 0.0);
+        ARMED.put(player.getUUID(), new ArmedSweep(server.getGameTime() + STRIKE_WINDOW_TICKS, damage));
         stack.set(ArmoryComponents.DAMAGE_DEALT, 0.0F);
         return true;
     }
 
-    // Living entities in front of the player within range and in sight, all struck by the sweep.
-    private static List<LivingEntity> sweepTargets(Player player, double range) {
-        Vec3 eye = player.getEyePosition();
-        Vec3 look = player.getLookAngle();
-        double minDot = Math.cos(SWEEP_HALF_ANGLE);
-        return player.level().getEntitiesOfClass(
-            LivingEntity.class,
-            player.getBoundingBox().inflate(range),
-            target -> target != player
-                && target.isAlive()
-                && !target.isSpectator()
-                && target.distanceTo(player) <= range
-                && target.getBoundingBox().getCenter().subtract(eye).normalize().dot(look) >= minDot
-                && player.hasLineOfSight(target)
-        );
+    // Lands a released sweep on every entity the attacker's client saw inside the arc as the blade came through.
+    public static void strike(ServerPlayer player, List<Integer> targets) {
+        ArmedSweep armed = ARMED.remove(player.getUUID());
+        ServerLevel level = player.level();
+        if (armed == null || level.getGameTime() > armed.until()) {
+            return;
+        }
+        for (int id : targets.stream().distinct().toList()) {
+            if (level.getEntity(id) instanceof LivingEntity target && target != player && target.isAlive()) {
+                target.hurtServer(level, player.damageSources().playerAttack(player), armed.damage());
+            }
+        }
+        Vec3 front = player.getEyePosition().add(player.getLookAngle().scale(1.5));
+        level.sendParticles(ParticleTypes.SWEEP_ATTACK, front.x, front.y - 0.4, front.z, 3, 1.0, 0.1, 1.0, 0.0);
+    }
+
+    // A released sweep waiting on the client's hit report: the tick the report window closes and the damage fixed at release.
+    private record ArmedSweep(long until, float damage) {
     }
 
     @Override
