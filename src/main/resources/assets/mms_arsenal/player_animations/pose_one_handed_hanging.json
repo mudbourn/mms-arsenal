@@ -5,8 +5,8 @@
     "emote": {
         "isLoop": "true",
         "returnTick": 1,
-        "beginTick": 1,
-        "endTick": 2,
+        "beginTick": 0,
+        "endTick": 1,
         "stopTick": 11,
         "degrees": false,
         "moves": [
