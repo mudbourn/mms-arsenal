@@ -15,3 +15,4 @@ libs/
 *.md
 !README.md
 !docs/*.md
+.venv/

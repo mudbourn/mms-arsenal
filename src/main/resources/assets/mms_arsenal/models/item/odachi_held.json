@@ -1,0 +1,71 @@
+{
+  "texture_size": [
+    64,
+    64
+  ],
+  "textures": {
+    "particle": "mms_arsenal:item/odachi/odachi_red_item"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "translation": [
+        0,
+        -7,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "thirdperson_lefthand": {
+      "translation": [
+        0,
+        -7,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "firstperson_righthand": {
+      "translation": [
+        0,
+        -7,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "firstperson_lefthand": {
+      "translation": [
+        0,
+        -7,
+        0
+      ],
+      "scale": [
+        0.75,
+        0.75,
+        0.75
+      ]
+    },
+    "ground": {
+      "rotation": [
+        -5,
+        0,
+        0
+      ],
+      "scale": [
+        0.1,
+        0.1,
+        0.1
+      ]
+    }
+  }
+}

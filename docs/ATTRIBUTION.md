@@ -1,19 +1,16 @@
 # Attribution and asset licensing
 
-## Training Dummy (Silentcat)
+## Odachi (barbodoji)
 
-The training dummy model and texture are from **"Training Dummy"** by
-**Silentcat** (<https://modrinth.com/datapack/training-dummy>, source at
-<https://github.com/Silentcat12/Training-Dummy>), licensed under
-**CC BY-SA 4.0** (<https://creativecommons.org/licenses/by-sa/4.0/>).
+The odachi model is based on **"Odachi, Japanese sword"** by **barbodoji**
+(<https://sketchfab.com/3d-models/odachi-japanese-sword-26611a30ef4b40258f189f81285d3d95>),
+licensed under **CC BY 4.0** (<https://creativecommons.org/licenses/by/4.0/>).
 
 Files:
 
-- `src/main/resources/assets/mms_arsenal/models/item/training_dummy.json`
-- `src/main/resources/assets/mms_arsenal/textures/item/training_dummy.png`
+- `src/main/resources/assets/mms_arsenal/geo/item/odachi.geo.json`
+- `src/main/resources/assets/mms_arsenal/textures/item/odachi/` (one texture and icon per handle colour)
 
-Changes: the texture references in the model were renamed to the `mms_arsenal`
-namespace. The geometry and texture are otherwise unchanged.
-
-These two files, and any changes made to them, are licensed under CC BY-SA 4.0,
-not under this project's GPL-3.0 license.
+Changes: the curved sword was rebuilt as straight cubes using the original's
+proportions, with two bends back toward the spine to suggest the curve, and it is painted in
+a netherite palette instead of the original texture.

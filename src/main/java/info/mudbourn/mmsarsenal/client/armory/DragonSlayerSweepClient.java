@@ -26,9 +26,12 @@ public final class DragonSlayerSweepClient {
 
     public static void register() {
         DragonSlayerItem.setLocalSweep(player -> {
+            if (!(player.getMainHandItem().getItem() instanceof DragonSlayerItem slayer)) {
+                return;
+            }
             if (player instanceof PlayerAttackAnimatable animatable) {
                 animatable.playAttackAnimation(
-                    DragonSlayerItem.SWEEP_ANIMATION,
+                    slayer.chargedAnimation(),
                     AnimatedHand.TWO_HANDED,
                     DragonSlayerItem.SWEEP_LENGTH,
                     DragonSlayerItem.SWEEP_UPSWING
@@ -36,11 +39,21 @@ public final class DragonSlayerSweepClient {
             }
             WeaponAttributes attributes = WeaponRegistry.getAttributes(player.getMainHandItem());
             if (attributes != null && attributes.attacks().length > 0) {
-                pendingAttack = attributes.attacks()[0];
+                pendingAttack = chargedAttack(attributes, slayer.chargedPierce());
                 ticksUntilStrike = DragonSlayerItem.STRIKE_DELAY_TICKS;
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(DragonSlayerSweepClient::tick);
+    }
+
+    // The weapon's first forward stab for a piercing focus attack, otherwise its first swing.
+    private static WeaponAttributes.Attack chargedAttack(WeaponAttributes attributes, boolean pierce) {
+        for (WeaponAttributes.Attack attack : attributes.attacks()) {
+            if (pierce && attack.hitbox() == WeaponAttributes.HitBoxShape.FORWARD_BOX) {
+                return attack;
+            }
+        }
+        return attributes.attacks()[0];
     }
 
     private static void tick(Minecraft client) {
@@ -53,7 +66,10 @@ public final class DragonSlayerSweepClient {
         if (player == null) {
             return;
         }
-        double range = player.entityInteractionRange() * DragonSlayerItem.FOCUS_MULTIPLIER;
+        if (!(player.getMainHandItem().getItem() instanceof DragonSlayerItem slayer)) {
+            return;
+        }
+        double range = slayer.chargedRange(player);
         List<Integer> targets = TargetFinder.findAttackTargets(player, client.crosshairPickEntity, attack, range)
             .stream()
             .map(Entity::getId)

@@ -8,11 +8,12 @@ import info.mudbourn.mmsarsenal.armory.item.CrucibleItem;
 import info.mudbourn.mmsarsenal.armory.item.DragonSlayerItem;
 import info.mudbourn.mmsarsenal.armory.item.EdgeOfExistenceItem;
 import info.mudbourn.mmsarsenal.armory.item.MurasamaItem;
+import info.mudbourn.mmsarsenal.armory.item.OdachiItem;
 import info.mudbourn.mmsarsenal.armory.item.MurasamaSheathedItem;
 import info.mudbourn.mmsarsenal.armory.item.OriginiumCatalystItem;
 import info.mudbourn.mmsarsenal.armory.item.OriginiumKatanaItem;
 import info.mudbourn.mmsarsenal.armory.item.PunisherItem;
-import info.mudbourn.mmsarsenal.dummy.TrainingDummy;
+import info.mudbourn.mmscombat.dummy.TrainingDummy;
 import info.mudbourn.mmsarsenal.gun.GunItems;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.core.Registry;
@@ -26,6 +27,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.Weapon;
 
 import java.util.List;
@@ -91,6 +93,11 @@ public final class ArmoryItems {
         PunisherItem::new,
         weapon(1800).repairable(Items.DIAMOND)
     );
+    public static final Item ODACHI = register(
+        "odachi",
+        OdachiItem::new,
+        weapon(2031).repairable(Items.NETHERITE_INGOT)
+    );
     public static final Item BLOOD_VESSEL_EMPTY = register(
         "blood_vessel_empty",
         Item::new,
@@ -113,7 +120,8 @@ public final class ArmoryItems {
         GUN_SHEATH,
         ORIGINIUM_CATALYST,
         ORIGINIUM_KATANA,
-        PUNISHER
+        PUNISHER,
+        ODACHI
     );
 
     private ArmoryItems() {

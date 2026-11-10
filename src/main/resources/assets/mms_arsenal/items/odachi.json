@@ -1,0 +1,280 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": [
+          "gui",
+          "ground",
+          "fixed",
+          "on_shelf"
+        ],
+        "model": {
+          "type": "minecraft:select",
+          "property": "minecraft:component",
+          "component": "mms_arsenal:handle_color",
+          "cases": [
+            {
+              "when": "white",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_white_inventory"
+              }
+            },
+            {
+              "when": "orange",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_orange_inventory"
+              }
+            },
+            {
+              "when": "magenta",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_magenta_inventory"
+              }
+            },
+            {
+              "when": "light_blue",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_light_blue_inventory"
+              }
+            },
+            {
+              "when": "yellow",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_yellow_inventory"
+              }
+            },
+            {
+              "when": "lime",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_lime_inventory"
+              }
+            },
+            {
+              "when": "pink",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_pink_inventory"
+              }
+            },
+            {
+              "when": "gray",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_gray_inventory"
+              }
+            },
+            {
+              "when": "light_gray",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_light_gray_inventory"
+              }
+            },
+            {
+              "when": "cyan",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_cyan_inventory"
+              }
+            },
+            {
+              "when": "purple",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_purple_inventory"
+              }
+            },
+            {
+              "when": "blue",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_blue_inventory"
+              }
+            },
+            {
+              "when": "brown",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_brown_inventory"
+              }
+            },
+            {
+              "when": "green",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_green_inventory"
+              }
+            },
+            {
+              "when": "black",
+              "model": {
+                "type": "minecraft:model",
+                "model": "mms_arsenal:item/odachi_black_inventory"
+              }
+            }
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "mms_arsenal:item/odachi_red_inventory"
+          }
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:select",
+      "property": "minecraft:component",
+      "component": "mms_arsenal:handle_color",
+      "cases": [
+        {
+          "when": "white",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_white.png"
+          }
+        },
+        {
+          "when": "orange",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_orange.png"
+          }
+        },
+        {
+          "when": "magenta",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_magenta.png"
+          }
+        },
+        {
+          "when": "light_blue",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_light_blue.png"
+          }
+        },
+        {
+          "when": "yellow",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_yellow.png"
+          }
+        },
+        {
+          "when": "lime",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_lime.png"
+          }
+        },
+        {
+          "when": "pink",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_pink.png"
+          }
+        },
+        {
+          "when": "gray",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_gray.png"
+          }
+        },
+        {
+          "when": "light_gray",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_light_gray.png"
+          }
+        },
+        {
+          "when": "cyan",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_cyan.png"
+          }
+        },
+        {
+          "when": "purple",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_purple.png"
+          }
+        },
+        {
+          "when": "blue",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_blue.png"
+          }
+        },
+        {
+          "when": "brown",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_brown.png"
+          }
+        },
+        {
+          "when": "green",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_green.png"
+          }
+        },
+        {
+          "when": "black",
+          "model": {
+            "type": "mms_render_common:geo",
+            "base": "mms_arsenal:item/odachi_held",
+            "geo": "mms_arsenal:geo/item/odachi.geo.json",
+            "texture": "mms_arsenal:textures/item/odachi/odachi_black.png"
+          }
+        }
+      ],
+      "fallback": {
+        "type": "mms_render_common:geo",
+        "base": "mms_arsenal:item/odachi_held",
+        "geo": "mms_arsenal:geo/item/odachi.geo.json",
+        "texture": "mms_arsenal:textures/item/odachi/odachi_red.png"
+      }
+    }
+  }
+}

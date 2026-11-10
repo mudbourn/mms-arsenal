@@ -2,7 +2,7 @@
   "parent": "bettercombat:claymore",
   "attributes": {
     "two_handed": true,
-    "pose": "bettercombat:pose_two_handed_heavy",
+    "pose": "mms_arsenal:pose_one_handed_hanging",
     "attacks": [
       {
         "hitbox": "HORIZONTAL_PLANE",

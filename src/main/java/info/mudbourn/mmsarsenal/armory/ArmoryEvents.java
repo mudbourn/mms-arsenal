@@ -53,7 +53,7 @@ public final class ArmoryEvents {
         }
 
         ItemStack held = player.getMainHandItem();
-        if (held.is(ArmoryItems.DRAGON_SLAYER)) {
+        if (held.getItem() instanceof DragonSlayerItem) {
             DragonSlayerItem.recordDamage(held, taken);
         }
         if (held.is(ArmoryItems.BLOODLETTER)) {

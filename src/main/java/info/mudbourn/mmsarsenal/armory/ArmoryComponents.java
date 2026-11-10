@@ -6,6 +6,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.item.DyeColor;
 
 // Per-stack weapon state, synced to clients so item models can pick textures from it.
 public final class ArmoryComponents {
@@ -22,6 +23,14 @@ public final class ArmoryComponents {
             .persistent(Codec.FLOAT)
             .networkSynchronized(ByteBufCodecs.FLOAT)
             .ignoreSwapAnimation()
+            .build()
+    );
+    // Wool colour of a weapon's handle wrap, picked by its crafting recipe.
+    public static final DataComponentType<DyeColor> HANDLE_COLOR = register(
+        "handle_color",
+        DataComponentType.<DyeColor>builder()
+            .persistent(DyeColor.CODEC)
+            .networkSynchronized(DyeColor.STREAM_CODEC)
             .build()
     );
 

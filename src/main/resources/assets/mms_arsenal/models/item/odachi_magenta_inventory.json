@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "mms_arsenal:item/odachi/odachi_magenta_item"
+  }
+}

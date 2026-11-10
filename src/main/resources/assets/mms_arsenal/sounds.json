@@ -134,6 +134,12 @@
       "mms_arsenal:dragon_slayer_slash"
     ]
   },
+  "odachi_pierce": {
+    "subtitle": "subtitles.mms_arsenal.odachi_pierce",
+    "sounds": [
+      "mms_arsenal:odachi_pierce"
+    ]
+  },
   "block.hit.metal": {
     "subtitle": "subtitles.block.generic.break",
     "sounds": [

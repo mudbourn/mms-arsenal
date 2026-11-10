@@ -2,7 +2,7 @@ package info.mudbourn.mmsarsenal.gun.entity;
 
 import info.mudbourn.mmsarsenal.MmsArsenal;
 import info.mudbourn.mmsarsenal.config.ArsenalConfig;
-import info.mudbourn.mmsarsenal.dummy.TrainingDummy;
+import info.mudbourn.mmscombat.dummy.TrainingDummy;
 import info.mudbourn.mmsarsenal.gun.Gun;
 import info.mudbourn.mmsarsenal.gun.GunNetwork;
 import info.mudbourn.mmsarsenal.gun.GunSounds;
