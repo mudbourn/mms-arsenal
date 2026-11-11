@@ -2,7 +2,7 @@
   "parent": "bettercombat:katana",
   "attributes": {
     "two_handed": true,
-    "pose": "mms_arsenal:pose_one_handed_hanging",
+    "pose": "mms_arsenal:pose_odachi_hanging",
     "attacks": [
       {
         "hitbox": "HORIZONTAL_PLANE",
