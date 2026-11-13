@@ -2,6 +2,7 @@ package info.mudbourn.mmsarsenal.client.armory;
 
 import info.mudbourn.mmsarsenal.armory.item.DragonSlayerItem;
 import info.mudbourn.mmsarsenal.net.DragonSlayerSweepPayload;
+import info.mudbourn.mmsweapons.focus.FocusSkill;
 import net.bettercombat.api.WeaponAttributes;
 import net.bettercombat.client.animation.PlayerAttackAnimatable;
 import net.bettercombat.client.collision.TargetFinder;
@@ -37,6 +38,7 @@ public final class DragonSlayerSweepClient {
                     DragonSlayerItem.SWEEP_UPSWING
                 );
             }
+            FocusSkill.execute((int) DragonSlayerItem.SWEEP_LENGTH);
             WeaponAttributes attributes = WeaponRegistry.getAttributes(player.getMainHandItem());
             if (attributes != null && attributes.attacks().length > 0) {
                 pendingAttack = chargedAttack(attributes, slayer.chargedPierce());

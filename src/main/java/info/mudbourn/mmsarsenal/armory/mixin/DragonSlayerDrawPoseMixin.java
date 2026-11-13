@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = PlayerAttackHelper.class, remap = false)
 public abstract class DragonSlayerDrawPoseMixin {
 
-    private static final Pose DRAW_POSE = new Pose("bettercombat:pose_two_handed_sword", "");
+    private static final Pose DRAW_POSE = new Pose("bettercombat:pose_two_handed_heavy", "");
 
     @Inject(method = "poseForPlayer", at = @At("HEAD"), cancellable = true)
     private static void mmsArsenal$drawPose(Player player, CallbackInfoReturnable<Pose> cir) {

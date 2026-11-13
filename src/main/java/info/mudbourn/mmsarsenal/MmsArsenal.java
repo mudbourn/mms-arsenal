@@ -47,6 +47,8 @@ public class MmsArsenal implements ModInitializer {
         // The Training Dummy moved to mms-combat; keep old dummies loading and run Armory hit effects on it.
         BuiltInRegistries.ITEM.addAlias(id("training_dummy"), Identifier.fromNamespaceAndPath("mms_combat", "training_dummy"));
         TrainingDummy.addDamageHook(ArmoryEvents::onDamage);
+        // mms-weapons cannot see the dummy, so its focus weapons are fed dummy hits from here.
+        TrainingDummy.addDamageHook((dummy, source, dealt) -> Focus.onDamage(source, dealt));
         // Focus smoke for the Dragon Slayer and Odachi, drawn by mms-weapons from where the blade is rendered.
         // Geo models start at (0.5, 0.51, 0.5) in item space and run up in pixels; these follow each blade's height.
         // A crouch during the draw cancels it through mms-weapons, without firing or spending focus.
