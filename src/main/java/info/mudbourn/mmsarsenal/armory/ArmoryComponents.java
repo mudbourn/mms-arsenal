@@ -17,6 +17,7 @@ public final class ArmoryComponents {
     public static final DataComponentType<Integer> STRIKES_REMAINING = counter("strikes_remaining");
     public static final DataComponentType<Long> ANIMATION_START = timestamp("animation_start");
     public static final DataComponentType<Long> CHARGE_START = timestamp("charge_start");
+    // Old Dragon Slayer focus, kept so saved stacks still load; DragonSlayerItem moves it into mms-weapons focus.
     public static final DataComponentType<Float> DAMAGE_DEALT = register(
         "damage_dealt",
         DataComponentType.<Float>builder()

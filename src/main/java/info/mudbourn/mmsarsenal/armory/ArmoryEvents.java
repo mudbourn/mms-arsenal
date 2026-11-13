@@ -1,7 +1,6 @@
 package info.mudbourn.mmsarsenal.armory;
 
 import info.mudbourn.mmsarsenal.armory.item.BloodletterItem;
-import info.mudbourn.mmsarsenal.armory.item.DragonSlayerItem;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -53,9 +52,6 @@ public final class ArmoryEvents {
         }
 
         ItemStack held = player.getMainHandItem();
-        if (held.getItem() instanceof DragonSlayerItem) {
-            DragonSlayerItem.recordDamage(held, taken);
-        }
         if (held.is(ArmoryItems.BLOODLETTER)) {
             fillVessel(player);
         }

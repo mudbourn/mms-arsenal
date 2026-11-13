@@ -3,28 +3,26 @@ package info.mudbourn.mmsarsenal.armory.item;
 import info.mudbourn.mmsarsenal.armory.ArmoryComponents;
 import info.mudbourn.mmsarsenal.armory.ArmorySounds;
 import info.mudbourn.mmsarsenal.armory.WeaponStats;
+import info.mudbourn.mmsweapons.focus.Focus;
 import net.bettercombat.logic.AnimatedHand;
 import net.bettercombat.network.Packets;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.ARGB;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -34,10 +32,9 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-// Greatsword that builds focus from damage dealt and spends a full bar on a drawn-out focus sweep.
+// Greatsword that spends a full bar of mms-weapons focus on a drawn-out focus sweep instead of the barrage.
 public class DragonSlayerItem extends ArmoryWeaponItem {
 
-    public static final float MAX_FOCUS = 100.0F;
     public static final int DRAW_TICKS = 20;
     private static final int MAX_HOLD_TICKS = 72000;
     public static final double FOCUS_MULTIPLIER = 2.0;
@@ -85,22 +82,19 @@ public class DragonSlayerItem extends ArmoryWeaponItem {
         localSweep = sweep;
     }
 
-    public static float focus(ItemStack stack) {
-        return Math.min(MAX_FOCUS, stack.getOrDefault(ArmoryComponents.DAMAGE_DEALT, 0.0F));
-    }
-
-    public static boolean focused(ItemStack stack) {
-        return focus(stack) >= MAX_FOCUS;
-    }
-
-    // Adds damage dealt with this stack to its focus, up to a full bar.
-    public static void recordDamage(ItemStack stack, float amount) {
-        stack.set(ArmoryComponents.DAMAGE_DEALT, Math.min(MAX_FOCUS, focus(stack) + amount));
+    // Moves focus saved under the old Armory component into the shared mms-weapons focus.
+    @Override
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity holder, EquipmentSlot slot) {
+        super.inventoryTick(stack, level, holder, slot);
+        Float legacy = stack.remove(ArmoryComponents.DAMAGE_DEALT);
+        if (legacy != null) {
+            stack.set(Focus.FOCUS, Math.min(Focus.MAX_FOCUS, Focus.focus(stack) + legacy));
+        }
     }
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        if (hand != InteractionHand.MAIN_HAND || !focused(player.getItemInHand(hand))) {
+        if (hand != InteractionHand.MAIN_HAND || !Focus.focused(player.getItemInHand(hand))) {
             return InteractionResult.PASS;
         }
         // Crouching never starts the draw; mms-weapons also ignores right click after a crouch cancel until it is let go.
@@ -133,7 +127,7 @@ public class DragonSlayerItem extends ArmoryWeaponItem {
     @Override
     public boolean releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
         // Crouching at release cancels the attack and keeps the focus.
-        if (!(entity instanceof Player player) || player.isShiftKeyDown() || MAX_HOLD_TICKS - timeLeft < DRAW_TICKS || !focused(stack)) {
+        if (!(entity instanceof Player player) || player.isShiftKeyDown() || MAX_HOLD_TICKS - timeLeft < DRAW_TICKS || !Focus.focused(stack)) {
             return false;
         }
         if (!(level instanceof ServerLevel server)) {
@@ -156,7 +150,7 @@ public class DragonSlayerItem extends ArmoryWeaponItem {
         level.playSound(null, player.blockPosition(), this.chargedSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE) * FOCUS_MULTIPLIER);
         ARMED.put(player.getUUID(), new ArmedSweep(server.getGameTime() + STRIKE_WINDOW_TICKS, damage));
-        stack.set(ArmoryComponents.DAMAGE_DEALT, 0.0F);
+        stack.set(Focus.FOCUS, 0.0F);
         return true;
     }
 
@@ -167,40 +161,18 @@ public class DragonSlayerItem extends ArmoryWeaponItem {
         if (armed == null || level.getGameTime() > armed.until()) {
             return;
         }
-        for (int id : targets.stream().distinct().toList()) {
-            if (level.getEntity(id) instanceof LivingEntity target && target != player && target.isAlive()) {
-                target.hurtServer(level, player.damageSources().playerAttack(player), armed.damage());
+        Focus.spend(() -> {
+            for (int id : targets.stream().distinct().toList()) {
+                if (level.getEntity(id) instanceof LivingEntity target && target != player && target.isAlive()) {
+                    target.hurtServer(level, player.damageSources().playerAttack(player), armed.damage());
+                }
             }
-        }
+        });
         Vec3 front = player.getEyePosition().add(player.getLookAngle().scale(1.5));
         level.sendParticles(ParticleTypes.SWEEP_ATTACK, front.x, front.y - 0.4, front.z, 3, 1.0, 0.1, 1.0, 0.0);
     }
 
     // A released sweep waiting on the client's hit report: the tick the report window closes and the damage fixed at release.
     private record ArmedSweep(long until, float damage) {
-    }
-
-
-
-    @Override
-    public boolean isBarVisible(ItemStack stack) {
-        return focus(stack) > 0.0F;
-    }
-
-    @Override
-    public int getBarWidth(ItemStack stack) {
-        return Math.round(focus(stack) / MAX_FOCUS * 13.0F);
-    }
-
-    @Override
-    public int getBarColor(ItemStack stack) {
-        return ARGB.colorFromFloat(1.0F, 0.9F, 0.1F, 0.1F);
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display,
-                                Consumer<Component> tooltip, TooltipFlag flag) {
-        tooltip.accept(Component.translatable("item.mms_arsenal.dragon_slayer.focus", (int) focus(stack), (int) MAX_FOCUS)
-            .withStyle(ChatFormatting.GRAY));
     }
 }

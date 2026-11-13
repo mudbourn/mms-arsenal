@@ -8,7 +8,6 @@ import info.mudbourn.mmsarsenal.armory.ArmorySounds;
 import info.mudbourn.mmsarsenal.armory.item.DragonSlayerItem;
 import info.mudbourn.mmscombat.dummy.TrainingDummy;
 import info.mudbourn.mmsweapons.focus.Focus;
-import info.mudbourn.mmsweapons.focus.FocusSkill;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
@@ -49,11 +48,10 @@ public class MmsArsenal implements ModInitializer {
         TrainingDummy.addDamageHook(ArmoryEvents::onDamage);
         // mms-weapons cannot see the dummy, so its focus weapons are fed dummy hits from here.
         TrainingDummy.addDamageHook((dummy, source, dealt) -> Focus.onDamage(source, dealt));
-        // Focus smoke for the Dragon Slayer and Odachi, drawn by mms-weapons from where the blade is rendered.
-        // Geo models start at (0.5, 0.51, 0.5) in item space and run up in pixels; these follow each blade's height.
-        // A crouch during the draw cancels it through mms-weapons, without firing or spending focus.
-        FocusSkill.addSkill(stack -> stack.getItem() instanceof DragonSlayerItem && DragonSlayerItem.focused(stack));
-        Focus.addSmokeSource(stack -> stack.getItem() instanceof DragonSlayerItem && DragonSlayerItem.focused(stack));
+        // The Dragon Slayer and Odachi build the shared mms-weapons focus and spend it on their own attacks.
+        Focus.registerFocusWeapon(ArmoryItems.DRAGON_SLAYER);
+        Focus.registerFocusWeapon(ArmoryItems.ODACHI);
+        // Blade lines for focus smoke; geo models start at (0.5, 0.51, 0.5) in item space and run up in pixels.
         Focus.registerBlade(ArmoryItems.DRAGON_SLAYER, new Focus.Blade(new Vec3(0.5, 0.51 + 1.0 / 16.0, 0.5), new Vec3(0.5, 0.51 + 111.5 / 16.0, 0.5)));
         // The Odachi's blade is straight to 41px, then its last two pieces tilt 80 and 60 degrees into the curve.
         Focus.registerBlade(ArmoryItems.ODACHI, new Focus.Blade(List.of(
