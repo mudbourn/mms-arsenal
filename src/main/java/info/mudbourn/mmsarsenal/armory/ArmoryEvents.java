@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -67,7 +68,7 @@ public final class ArmoryEvents {
             empty.shrink(1);
             ItemStack full = new ItemStack(ArmoryItems.BLOOD_VESSEL_FULL);
             if (!player.addItem(full)) {
-                player.drop(full, false);
+                player.drop(full, false, Prediction.SERVER_ONLY);
             }
         }
     }

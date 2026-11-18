@@ -6,9 +6,8 @@ import info.mudbourn.mmsarsenal.gun.GunItem;
 import info.mudbourn.mmsarsenal.gun.SpreadTracker;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.minecraft.client.CameraType;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
@@ -58,7 +57,7 @@ public final class CrosshairClient {
             Minecraft mc = Minecraft.getInstance();
             LocalPlayer player = mc.player;
             if (player == null) {
-                vanilla.render(graphics, delta);
+                vanilla.extractRenderState(graphics, delta);
                 return;
             }
             float partialTick = delta.getGameTimeDeltaPartialTick(true);
@@ -70,7 +69,7 @@ public final class CrosshairClient {
             }
             ItemStack held = player.getMainHandItem();
             if (!(held.getItem() instanceof GunItem gunItem)) {
-                vanilla.render(graphics, delta);
+                vanilla.extractRenderState(graphics, delta);
                 return;
             }
             if (mc.options.getCameraType() == CameraType.FIRST_PERSON && !(player.getUseItem().getItem() instanceof ShieldItem)) {
@@ -79,7 +78,7 @@ public final class CrosshairClient {
         };
     }
 
-    private void renderDynamic(GuiGraphics graphics, Gun gun, float partialTick) {
+    private void renderDynamic(GuiGraphicsExtractor graphics, Gun gun, float partialTick) {
         float aiming = (float) AimHandler.get().normalisedProgress();
         float sprint = GunView.get().sprintTransition(partialTick);
         float bloom = Math.min(Mth.lerp(partialTick, this.prevFireBloom, this.fireBloom), 1.0F);
@@ -114,7 +113,7 @@ public final class CrosshairClient {
     }
 
     // One crosshair bar: a strip of the 9x9 bar texture, stretched along the bar's length about the screen centre.
-    private void bar(GuiGraphics graphics, Identifier texture, float centerX, float centerY, float scaleX, float scaleY, float offsetX, float offsetY, int width, int height, int u, int v, int regionWidth, int regionHeight) {
+    private void bar(GuiGraphicsExtractor graphics, Identifier texture, float centerX, float centerY, float scaleX, float scaleY, float offsetX, float offsetY, int width, int height, int u, int v, int regionWidth, int regionHeight) {
         graphics.pose().pushMatrix();
         graphics.pose().translate(centerX, centerY);
         graphics.pose().scale(scaleX, scaleY);
@@ -123,7 +122,7 @@ public final class CrosshairClient {
         graphics.pose().popMatrix();
     }
 
-    private void renderHitMarker(GuiGraphics graphics, float partialTick) {
+    private void renderHitMarker(GuiGraphicsExtractor graphics, float partialTick) {
         float size = 9.0F;
         float scale = 1.5F + GunView.get().hitMarkerProgress(partialTick);
         Identifier texture = GunView.get().hitMarkerCrit() ? CRIT_HIT_MARKER : HIT_MARKER;

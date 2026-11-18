@@ -20,9 +20,9 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.entity.ClientAvatarState;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.block.model.ItemTransform;
+import net.minecraft.client.resources.model.cuboid.ItemTransform;
 import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -104,14 +104,14 @@ public final class GunRenderer {
         ClientAvatarState state = player.avatarState();
         float walked = state.getBackwardsInterpolatedWalkDistance(partialTick);
         float bob = state.getInterpolatedBob(partialTick);
-        poseStack.mulPose(Axis.XP.rotationDegrees(-(Math.abs(Mth.cos(walked * Mth.PI - 0.2F) * bob) * 5.0F)));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(-(Mth.sin(walked * Mth.PI) * bob * 3.0F)));
+        poseStack.rotate(Axis.XP.rotationDegrees(-(Math.abs(Mth.cos(walked * Mth.PI - 0.2F) * bob) * 5.0F)));
+        poseStack.rotate(Axis.ZP.rotationDegrees(-(Mth.sin(walked * Mth.PI) * bob * 3.0F)));
         poseStack.translate(-(Mth.sin(walked * Mth.PI) * bob * 0.5F), Math.abs(Mth.cos(walked * Mth.PI) * bob), 0.0F);
         bob *= player.isSprinting() ? 8.0F : 4.0F;
         double invertZoom = 1.0 - AimHandler.get().normalisedProgress() * GunView.get().sprintIntensity();
         if (!AimHandler.get().isAiming()) {
-            poseStack.mulPose(Axis.XP.rotationDegrees(Math.abs(Mth.cos(walked * Mth.PI - 0.2F) * bob) * -2.0F * (float) invertZoom));
-            poseStack.mulPose(Axis.ZP.rotationDegrees(Mth.sin(walked * Mth.PI) * bob * 3.0F * (float) invertZoom));
+            poseStack.rotate(Axis.XP.rotationDegrees(Math.abs(Mth.cos(walked * Mth.PI - 0.2F) * bob) * -2.0F * (float) invertZoom));
+            poseStack.rotate(Axis.ZP.rotationDegrees(Mth.sin(walked * Mth.PI) * bob * 3.0F * (float) invertZoom));
         }
     }
 
@@ -128,9 +128,9 @@ public final class GunRenderer {
         float sway = (float) ((recoil.gunRecoilRandom() * swayAmount - swayAmount / 2.0F) * normal);
         poseStack.translate(0.0, 0.0, kick);
         poseStack.translate(0.0, 0.0, 0.15);
-        poseStack.mulPose(Axis.YP.rotationDegrees(sway / 5.0F));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(sway / 5.0F));
-        poseStack.mulPose(Axis.XP.rotationDegrees(lift / 5.0F));
+        poseStack.rotate(Axis.YP.rotationDegrees(sway / 5.0F));
+        poseStack.rotate(Axis.ZP.rotationDegrees(sway / 5.0F));
+        poseStack.rotate(Axis.XP.rotationDegrees(lift / 5.0F));
         poseStack.translate(0.0, 0.0, -0.15);
     }
 
@@ -139,9 +139,9 @@ public final class GunRenderer {
         poseStack.translate(0.0, -0.25, 0.25);
         float aiming = (float) Math.sin(Math.toRadians(AimHandler.get().normalisedProgress() * 180.0));
         aiming = (float) GunSights.sight(frame.stack()).aimTransformCurve().apply(aiming / 2.0F);
-        poseStack.mulPose(Axis.ZP.rotationDegrees(aiming * 10.0F));
-        poseStack.mulPose(Axis.XP.rotationDegrees(aiming * 8.0F));
-        poseStack.mulPose(Axis.YP.rotationDegrees(aiming * 8.0F));
+        poseStack.rotate(Axis.ZP.rotationDegrees(aiming * 10.0F));
+        poseStack.rotate(Axis.XP.rotationDegrees(aiming * 8.0F));
+        poseStack.rotate(Axis.YP.rotationDegrees(aiming * 8.0F));
         poseStack.translate(0.0, 0.25, -0.25);
         poseStack.translate(-x, -y, -z);
     }
@@ -154,17 +154,17 @@ public final class GunRenderer {
         poseStack.translate(x, y, z);
         double zOffset = gun.general().gripType() == GripType.ONE_HANDED ? 0.5 : 0.35;
         poseStack.translate(0.0, -0.25, zOffset);
-        poseStack.mulPose(Axis.XP.rotationDegrees(GunView.get().fallSway(partialTick) / 2.0F));
+        poseStack.rotate(Axis.XP.rotationDegrees(GunView.get().fallSway(partialTick) / 2.0F));
         poseStack.translate(0.0, 0.25, -zOffset);
         double aimDamping = 1.0 - 0.5 * AimHandler.get().normalisedProgress();
         float bobPitch = Mth.rotLerp(partialTick, player.xBobO, player.xBob);
         float headPitch = Mth.rotLerp(partialTick, player.xRotO, player.getXRot());
         float swayPitch = (float) ((headPitch - bobPitch) * aimDamping);
-        poseStack.mulPose(Axis.XP.rotationDegrees(swayPitch * (float) SWAY_SENSITIVITY / 2.0F));
+        poseStack.rotate(Axis.XP.rotationDegrees(swayPitch * (float) SWAY_SENSITIVITY / 2.0F));
         float bobYaw = Mth.rotLerp(partialTick, player.yBobO, player.yBob);
         float headYaw = Mth.rotLerp(partialTick, player.yHeadRotO, player.yHeadRot);
         float swayYaw = (float) ((headYaw - bobYaw) * aimDamping);
-        poseStack.mulPose(Axis.YP.rotationDegrees(swayYaw * (float) SWAY_SENSITIVITY / 2.0F));
+        poseStack.rotate(Axis.YP.rotationDegrees(swayYaw * (float) SWAY_SENSITIVITY / 2.0F));
         poseStack.translate(-x, -y, -z);
     }
 
@@ -212,8 +212,8 @@ public final class GunRenderer {
         poseStack.translate(origin.x * 0.0625, origin.y * 0.0625, origin.z * 0.0625);
         poseStack.translate(position.x * 0.0625 + 0.5, position.y * 0.0625 + 1.025, position.z * 0.0625 + 0.525);
         poseStack.translate(-0.5, -0.5, -0.5);
-        poseStack.mulPose(Axis.ZP.rotationDegrees(360.0F * random));
-        poseStack.mulPose(Axis.XP.rotationDegrees(random >= 0.5F ? 180.0F : 0.0F));
+        poseStack.rotate(Axis.ZP.rotationDegrees(360.0F * random));
+        poseStack.rotate(Axis.XP.rotationDegrees(random >= 0.5F ? 180.0F : 0.0F));
         float size = (float) flash.size();
         float scale = size / 2.0F * partialTick * 1.5F;
         poseStack.scale(scale, scale, 1.0F);
@@ -238,7 +238,7 @@ public final class GunRenderer {
             .setColor(-1)
             .setUv(u, v)
             .setOverlay(OverlayTexture.NO_OVERLAY)
-            .setLight(LightTexture.FULL_BRIGHT)
+            .setLight(LightCoordsUtil.FULL_BRIGHT)
             .setNormal(pose, 0.0F, 0.0F, 1.0F);
     }
 
@@ -249,14 +249,14 @@ public final class GunRenderer {
         if (flashing) {
             block += 3;
         }
-        return LightTexture.pack(Math.min(block, 15), player.level().getBrightness(LightLayer.SKY, eye));
+        return LightCoordsUtil.pack(Math.min(block, 15), player.level().getBrightness(LightLayer.SKY, eye));
     }
 
     // The player's own arms in their skin, placed on the gun's arm bones.
     private static void drawArms(GunFrame frame, PoseStack poseStack, SubmitNodeCollector collector, int light) {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
-        AvatarRenderer<AbstractClientPlayer> renderer = mc.getEntityRenderDispatcher().getPlayerRenderer(player);
+        AvatarRenderer<AbstractClientPlayer> renderer = (AvatarRenderer<AbstractClientPlayer>) mc.getEntityRenderDispatcher().getRenderer(player);
         PlayerModel model = renderer.getModel();
         Identifier skin = player.getSkin().body().texturePath();
         drawArm(frame, poseStack, collector, light, skin, model.leftArm, model.leftSleeve, "left_arm", -0.25, player.isModelPartShown(PlayerModelPart.LEFT_SLEEVE));

@@ -122,7 +122,7 @@ public final class AimHandler {
     public boolean isAiming() {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
-        if (player == null || player.isSpectator() || mc.screen != null) {
+        if (player == null || player.isSpectator() || mc.gui.screen() != null) {
             return false;
         }
         ItemStack held = player.getMainHandItem();

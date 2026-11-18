@@ -74,7 +74,7 @@ public class RocketEntity extends ProjectileEntity {
         if (!(entity instanceof LivingEntity)) {
             return;
         }
-        if (entity.getType().is(GunTags.HEAVY) || entity.getType().is(GunTags.VERY_HEAVY)) {
+        if (entity.getType().builtInRegistryHolder().is(GunTags.HEAVY) || entity.getType().builtInRegistryHolder().is(GunTags.VERY_HEAVY)) {
             this.explode(level);
         } else if (this.tickCount <= 5 && this.getPassengers().isEmpty() && this.rocketRide) {
             entity.startRiding(this);

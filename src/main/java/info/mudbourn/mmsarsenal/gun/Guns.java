@@ -45,7 +45,7 @@ public final class Guns {
         GunEntities.register();
         GunItems.register();
         GunGameRules.register();
-        ResourceLoader.get(PackType.SERVER_DATA).registerReloader(GunManager.ID, new GunManager());
+        ResourceLoader.get(PackType.SERVER_DATA).registerReloadListener(GunManager.ID, new GunManager());
         registerPayloads();
         registerReceivers();
 
@@ -57,15 +57,15 @@ public final class Guns {
     }
 
     private static void registerPayloads() {
-        PayloadTypeRegistry.playC2S().register(ShootPayload.TYPE, ShootPayload.CODEC);
-        PayloadTypeRegistry.playC2S().register(GunActionPayload.TYPE, GunActionPayload.CODEC);
-        PayloadTypeRegistry.playC2S().register(GunFlagPayload.TYPE, GunFlagPayload.CODEC);
-        PayloadTypeRegistry.playS2C().register(GunsSyncPayload.TYPE, GunsSyncPayload.CODEC);
-        PayloadTypeRegistry.playS2C().register(BulletTrailPayload.TYPE, BulletTrailPayload.CODEC);
-        PayloadTypeRegistry.playS2C().register(GunSoundPayload.TYPE, GunSoundPayload.CODEC);
-        PayloadTypeRegistry.playS2C().register(ProjectileHitPayloads.Block.TYPE, ProjectileHitPayloads.Block.CODEC);
-        PayloadTypeRegistry.playS2C().register(ProjectileHitPayloads.Entity.TYPE, ProjectileHitPayloads.Entity.CODEC);
-        PayloadTypeRegistry.playS2C().register(ProjectileHitPayloads.Remove.TYPE, ProjectileHitPayloads.Remove.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ShootPayload.TYPE, ShootPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(GunActionPayload.TYPE, GunActionPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(GunFlagPayload.TYPE, GunFlagPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(GunsSyncPayload.TYPE, GunsSyncPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(BulletTrailPayload.TYPE, BulletTrailPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(GunSoundPayload.TYPE, GunSoundPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(ProjectileHitPayloads.Block.TYPE, ProjectileHitPayloads.Block.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(ProjectileHitPayloads.Entity.TYPE, ProjectileHitPayloads.Entity.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(ProjectileHitPayloads.Remove.TYPE, ProjectileHitPayloads.Remove.CODEC);
     }
 
     private static void registerReceivers() {

@@ -44,8 +44,8 @@ public abstract class ItemInHandLayerMixin {
         ItemInHandLayer<?, ?> layer = (ItemInHandLayer<?, ?>) (Object) this;
         poseStack.pushPose();
         ((ArmedModel<ArmedEntityRenderState>) layer.getParentModel()).translateToHand(state, arm, poseStack);
-        poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
-        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
+        poseStack.rotate(Axis.XP.rotationDegrees(-90.0F));
+        poseStack.rotate(Axis.YP.rotationDegrees(180.0F));
         poseStack.translate((arm == HumanoidArm.LEFT ? -1 : 1) / 16.0F, 0.125F, -0.625F);
         hold.pose().applyHeldItem(poseStack, hold.pitch(), hold.aim(), hold.rightHanded());
         itemState.submit(poseStack, collector, light, OverlayTexture.NO_OVERLAY, state.outlineColor);

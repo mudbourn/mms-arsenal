@@ -3,16 +3,16 @@ package info.mudbourn.mmsarsenal.client.gun;
 import info.mudbourn.mmsarsenal.gun.GunParticles;
 import java.util.ArrayList;
 import java.util.List;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ExplodeParticle;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.renderer.state.QuadParticleRenderState;
+import net.minecraft.client.renderer.state.level.QuadParticleRenderState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,7 +31,7 @@ public final class GunParticleClient {
     }
 
     public static void register() {
-        ParticleFactoryRegistry registry = ParticleFactoryRegistry.getInstance();
+        ParticleProviderRegistry registry = ParticleProviderRegistry.getInstance();
         registry.register(GunParticles.CASING, sprites -> simple(sprites, Casing::new));
         registry.register(GunParticles.SPECTRE_CASING, sprites -> simple(sprites, Casing::new));
         registry.register(GunParticles.SCRAP, sprites -> simple(sprites, Scrap::new));
@@ -67,7 +67,7 @@ public final class GunParticleClient {
         if (state.isAir()) {
             return;
         }
-        TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getBlockModelShaper().getParticleIcon(state);
+        TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getBlockStateModelSet().getParticleMaterial(state).sprite();
         Minecraft.getInstance().particleEngine.add(new BulletHole(level, x, y, z, face, pos, sprite));
     }
 
@@ -153,8 +153,8 @@ public final class GunParticleClient {
         }
 
         @Override
-        public int getLightColor(float partialTick) {
-            return 240 | (super.getLightColor(partialTick) >> 16 & 0xFF) << 16;
+        protected int getLightCoords(float partialTick) {
+            return 240 | (super.getLightCoords(partialTick) >> 16 & 0xFF) << 16;
         }
 
         @Override
@@ -188,8 +188,8 @@ public final class GunParticleClient {
         }
 
         @Override
-        public int getLightColor(float partialTick) {
-            return 240 | (super.getLightColor(partialTick) >> 16 & 0xFF) << 16;
+        protected int getLightCoords(float partialTick) {
+            return 240 | (super.getLightCoords(partialTick) >> 16 & 0xFF) << 16;
         }
 
         @Override
@@ -234,7 +234,7 @@ public final class GunParticleClient {
         }
 
         @Override
-        public int getLightColor(float partialTick) {
+        protected int getLightCoords(float partialTick) {
             return 240;
         }
 
@@ -297,7 +297,7 @@ public final class GunParticleClient {
         }
 
         @Override
-        public int getLightColor(float partialTick) {
+        protected int getLightCoords(float partialTick) {
             return 240;
         }
     }
@@ -312,7 +312,7 @@ public final class GunParticleClient {
         }
 
         @Override
-        public int getLightColor(float partialTick) {
+        protected int getLightCoords(float partialTick) {
             return 240;
         }
     }
@@ -342,9 +342,9 @@ public final class GunParticleClient {
         }
 
         @Override
-        public int getLightColor(float partialTick) {
+        protected int getLightCoords(float partialTick) {
             float progress = Mth.clamp((this.age + partialTick) / this.lifetime, 0.0F, 1.0F);
-            int light = super.getLightColor(partialTick);
+            int light = super.getLightCoords(partialTick);
             int block = Math.max(240, (light & 0xFF) - (int) (progress * 15.0F * 16.0F));
             return block | (light >> 16 & 0xFF) << 16;
         }
@@ -420,7 +420,7 @@ public final class GunParticleClient {
         // Whether steady puffs hide the centre and edges of this puff's footprint from the camera, so fading it opens no hole.
         private boolean covered() {
             LIVE.removeIf(cloud -> !cloud.isAlive() || cloud.level != this.level);
-            Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
+            Camera camera = Minecraft.getInstance().gameRenderer.mainCamera();
             Vec3 eye = camera.position();
             Vec3 left = new Vec3(camera.leftVector()).scale(this.quadSize * FOOTPRINT);
             Vec3 up = new Vec3(camera.upVector()).scale(this.quadSize * FOOTPRINT);
@@ -478,7 +478,8 @@ public final class GunParticleClient {
             this.gravity = 0.0F;
             this.quadSize = 0.05F;
             BlockState state = level.getBlockState(pos);
-            int color = state.is(Blocks.GRASS_BLOCK) ? Integer.MAX_VALUE : Minecraft.getInstance().getBlockColors().getColor(state, level, pos, 0);
+            BlockTintSource tint = Minecraft.getInstance().getBlockColors().getTintSource(state, 0);
+            int color = state.is(Blocks.GRASS_BLOCK) ? Integer.MAX_VALUE : tint == null ? -1 : tint.colorAsTerrainParticle(state, level, pos);
             this.rCol = (color >> 16 & 0xFF) / 255.0F / 3.0F;
             this.gCol = (color >> 8 & 0xFF) / 255.0F / 3.0F;
             this.bCol = (color & 0xFF) / 255.0F / 3.0F;
@@ -487,7 +488,7 @@ public final class GunParticleClient {
 
         @Override
         protected Layer getLayer() {
-            return Layer.TERRAIN;
+            return Layer.TRANSLUCENT_TERRAIN;
         }
 
         @Override

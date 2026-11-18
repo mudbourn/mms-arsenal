@@ -10,13 +10,15 @@ import info.mudbourn.mmsarsenal.gun.ReloadType;
 import java.util.List;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 
 // The gun HUD: the long-scope overlay, the hold, power and overheat timers, and the ammo counter.
 public final class GunHud {
@@ -32,7 +34,7 @@ public final class GunHud {
     }
 
     // The black-edged long scope over the screen while aiming a scoped gun in first person.
-    public static void renderScope(GuiGraphics graphics, DeltaTracker delta) {
+    public static void renderScope(GuiGraphicsExtractor graphics, DeltaTracker delta) {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
         if (player == null) {
@@ -64,7 +66,7 @@ public final class GunHud {
     }
 
     // The timers under the crosshair and the ammo counter in the corner.
-    public static void renderHud(GuiGraphics graphics, DeltaTracker delta) {
+    public static void renderHud(GuiGraphicsExtractor graphics, DeltaTracker delta) {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
         if (player == null) {
@@ -96,25 +98,25 @@ public final class GunHud {
             : GunAmmo.findAll(player, gun.projectile().item());
         int startX = (int) (graphics.guiWidth() * 0.95 - 120.0);
         int startY = graphics.guiHeight() - 65;
-        int color = 0xFF000000 | held.getOrDefault(DataComponents.RARITY, net.minecraft.world.item.Rarity.COMMON).color().getColor();
-        graphics.drawString(mc.font, held.getHoverName(), startX, startY - 10, color, true);
+        int color = 0xFF000000 | TextColor.fromLegacyFormat(held.getOrDefault(DataComponents.RARITY, Rarity.COMMON).color()).getValue();
+        graphics.text(mc.font, held.getHoverName(), startX, startY - 10, color, true);
         boolean reloading = GunState.isReloading(player);
         String ammoText = reloading && !player.isCrouching() ? "Reloading" : String.format("%03d", GunComponents.ammo(held));
         graphics.pose().pushMatrix();
         graphics.pose().translate(startX, startY);
         graphics.pose().scale(2.0F, 2.0F);
-        graphics.drawString(mc.font, ammoText, 0, 0, 0xFFFFFFFF, true);
+        graphics.text(mc.font, ammoText, 0, 0, 0xFFFFFFFF, true);
         graphics.pose().popMatrix();
         if (!reloading || player.isCrouching()) {
             int reserve = gun.reloads().reloadType() == ReloadType.SINGLE_ITEM
                 ? ammo.size() * gun.reloads().maxAmmo()
                 : GunAmmo.total(ammo);
             String reserveText = player.isCreative() || GunComponents.ignoresAmmo(held) ? "9999" : String.format("%04d", reserve);
-            graphics.drawString(mc.font, reserveText, startX + 38, startY, 0xFF878787, true);
+            graphics.text(mc.font, reserveText, startX + 38, startY, 0xFF878787, true);
         }
     }
 
-    private static void timer(GuiGraphics graphics, Identifier texture, int x, int y, float progress) {
+    private static void timer(GuiGraphicsExtractor graphics, Identifier texture, int x, int y, float progress) {
         graphics.blit(RenderPipelines.GUI_TEXTURED, texture, x, y, 0.0F, 0.0F, 64, 6, 64, 12);
         graphics.blit(RenderPipelines.GUI_TEXTURED, texture, x, y, 0.0F, 6.0F, (int) (64.0F * progress), 6, 64, 12);
     }

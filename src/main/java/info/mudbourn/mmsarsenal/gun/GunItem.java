@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -94,7 +95,7 @@ public class GunItem extends Item {
     @Override
     public int getBarColor(ItemStack stack) {
         if (stack.getDamageValue() >= stack.getMaxDamage() / 1.5) {
-            return ChatFormatting.RED.getColor();
+            return TextColor.RED.getValue();
         }
         float maxDamage = stack.getMaxDamage();
         float f = Math.max(0.0F, (maxDamage - stack.getDamageValue()) / maxDamage);

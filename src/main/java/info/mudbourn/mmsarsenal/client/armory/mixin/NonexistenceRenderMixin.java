@@ -14,8 +14,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class NonexistenceRenderMixin {
 
     @Inject(method = "shouldRender", at = @At("HEAD"), cancellable = true)
-    private <E extends Entity> void mmsCombat$hideNonexistent(E entity, Frustum frustum, double x, double y, double z,
-                                                            CallbackInfoReturnable<Boolean> cir) {
+    private <E extends Entity> void mmsCombat$hideNonexistent(
+        E entity,
+        Frustum frustum,
+        double x,
+        double y,
+        double z,
+        float partialTick,
+        CallbackInfoReturnable<Boolean> cir
+    ) {
         if (NonexistenceClientState.isHidden(entity)) {
             cir.setReturnValue(false);
         }

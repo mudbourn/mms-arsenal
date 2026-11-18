@@ -34,6 +34,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import org.joml.Matrix4fc;
 import org.joml.Vector3fc;
 
 // The mms_arsenal:gun item model: a gun's Bedrock geo, animated in the local player's first-person hand and idle everywhere else.
@@ -62,7 +63,7 @@ public final class GunItemModel implements ItemModel {
         }
 
         @Override
-        public ItemModel bake(ItemModel.BakingContext context) {
+        public ItemModel bake(ItemModel.BakingContext context, Matrix4fc transformation) {
             ModelBaker baker = context.blockModelBaker();
             ResolvedModel resolved = baker.getModel(this.base);
             ModelRenderProperties properties = ModelRenderProperties.fromResolvedModel(baker, resolved, resolved.getTopTextureSlots());
@@ -73,7 +74,7 @@ public final class GunItemModel implements ItemModel {
     private static final SpecialModelRenderer<GunFrame> RENDERER = new SpecialModelRenderer<>() {
 
         @Override
-        public void submit(GunFrame frame, ItemDisplayContext context, PoseStack poseStack, SubmitNodeCollector collector, int light, int overlay, boolean glint, int outline) {
+        public void submit(GunFrame frame, PoseStack poseStack, SubmitNodeCollector collector, int light, int overlay, boolean glint, int outline) {
             if (frame != null) {
                 GunRenderer.submit(frame, poseStack, collector, light, overlay);
             }
@@ -117,7 +118,7 @@ public final class GunItemModel implements ItemModel {
             ? GunAnimationDriver.get().pose(player, stack, gunItem, this.source.animations(), nowTicks)
             : GunAnimationDriver.idlePose(this.source.animations(), nowTicks);
         long ticks = level != null ? level.getGameTime() : 0L;
-        RenderType renderType = RenderTypes.entityCutoutNoCull(this.source.texture().at(ticks));
+        RenderType renderType = RenderTypes.entityCutout(this.source.texture().at(ticks));
         Gun gun = gunItem.getGun(true);
         GunFrame frame = new GunFrame(
             model,

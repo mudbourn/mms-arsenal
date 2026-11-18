@@ -103,9 +103,9 @@ public abstract class GunPose {
             float rx = value(target.idle().itemRotation().x(), target.aiming().itemRotation().x(), this.forward.idle().itemRotation().x(), this.forward.aiming().itemRotation().x(), 0.0F, partial, zoom, 1.0F);
             float ry = value(target.idle().itemRotation().y(), target.aiming().itemRotation().y(), this.forward.idle().itemRotation().y(), this.forward.aiming().itemRotation().y(), 0.0F, partial, zoom, 1.0F);
             float rz = value(target.idle().itemRotation().z(), target.aiming().itemRotation().z(), this.forward.idle().itemRotation().z(), this.forward.aiming().itemRotation().z(), 0.0F, partial, zoom, 1.0F);
-            poseStack.mulPose(Axis.XP.rotationDegrees(rx));
-            poseStack.mulPose(Axis.YP.rotationDegrees(ry * side));
-            poseStack.mulPose(Axis.ZP.rotationDegrees(rz * side));
+            poseStack.rotate(Axis.XP.rotationDegrees(rx));
+            poseStack.rotate(Axis.YP.rotationDegrees(ry * side));
+            poseStack.rotate(Axis.ZP.rotationDegrees(rz * side));
         }
 
         private static void applyLimb(Limb targetIdle, Limb targetAiming, Limb idle, Limb aiming, ModelPart part, float partial, float zoom, float side, boolean crouching) {

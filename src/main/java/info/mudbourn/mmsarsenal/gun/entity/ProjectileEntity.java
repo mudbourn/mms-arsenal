@@ -46,7 +46,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.monster.Enderman;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -319,7 +319,7 @@ public class ProjectileEntity extends Entity {
             return;
         }
         boolean veryHeavyRound = this.advantage().equals("very_heavy");
-        if (living.getType().is(GunTags.VERY_HEAVY) || !(this.random.nextFloat() < 0.4F || veryHeavyRound)) {
+        if (living.getType().builtInRegistryHolder().is(GunTags.VERY_HEAVY) || !(this.random.nextFloat() < 0.4F || veryHeavyRound)) {
             return;
         }
         if (this.random.nextBoolean() || veryHeavyRound) {
@@ -379,7 +379,7 @@ public class ProjectileEntity extends Entity {
             this.discard();
         }
         if (this.shooter instanceof Player) {
-            entity.invulnerableTime = 0;
+            entity.setInvulnerableTime(0);
         }
     }
 
@@ -435,7 +435,7 @@ public class ProjectileEntity extends Entity {
     }
 
     private void dropFragileExtras(ServerLevel level, BlockPos pos, BlockState state) {
-        Vec3 center = pos.getCenter();
+        Vec3 center = Vec3.atCenterOf(pos);
         if (state.is(Blocks.MELON)) {
             this.drop(level, center, new ItemStack(Items.MELON_SLICE, this.random.nextInt(6) + 1));
             this.drop(level, center, new ItemStack(Items.MELON_SEEDS, this.random.nextInt(2) + 1));
@@ -512,13 +512,13 @@ public class ProjectileEntity extends Entity {
             return multiplier;
         }
         boolean heavyRound = advantage.equals("heavy") || advantage.equals("very_heavy");
-        if (entity.getType().is(GunTags.HEAVY)) {
+        if (entity.getType().builtInRegistryHolder().is(GunTags.HEAVY)) {
             multiplier = heavyRound ? 1.25F : 0.5F;
-        } else if (entity.getType().is(GunTags.VERY_HEAVY)) {
+        } else if (entity.getType().builtInRegistryHolder().is(GunTags.VERY_HEAVY)) {
             multiplier = advantage.equals("very_heavy") ? 1.0F : advantage.equals("heavy") ? 0.5F : 0.25F;
         }
         if (advantage.equals("undead")) {
-            if (isUndead(entity) || entity.getType().is(GunTags.GHOST)) {
+            if (isUndead(entity) || entity.getType().builtInRegistryHolder().is(GunTags.GHOST)) {
                 multiplier = 1.25F;
                 entity.igniteForSeconds(2.0F);
             } else {
@@ -533,7 +533,7 @@ public class ProjectileEntity extends Entity {
         if (entity instanceof LivingEntity living && living.isDeadOrDying()) {
             return true;
         }
-        if (entity.getType().is(GunTags.GHOST) && !this.advantage().equals("undead")) {
+        if (entity.getType().builtInRegistryHolder().is(GunTags.GHOST) && !this.advantage().equals("undead")) {
             return !(this instanceof SpectreProjectileEntity);
         }
         return this.shooter instanceof PathfinderMob mob
@@ -542,7 +542,7 @@ public class ProjectileEntity extends Entity {
     }
 
     protected static boolean isUndead(Entity entity) {
-        return entity.getType().is(EntityTypeTags.UNDEAD) || entity.getType().is(GunTags.UNDEAD);
+        return entity.getType().builtInRegistryHolder().is(EntityTypeTags.UNDEAD) || entity.getType().builtInRegistryHolder().is(GunTags.UNDEAD);
     }
 
     // Deals the round's damage, scaled by advantage and headshots, and reports the hit to the shooter.
@@ -551,7 +551,7 @@ public class ProjectileEntity extends Entity {
             return;
         }
         DamageSource source = new BulletDamageSource(level.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(BULLET), this, this.shooter);
-        if (entity instanceof EnderMan) {
+        if (entity instanceof Enderman) {
             source = level.damageSources().mobProjectile(this, this.shooter);
         }
         float damage = this.getDamage();
@@ -581,7 +581,7 @@ public class ProjectileEntity extends Entity {
         if (entity instanceof LivingEntity) {
             level.sendParticles(ParticleTypes.DAMAGE_INDICATOR, entity.getX(), entity.getY(), entity.getZ(), (int) damage / 2, entity.getBbWidth() / 2.0F, entity.getBbHeight() / 2.0F, entity.getBbWidth() / 2.0F, 0.1);
         }
-        if (this.shooter instanceof ServerPlayer player && entity instanceof LivingEntity && !(entity instanceof EnderMan)) {
+        if (this.shooter instanceof ServerPlayer player && entity instanceof LivingEntity && !(entity instanceof Enderman)) {
             ServerPlayNetworking.send(player, new ProjectileHitPayloads.Entity(hitVec, headshot ? 1 : 0, entity instanceof Player));
         }
     }

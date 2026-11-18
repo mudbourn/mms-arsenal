@@ -10,11 +10,13 @@ import net.minecraft.client.renderer.fog.environment.MobEffectFogEnvironment;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
+import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 // Thick grey fog while Smoked, so nothing outside a couple of blocks shows through a smoke grenade's cloud.
 public final class SmokeFogEnvironment extends MobEffectFogEnvironment {
 
-    private static final int SMOKE_COLOR = 0xFF8C8C8C;
+    private static final Vector3fc SMOKE_COLOR = new Vector3f(0.549F, 0.549F, 0.549F);
     // How far you can see at the heart of the smoke, in blocks.
     private static final float SIGHT = 2.5F;
 
@@ -48,7 +50,7 @@ public final class SmokeFogEnvironment extends MobEffectFogEnvironment {
     }
 
     @Override
-    public int getBaseColor(ClientLevel level, Camera camera, int renderDistance, float partialTick) {
+    public Vector3fc getBaseColor(ClientLevel level, Camera camera, int renderDistance, float partialTick) {
         return SMOKE_COLOR;
     }
 

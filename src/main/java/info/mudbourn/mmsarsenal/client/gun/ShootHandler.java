@@ -47,7 +47,7 @@ public final class ShootHandler {
     }
 
     private static boolean inGame(Minecraft mc) {
-        return mc.getOverlay() == null && mc.screen == null && mc.mouseHandler.isMouseGrabbed() && mc.isWindowActive();
+        return mc.gui.overlay() == null && mc.gui.screen() == null && mc.mouseHandler.isMouseGrabbed() && mc.isWindowActive();
     }
 
     // Start of tick: starts reloads on an empty trigger pull and reports holding the trigger.

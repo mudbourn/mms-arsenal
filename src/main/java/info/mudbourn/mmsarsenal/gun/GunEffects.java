@@ -11,7 +11,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityReference;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -169,8 +169,8 @@ public final class GunEffects {
     }
 
     private static boolean isHostile(LivingEntity entity) {
-        return (entity.getSoundSource() == SoundSource.HOSTILE || entity.getType() == EntityType.ZOMBIFIED_PIGLIN || entity.getType() == EntityType.PIGLIN)
-            && entity.getType() != EntityType.ENDERMAN;
+        return (entity.getSoundSource() == SoundSource.HOSTILE || entity.getType() == EntityTypes.ZOMBIFIED_PIGLIN || entity.getType() == EntityTypes.PIGLIN)
+            && entity.getType() != EntityTypes.ENDERMAN;
     }
 
     private static boolean isSkittish(LivingEntity entity) {
@@ -198,7 +198,7 @@ public final class GunEffects {
         mob.getNavigation().stop();
         Vec3 target = LandRandomPos.getPos(mob, 16, 7);
         if (target != null) {
-            mob.getNavigation().moveTo(target.x, target.y, target.z, mob.getType() == EntityType.VILLAGER ? 1.0 : 1.5);
+            mob.getNavigation().moveTo(target.x, target.y, target.z, mob.getType() == EntityTypes.VILLAGER ? 1.0 : 1.5);
         }
     }
 }

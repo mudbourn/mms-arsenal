@@ -38,8 +38,8 @@ public class MmsArsenal implements ModInitializer {
         ArmoryEffects.register();
         ArmoryItems.register();
         ArmoryEvents.register();
-        PayloadTypeRegistry.playS2C().register(NonexistencePayload.TYPE, NonexistencePayload.CODEC);
-        PayloadTypeRegistry.playC2S().register(DragonSlayerSweepPayload.TYPE, DragonSlayerSweepPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(NonexistencePayload.TYPE, NonexistencePayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(DragonSlayerSweepPayload.TYPE, DragonSlayerSweepPayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(DragonSlayerSweepPayload.TYPE, (payload, context) ->
             DragonSlayerItem.strike(context.player(), payload.targets()));
         Guns.register();

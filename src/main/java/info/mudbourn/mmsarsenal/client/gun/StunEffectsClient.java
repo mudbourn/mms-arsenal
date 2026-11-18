@@ -4,7 +4,7 @@ import info.mudbourn.mmsarsenal.gun.GunMobEffects;
 import info.mudbourn.mmsarsenal.gun.GunSounds;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -37,7 +37,7 @@ public final class StunEffectsClient {
     }
 
     // Fills the screen white while the local player is blinded.
-    public static void renderBlindness(GuiGraphics graphics, DeltaTracker delta) {
+    public static void renderBlindness(GuiGraphicsExtractor graphics, DeltaTracker delta) {
         LocalPlayer player = Minecraft.getInstance().player;
         MobEffectInstance effect = player == null ? null : player.getEffect(GunMobEffects.BLINDED);
         if (effect == null) {

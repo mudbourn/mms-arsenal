@@ -26,7 +26,7 @@ public abstract class AvatarRendererMixin {
             return;
         }
         Minecraft mc = Minecraft.getInstance();
-        float pitch = mc.getCameraEntity() == player && mc.screen != null ? 0.0F : Mth.lerp(partialTick, player.xRotO, player.getXRot()) / 90.0F;
+        float pitch = mc.getCameraEntity() == player && mc.gui.screen() != null ? 0.0F : Mth.lerp(partialTick, player.xRotO, player.getXRot()) / 90.0F;
         boolean rightHanded = player.getMainArm() == HumanoidArm.RIGHT;
         float aim = AimHandler.get().progress(player, partialTick);
         boolean resting = player == mc.player && state.walkAnimationPos == 0.0F;

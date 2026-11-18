@@ -38,9 +38,9 @@
   ],
   "accessWidener": "mms_arsenal.accesswidener",
   "depends": {
-    "fabricloader": ">=0.16.0",
-    "minecraft": "~1.21.11",
-    "java": ">=21",
+    "fabricloader": ">=0.20.1",
+    "minecraft": "~26.3",
+    "java": ">=25",
     "fabric-api": "*",
     "mms_render_common": "*",
     "mms_weapons": "*",

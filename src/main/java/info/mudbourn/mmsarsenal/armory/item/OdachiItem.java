@@ -50,7 +50,7 @@ public class OdachiItem extends DragonSlayerItem {
             Vec3 look = player.getLookAngle();
             Vec3 flat = new Vec3(look.x, 0.0, look.z).normalize().scale(LUNGE_SPEED);
             player.push(flat.x, LUNGE_LIFT, flat.z);
-            player.hurtMarked = true;
+            player.needsSync = true;
         }
         return released;
     }

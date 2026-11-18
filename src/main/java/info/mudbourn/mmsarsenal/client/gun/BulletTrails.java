@@ -7,7 +7,8 @@ import info.mudbourn.mmsarsenal.gun.net.BulletTrailPayload;
 import java.util.HashMap;
 import java.util.Map;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.particles.ParticleTypes;
@@ -58,13 +59,13 @@ public final class BulletTrails {
         this.trails.values().removeIf(trail -> trail.dead);
     }
 
-    public void render(PoseStack poseStack, MultiBufferSource buffers, Vec3 camera, float partialTick) {
+    public void render(PoseStack poseStack, SubmitNodeCollector collector, Vec3 camera, float partialTick) {
         if (this.trails.isEmpty()) {
             return;
         }
-        VertexConsumer consumer = buffers.getBuffer(RenderTypes.energySwirl(TEXTURE, 0.0F, 0.15625F));
+        RenderType renderType = RenderTypes.energySwirl(TEXTURE, 0.0F, 0.15625F);
         for (Trail trail : this.trails.values()) {
-            trail.render(poseStack, consumer, camera, partialTick);
+            trail.render(poseStack, collector, renderType, camera, partialTick);
         }
     }
 
@@ -116,7 +117,7 @@ public final class BulletTrails {
             }
         }
 
-        void render(PoseStack poseStack, VertexConsumer consumer, Vec3 camera, float partialTick) {
+        void render(PoseStack poseStack, SubmitNodeCollector collector, RenderType renderType, Vec3 camera, float partialTick) {
             if (this.dead) {
                 return;
             }
@@ -126,31 +127,32 @@ public final class BulletTrails {
                 this.position.y + this.motion.y * partialTick - camera.y,
                 this.position.z + this.motion.z * partialTick - camera.z
             );
-            poseStack.mulPose(Axis.YP.rotationDegrees(this.yaw - 90.0F));
-            poseStack.mulPose(Axis.ZP.rotationDegrees(this.pitch));
-            poseStack.mulPose(Axis.XP.rotationDegrees(45.0F));
+            poseStack.rotate(Axis.YP.rotationDegrees(this.yaw - 90.0F));
+            poseStack.rotate(Axis.ZP.rotationDegrees(this.pitch));
+            poseStack.rotate(Axis.XP.rotationDegrees(45.0F));
             poseStack.scale(0.05625F, 0.05625F, 0.05625F);
             poseStack.translate(-4.0F, 0.0F, 0.0F);
             int size = Math.min((this.age + 1) * 30, 200);
             int red = this.color >> 16 & 0xFF;
             int green = this.color >> 8 & 0xFF;
             int blue = this.color & 0xFF;
-            PoseStack.Pose pose = poseStack.last();
-            vertex(consumer, pose, -1 - size, -1, -1, 0.0F, 0.15625F, -1, 0, 0, red, green, blue);
-            vertex(consumer, pose, -1 - size, -1, 1, 0.15625F, 0.15625F, -1, 0, 0, red, green, blue);
-            vertex(consumer, pose, -1 - size, 1, 1, 0.15625F, 0.3125F, -1, 0, 0, red, green, blue);
-            vertex(consumer, pose, -1 - size, 1, -1, 0.0F, 0.3125F, -1, 0, 0, red, green, blue);
-            vertex(consumer, pose, 1, 1, -1, 0.0F, 0.15625F, 1, 0, 0, red, green, blue);
-            vertex(consumer, pose, 1, 1, 1, 0.15625F, 0.15625F, 1, 0, 0, red, green, blue);
-            vertex(consumer, pose, 1, -1, 1, 0.15625F, 0.3125F, 1, 0, 0, red, green, blue);
-            vertex(consumer, pose, 1, -1, -1, 0.0F, 0.3125F, 1, 0, 0, red, green, blue);
-            for (int side = 0; side < 4; side++) {
-                poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
-                vertex(consumer, pose, -1 - size, -1, 1, 0.0F, 0.0F, 0, 1, 0, red, green, blue);
-                vertex(consumer, pose, 1, -1, 1, 0.5F, 0.0F, 0, 1, 0, red, green, blue);
-                vertex(consumer, pose, 1, 1, 1, 0.5F, 0.15625F, 0, 1, 0, red, green, blue);
-                vertex(consumer, pose, -1 - size, 1, 1, 0.0F, 0.15625F, 0, 1, 0, red, green, blue);
-            }
+            collector.submitCustomGeometry(poseStack, renderType, (pose, consumer) -> {
+                vertex(consumer, pose, -1 - size, -1, -1, 0.0F, 0.15625F, -1, 0, 0, red, green, blue);
+                vertex(consumer, pose, -1 - size, -1, 1, 0.15625F, 0.15625F, -1, 0, 0, red, green, blue);
+                vertex(consumer, pose, -1 - size, 1, 1, 0.15625F, 0.3125F, -1, 0, 0, red, green, blue);
+                vertex(consumer, pose, -1 - size, 1, -1, 0.0F, 0.3125F, -1, 0, 0, red, green, blue);
+                vertex(consumer, pose, 1, 1, -1, 0.0F, 0.15625F, 1, 0, 0, red, green, blue);
+                vertex(consumer, pose, 1, 1, 1, 0.15625F, 0.15625F, 1, 0, 0, red, green, blue);
+                vertex(consumer, pose, 1, -1, 1, 0.15625F, 0.3125F, 1, 0, 0, red, green, blue);
+                vertex(consumer, pose, 1, -1, -1, 0.0F, 0.3125F, 1, 0, 0, red, green, blue);
+                for (int side = 0; side < 4; side++) {
+                    pose.rotate(Axis.XP.rotationDegrees(90.0F));
+                    vertex(consumer, pose, -1 - size, -1, 1, 0.0F, 0.0F, 0, 1, 0, red, green, blue);
+                    vertex(consumer, pose, 1, -1, 1, 0.5F, 0.0F, 0, 1, 0, red, green, blue);
+                    vertex(consumer, pose, 1, 1, 1, 0.5F, 0.15625F, 0, 1, 0, red, green, blue);
+                    vertex(consumer, pose, -1 - size, 1, 1, 0.0F, 0.15625F, 0, 1, 0, red, green, blue);
+                }
+            });
             poseStack.popPose();
         }
 

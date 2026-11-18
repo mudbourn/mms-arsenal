@@ -1,7 +1,7 @@
 {
   "required": false,
   "package": "info.mudbourn.mmsarsenal.client.gun.compat",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "client": [
     "InspectAnimationsMixin"
   ],

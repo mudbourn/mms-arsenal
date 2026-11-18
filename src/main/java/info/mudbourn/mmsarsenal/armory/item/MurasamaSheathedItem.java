@@ -46,7 +46,7 @@ public class MurasamaSheathedItem extends Item {
         if (player.isShiftKeyDown()) {
             Vec3 push = player.getLookAngle().scale(DASH_FORCE).add(0.0, 0.2, 0.0);
             player.push(push.x, push.y, push.z);
-            player.hurtMarked = true;
+            player.needsSync = true;
         }
         return InteractionResult.SUCCESS;
     }

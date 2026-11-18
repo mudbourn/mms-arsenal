@@ -208,7 +208,7 @@ public class SmokeGrenadeEntity extends TimedThrowableEntity {
                 level.removeBlock(pos, false);
                 extinguished = true;
             } else if (CampfireBlock.isLitCampfire(state)) {
-                CampfireBlock.dowse(null, level, pos, state);
+                CampfireBlock.douse(null, level, pos, state);
                 level.setBlock(pos, state.setValue(CampfireBlock.LIT, false), 11);
                 extinguished = true;
             } else if (AbstractCandleBlock.isLit(state)) {

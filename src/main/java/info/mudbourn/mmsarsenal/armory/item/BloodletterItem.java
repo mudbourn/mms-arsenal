@@ -107,7 +107,7 @@ public class BloodletterItem extends ArmoryWeaponItem {
 
     @Override
     public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        target.invulnerableTime = 0;
+        target.setInvulnerableTime(0);
         if (isActive(stack)) {
             attacker.playSound(ArmorySounds.BLOODLETTER_HIT, 1.0F, 1.0F);
             settle(stack, attacker.level().getGameTime());

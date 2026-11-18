@@ -4,6 +4,7 @@ import info.mudbourn.mmsarsenal.armory.ArmoryComponents;
 import info.mudbourn.mmsarsenal.armory.ArmoryItems;
 import info.mudbourn.mmsarsenal.armory.ArmorySounds;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -29,7 +30,7 @@ public class OriginiumCatalystItem extends Item {
 
         player.setItemInHand(hand, katana);
         if (!rest.isEmpty() && !player.addItem(rest)) {
-            player.drop(rest, false);
+            player.drop(rest, false, Prediction.SERVER_ONLY);
         }
         player.getCooldowns().addCooldown(stack, COOLDOWN);
         level.playSound(

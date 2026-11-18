@@ -15,7 +15,7 @@ import info.mudbourn.mmsarsenal.armory.item.OriginiumKatanaItem;
 import info.mudbourn.mmsarsenal.armory.item.PunisherItem;
 import info.mudbourn.mmscombat.dummy.TrainingDummy;
 import info.mudbourn.mmsarsenal.gun.GunItems;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -27,7 +27,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.Weapon;
 
 import java.util.List;
@@ -131,7 +130,7 @@ public final class ArmoryItems {
         Registry.register(
             BuiltInRegistries.CREATIVE_MODE_TAB,
             Identifier.fromNamespaceAndPath(MmsArsenal.MOD_ID, "armory"),
-            FabricItemGroup.builder()
+            FabricCreativeModeTab.builder()
                 .title(Component.translatable("itemGroup.mms_arsenal.armory"))
                 .icon(() -> new ItemStack(DRAGON_SLAYER))
                 .displayItems((parameters, output) -> {

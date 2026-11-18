@@ -9,7 +9,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
-import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -39,11 +39,11 @@ public final class GunClient {
 
         ClientTickEvents.START_CLIENT_TICK.register(GunClient::startTick);
         ClientTickEvents.END_CLIENT_TICK.register(GunClient::endTick);
-        WorldRenderEvents.START_MAIN.register(context -> startFrame(Minecraft.getInstance()));
-        WorldRenderEvents.AFTER_ENTITIES.register(context -> BulletTrails.get().render(
-            context.matrices(),
-            context.consumers(),
-            Minecraft.getInstance().gameRenderer.getMainCamera().position(),
+        LevelRenderEvents.START_MAIN.register(context -> startFrame(Minecraft.getInstance()));
+        LevelRenderEvents.COLLECT_SUBMITS.register(context -> BulletTrails.get().render(
+            context.poseStack(),
+            context.submitNodeCollector(),
+            context.levelState().cameraRenderState.pos,
             Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true)
         ));
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> BulletTrails.get().clear());

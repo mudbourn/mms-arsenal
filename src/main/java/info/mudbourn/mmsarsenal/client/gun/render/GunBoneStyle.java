@@ -2,7 +2,7 @@ package info.mudbourn.mmsarsenal.client.gun.render;
 
 import info.mudbourn.mmsrendercommon.client.geo.GeoModel;
 import java.util.Set;
-import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.util.LightCoordsUtil;
 
 // Which gun bones show: no attachment parts, arm stand-ins hidden but their children kept, sights swapped for a scope, rounds by ammo left, and glowing parts lit.
 public final class GunBoneStyle implements GeoModel.BoneStyle {
@@ -63,6 +63,6 @@ public final class GunBoneStyle implements GeoModel.BoneStyle {
 
     @Override
     public int light(String bone, int light) {
-        return bone.startsWith("glow") ? LightTexture.FULL_BRIGHT : light;
+        return bone.startsWith("glow") ? LightCoordsUtil.FULL_BRIGHT : light;
     }
 }

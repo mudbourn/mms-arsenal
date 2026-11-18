@@ -26,7 +26,7 @@ public final class GunNetwork {
     }
 
     public static void sendTrackingChunk(ServerLevel level, BlockPos pos, CustomPacketPayload payload) {
-        for (ServerPlayer player : PlayerLookup.tracking(level, new ChunkPos(pos))) {
+        for (ServerPlayer player : PlayerLookup.tracking(level, ChunkPos.containing(pos))) {
             ServerPlayNetworking.send(player, payload);
         }
     }
