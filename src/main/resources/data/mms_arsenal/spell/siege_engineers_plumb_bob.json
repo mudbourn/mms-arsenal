@@ -1,0 +1,51 @@
+{
+  "school": "spell_power:physical_melee",
+  "range": 3.0,
+  "tier": 7,
+  "tooltip": {
+    "show_header": false,
+    "name": {
+      "show_in_compact": false,
+      "show_in_details": false
+    },
+    "description": {
+      "color": "dark_green"
+    }
+  },
+  "type": "PASSIVE",
+  "passive": {
+    "triggers": [
+      {
+        "type": "SHIELD_BLOCK",
+        "target_override": "CASTER"
+      }
+    ]
+  },
+  "target": {
+    "type": "AREA",
+    "area": {}
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "VELOCITY",
+        "min_power": 1.0,
+        "velocity": {
+          "frame": "ORIGIN",
+          "push": {
+            "x": 0.0,
+            "y": 0.3,
+            "z": 0.9
+          },
+          "power_coefficient": 1.0,
+          "intent": "HARMFUL"
+        }
+      }
+    }
+  ],
+  "cost": {
+    "cooldown": {
+      "duration": 25.0
+    }
+  }
+}

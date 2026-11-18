@@ -1,0 +1,26 @@
+{
+  "replace": false,
+  "values": [
+    "mms_arsenal:scaphanders_brass_valve",
+    "mms_arsenal:highlanders_clan_brooch",
+    "mms_arsenal:penitents_rosary",
+    "mms_arsenal:snow_tigers_fang",
+    "mms_arsenal:wald_knights_oak_medallion",
+    "mms_arsenal:gabriels_halo",
+    "mms_arsenal:griffiths_hawk_pendant",
+    "mms_arsenal:centurions_phalera",
+    "mms_arsenal:holy_reliquary",
+    "mms_arsenal:pharaohs_ankh",
+    "mms_arsenal:dragonslayers_scale",
+    "mms_arsenal:heros_laurel",
+    "mms_arsenal:dark_cover_veil_pin",
+    "mms_arsenal:forgotten_trace_locket",
+    "mms_arsenal:hunters_cameo",
+    "mms_arsenal:crucible_knights_seal",
+    "mms_arsenal:scarlet_rot_blossom",
+    "mms_arsenal:old_knights_gorget",
+    "mms_arsenal:silver_knights_moon_medal",
+    "mms_arsenal:feasters_tooth",
+    "mms_arsenal:dawncrest_sun_medal"
+  ]
+}

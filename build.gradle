@@ -32,9 +32,19 @@ dependencies {
     implementation "info.mudbourn:mms-render-common:${project.render_common_version}"
     implementation "info.mudbourn:mms-weapons:${project.weapons_version}"
     implementation "info.mudbourn:mms-combat:${project.combat_version}"
-    compileOnly files("libs/26.3/bettercombat-fabric-3.2.2+26.3.jar")
+    compileOnly files(
+        "libs/26.3/bettercombat-fabric-3.2.2+26.3.jar",
+        "libs/26.3/spell_engine-fabric-1.10.9+26.3.jar",
+        "libs/26.3/spell_power-fabric-1.6.2+26.3.jar",
+        "libs/26.3/trinkets-4.2.1+26.3.jar",
+        "libs/26.3/ranged_weapon_api-fabric-4.0.0+26.3.jar"
+    )
     runtimeMods files(
         "libs/26.3/bettercombat-fabric-3.2.2+26.3.jar",
+        "libs/26.3/spell_engine-fabric-1.10.9+26.3.jar",
+        "libs/26.3/spell_power-fabric-1.6.2+26.3.jar",
+        "libs/26.3/trinkets-4.2.1+26.3.jar",
+        "libs/26.3/ranged_weapon_api-fabric-4.0.0+26.3.jar",
         "libs/26.3/cloth-config-fabric-26.3.159.jar",
         "libs/26.3/PlayerAnimationLibMerged-1.2.9+mc.26.3.jar"
     )
@@ -88,7 +98,7 @@ jar {
 // Third-party mods mms-weapons and mms-combat require, taken from mms-combat's own dev run minus the ones listed in runtimeMods.
 def combatRunMods = fileTree("${providers.gradleProperty('mmsSiblingRoot').getOrElse('..')}/mms-combat/run/mods") {
     include "*.jar"
-    exclude "bettercombat-*", "PlayerAnimationLib*", "cloth-config-*"
+    exclude "bettercombat-*", "PlayerAnimationLib*", "cloth-config-*", "trinkets-*"
 }
 
 // Copies the required runtime mods into the dev run's mods folder.

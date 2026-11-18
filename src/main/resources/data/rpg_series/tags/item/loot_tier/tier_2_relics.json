@@ -1,0 +1,133 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "mms_arsenal:corsairs_compass",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:executioners_black_hood",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:gamekeepers_whistle",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:highlanders_clan_brooch",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:mercenarys_purse",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:netherborn_pirates_doubloon",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:penitents_rosary",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:ratcatchers_bell",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:snow_tigers_fang",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:winged_cavalry_plume",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:bridgets_yo_yo_charm",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:gabriels_halo",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:griffiths_hawk_pendant",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:mikkelas_sewing_thimble",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:holy_reliquary",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:o_yoroi_kabuto_crest",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:quetzalcoatls_plume",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:eclipse_legion_standard",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:heros_laurel",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:thiefs_lockpick",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:white_knight_chess_piece",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:sunset_wing_feather",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:dark_cover_veil_pin",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:golden_execution_axe_charm",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:redeemers_censer",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:gilded_hunt_trophy",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:crucible_knights_seal",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:ronins_tsuba",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:silver_knights_moon_medal",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:feasters_tooth",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:grave_sentinels_candle",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:dawncrest_sun_medal",
+      "required": false
+    }
+  ]
+}

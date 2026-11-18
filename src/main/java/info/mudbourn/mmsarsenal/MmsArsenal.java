@@ -15,6 +15,7 @@ import info.mudbourn.mmsarsenal.gun.Guns;
 import info.mudbourn.mmsarsenal.gun.throwable.SmokeGrenadeEntity;
 import info.mudbourn.mmsarsenal.net.DragonSlayerSweepPayload;
 import info.mudbourn.mmsarsenal.net.NonexistencePayload;
+import info.mudbourn.mmsarsenal.relic.RelicItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -24,7 +25,7 @@ import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// Wires the Armory weapons and the guns.
+// Wires the Armory weapons, the guns and the relics.
 public class MmsArsenal implements ModInitializer {
     public static final String MOD_ID = "mms_arsenal";
     public static final Logger LOG = LoggerFactory.getLogger(MOD_ID);
@@ -43,6 +44,7 @@ public class MmsArsenal implements ModInitializer {
         ServerPlayNetworking.registerGlobalReceiver(DragonSlayerSweepPayload.TYPE, (payload, context) ->
             DragonSlayerItem.strike(context.player(), payload.targets()));
         Guns.register();
+        RelicItems.register();
         // The Training Dummy moved to mms-combat; keep old dummies loading and run Armory hit effects on it.
         BuiltInRegistries.ITEM.addAlias(id("training_dummy"), Identifier.fromNamespaceAndPath("mms_combat", "training_dummy"));
         TrainingDummy.addDamageHook(ArmoryEvents::onDamage);

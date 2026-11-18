@@ -1,0 +1,133 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "mms_arsenal:brets_lucky_coin",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:scaphanders_brass_valve",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:furnace_masters_ember",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:captains_signet",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:masquerade_mask",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:mountainmans_horn",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:norsian_knights_rune_ring",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:plague_doctors_censer",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:siege_engineers_plumb_bob",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:swamplanders_reed_charm",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:astolfos_hippogriff_feather",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:felixs_cat_bell",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:giselles_ribbon",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:nikos_lightbulb",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:anubiss_scale_weight",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:do_maru_lacing_cord",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:pharaohs_ankh",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:raijins_drum",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:dragonslayers_scale",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:golden_horn_idol",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:wanderers_star_chart",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:dark_lords_signet",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:fog_guard_lantern",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:spark_of_dawn_ember",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:forgotten_trace_locket",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:twinned_rings",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:hunters_cameo",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:evening_ghost_lantern",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:scarlet_rot_blossom",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:gladiators_chain",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:wind_worshippers_chime",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:lion_knights_spearhead",
+      "required": false
+    }
+  ]
+}

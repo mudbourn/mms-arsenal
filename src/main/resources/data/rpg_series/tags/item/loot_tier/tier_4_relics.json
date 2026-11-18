@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "mms_arsenal:gate_sentrys_key",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:centurions_phalera",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:iron_plate_rivet",
+      "required": false
+    }
+  ]
+}

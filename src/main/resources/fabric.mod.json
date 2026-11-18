@@ -45,6 +45,8 @@
     "mms_render_common": "*",
     "mms_weapons": "*",
     "mms_combat": "*",
-    "bettercombat": ">=3.1.0"
+    "bettercombat": ">=3.1.0",
+    "spell_engine": "*",
+    "trinkets_updated": "*"
   }
 }

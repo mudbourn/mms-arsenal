@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "mms_arsenal:axolotl_knights_gill_charm",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:wald_knights_oak_medallion",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:exalted_aurum_crown_ring",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:old_knights_gorget",
+      "required": false
+    }
+  ]
+}
