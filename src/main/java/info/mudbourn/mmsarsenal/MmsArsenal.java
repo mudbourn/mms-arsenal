@@ -45,9 +45,10 @@ public class MmsArsenal implements ModInitializer {
             DragonSlayerItem.strike(context.player(), payload.targets()));
         Guns.register();
         RelicItems.register();
-        // The Training Dummy moved to mms-combat; keep old dummies loading and run Armory hit effects on it.
-        BuiltInRegistries.ITEM.addAlias(id("training_dummy"), Identifier.fromNamespaceAndPath("mms_combat", "training_dummy"));
+        // Armory hit effects on the mms-combat Training Dummy.
         TrainingDummy.addDamageHook(ArmoryEvents::onDamage);
+        // Old Arsenal dummy id, aliased once TrainingDummy has registered its item.
+        BuiltInRegistries.ITEM.addAlias(id("training_dummy"), Identifier.fromNamespaceAndPath("mms_combat", "training_dummy"));
         // mms-weapons cannot see the dummy, so its focus weapons are fed dummy hits from here.
         TrainingDummy.addDamageHook((dummy, source, dealt) -> Focus.onDamage(source, dealt));
         // The Dragon Slayer and Odachi build the shared mms-weapons focus and spend it on their own attacks.
