@@ -4,12 +4,13 @@ import com.mojang.blaze3d.platform.InputConstants;
 import info.mudbourn.mmsarsenal.MmsArsenal;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.resources.Identifier;
 import net.minecraft.client.Minecraft;
 
 // Gun key bindings, and which vanilla buttons shoot and aim.
 public final class GunKeys {
 
-    private static final KeyMapping.Category CATEGORY = KeyMapping.Category.register(MmsArsenal.id("guns"));
+    private static final KeyMapping.Category CATEGORY = mmsCategory();
 
     public static final KeyMapping RELOAD = register("reload", InputConstants.KEY_R);
     public static final KeyMapping UNLOAD = register("unload", InputConstants.KEY_U);
@@ -36,5 +37,14 @@ public final class GunKeys {
             key,
             CATEGORY
         ));
+    }
+    // The shared MMS controls category. Every mms mod registers it, and the first one wins.
+    private static KeyMapping.Category mmsCategory() {
+        Identifier id = Identifier.fromNamespaceAndPath("mms", "main");
+        try {
+            return KeyMapping.Category.register(id);
+        } catch (IllegalArgumentException alreadyRegistered) {
+            return new KeyMapping.Category(id);
+        }
     }
 }
