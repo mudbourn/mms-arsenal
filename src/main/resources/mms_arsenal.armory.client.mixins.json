@@ -3,9 +3,10 @@
   "package": "info.mudbourn.mmsarsenal.client.armory.mixin",
   "compatibilityLevel": "JAVA_25",
   "client": [
-    "DragonSlayerDrawMixin",
-    "DragonSlayerPoseMixin",
-    "NonexistenceRenderMixin"
+    "NonexistenceRenderMixin",
+    "SpellHotbarUseKeyMixin",
+    "SpellKeyDefaultsMixin",
+    "SpellKeyFallbackMixin"
   ],
   "injectors": {
     "defaultRequire": 1

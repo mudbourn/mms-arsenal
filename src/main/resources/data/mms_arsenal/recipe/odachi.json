@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "  N",
+    " S ",
+    "W  "
+  ],
+  "key": {
+    "N": "minecraft:netherite_ingot",
+    "S": "weaponsexpanded:netherite_katana",
+    "W": "minecraft:red_wool"
+  },
+  "result": {
+    "id": "mms_arsenal:odachi",
+    "components": {
+      "mms_arsenal:handle_color": "red"
+    }
+  }
+}

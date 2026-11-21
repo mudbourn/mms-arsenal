@@ -2,10 +2,6 @@
   "replace": false,
   "values": [
     {
-      "id": "mms_arsenal:brets_lucky_coin",
-      "required": false
-    },
-    {
       "id": "mms_arsenal:scaphanders_brass_valve",
       "required": false
     },
@@ -58,10 +54,6 @@
       "required": false
     },
     {
-      "id": "mms_arsenal:anubiss_scale_weight",
-      "required": false
-    },
-    {
       "id": "mms_arsenal:do_maru_lacing_cord",
       "required": false
     },
@@ -75,10 +67,6 @@
     },
     {
       "id": "mms_arsenal:dragonslayers_scale",
-      "required": false
-    },
-    {
-      "id": "mms_arsenal:golden_horn_idol",
       "required": false
     },
     {
@@ -127,6 +115,10 @@
     },
     {
       "id": "mms_arsenal:lion_knights_spearhead",
+      "required": false
+    },
+    {
+      "id": "mms_arsenal:netherborn_pirates_doubloon",
       "required": false
     }
   ]

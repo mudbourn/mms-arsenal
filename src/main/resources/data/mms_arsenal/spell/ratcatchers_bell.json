@@ -16,27 +16,38 @@
   "passive": {
     "triggers": [
       {
-        "type": "MELEE_IMPACT"
+        "type": "MELEE_IMPACT",
+        "target_conditions": [
+          {
+            "health_percent_below": 0.2
+          }
+        ]
       }
     ]
-  },
-  "target": {
-    "type": "FROM_TRIGGER"
   },
   "impacts": [
     {
       "action": {
         "type": "STATUS_EFFECT",
         "status_effect": {
-          "effect_id": "minecraft:weakness",
-          "duration": 5.0
+          "effect_id": "minecraft:haste",
+          "duration": 8.0
+        }
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "minecraft:luck",
+          "duration": 8.0
         }
       }
     }
   ],
   "cost": {
     "cooldown": {
-      "duration": 25.0
+      "duration": 30.0
     }
   }
 }

@@ -31,7 +31,17 @@
         "type": "STATUS_EFFECT",
         "status_effect": {
           "effect_id": "minecraft:haste",
-          "duration": 8.0
+          "duration": 12.0,
+          "amplifier": 1
+        }
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "minecraft:luck",
+          "duration": 12.0
         }
       }
     }

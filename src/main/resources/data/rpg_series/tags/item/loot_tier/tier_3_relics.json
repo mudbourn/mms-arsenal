@@ -16,6 +16,10 @@
     {
       "id": "mms_arsenal:old_knights_gorget",
       "required": false
+    },
+    {
+      "id": "mms_arsenal:brets_lucky_coin",
+      "required": false
     }
   ]
 }

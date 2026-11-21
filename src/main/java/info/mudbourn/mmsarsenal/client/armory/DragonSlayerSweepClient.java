@@ -1,6 +1,7 @@
 package info.mudbourn.mmsarsenal.client.armory;
 
 import info.mudbourn.mmsarsenal.armory.item.DragonSlayerItem;
+import info.mudbourn.mmsarsenal.net.DragonSlayerReleasePayload;
 import info.mudbourn.mmsarsenal.net.DragonSlayerSweepPayload;
 import info.mudbourn.mmsweapons.focus.FocusSkill;
 import net.bettercombat.api.WeaponAttributes;
@@ -13,6 +14,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.List;
 
@@ -26,7 +28,8 @@ public final class DragonSlayerSweepClient {
     }
 
     public static void register() {
-        DragonSlayerItem.setLocalSweep(player -> {
+        ClientPlayNetworking.registerGlobalReceiver(DragonSlayerReleasePayload.TYPE, (payload, context) -> {
+            Player player = context.player();
             if (!(player.getMainHandItem().getItem() instanceof DragonSlayerItem slayer)) {
                 return;
             }

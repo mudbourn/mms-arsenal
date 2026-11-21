@@ -16,11 +16,12 @@
   "passive": {
     "triggers": [
       {
-        "type": "DAMAGE_TAKEN",
-        "target_override": "CASTER",
-        "damage": {
-          "damage_type": "#minecraft:is_fire"
-        }
+        "type": "MELEE_IMPACT",
+        "target_conditions": [
+          {
+            "health_percent_below": 0.2
+          }
+        ]
       }
     ]
   },
@@ -29,7 +30,7 @@
       "action": {
         "type": "STATUS_EFFECT",
         "status_effect": {
-          "effect_id": "minecraft:fire_resistance",
+          "effect_id": "minecraft:haste",
           "duration": 6.0
         }
       }
@@ -37,7 +38,7 @@
   ],
   "cost": {
     "cooldown": {
-      "duration": 40.0
+      "duration": 30.0
     }
   }
 }

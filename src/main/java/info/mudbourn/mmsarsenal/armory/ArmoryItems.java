@@ -14,6 +14,7 @@ import info.mudbourn.mmsarsenal.armory.item.OriginiumCatalystItem;
 import info.mudbourn.mmsarsenal.armory.item.OriginiumKatanaItem;
 import info.mudbourn.mmsarsenal.armory.item.PunisherItem;
 import info.mudbourn.mmscombat.dummy.TrainingDummy;
+import info.mudbourn.mmsweapons.spellengine.SpellEngineBarrage;
 import info.mudbourn.mmsarsenal.gun.GunItems;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.core.Registry;
@@ -28,6 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.Weapon;
+import net.spell_engine.api.spell.SpellDataComponents;
 
 import java.util.List;
 import java.util.function.Function;
@@ -38,39 +40,47 @@ public final class ArmoryItems {
     public static final Item DRAGON_SLAYER = register(
         "dragon_slayer",
         DragonSlayerItem::new,
-        weapon(2048).repairable(Items.NETHERITE_INGOT)
+        heavyWeapon(2048).repairable(Items.NETHERITE_INGOT)
+            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(ArmorySkills.DRAGON_SLAYER_SWEEP))
     );
     public static final Item BLOODLETTER = register(
         "bloodletter",
         BloodletterItem::new,
         weapon(1024).repairable(Items.NETHERITE_INGOT)
+            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(ArmorySkills.BLOODLETTER_INFUSE, SpellEngineBarrage.SPELL))
     );
     public static final Item CRUCIBLE = register(
         "crucible",
         CrucibleItem::new,
         epic()
             .enchantable(15)
+            .component(DataComponents.WEAPON, new Weapon(1, 5.0F))
             .component(ArmoryComponents.USAGES, CrucibleItem.MAX_ENERGY)
+            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(ArmorySkills.CRUCIBLE_DOUSE, SpellEngineBarrage.SPELL))
     );
     public static final Item CRUCIBLE_INACTIVE = register(
         "crucible_inactive",
         CrucibleInactiveItem::new,
         epic().overrideDescription("item.mms_arsenal.crucible")
+            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(ArmorySkills.CRUCIBLE_RELIGHT))
     );
     public static final Item EDGE_OF_EXISTENCE = register(
         "edge_of_existence",
         EdgeOfExistenceItem::new,
         weapon(1150).repairable(Items.NETHERITE_INGOT)
+            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(ArmorySkills.NON_EXISTENCE, SpellEngineBarrage.SPELL))
     );
     public static final Item MURASAMA = register(
         "murasama",
         MurasamaItem::new,
         weapon(1300).repairable(Items.ECHO_SHARD)
+            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(ArmorySkills.MURASAMA_SHEATHE, SpellEngineBarrage.SPELL))
     );
     public static final Item MURASAMA_SHEATHED = register(
         "murasama_sheathed",
         MurasamaSheathedItem::new,
         epic().overrideDescription("item.mms_arsenal.murasama")
+            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(ArmorySkills.MURASAMA_QUICKDRAW))
     );
     public static final Item GUN_SHEATH = register(
         "gun_sheath",
@@ -90,12 +100,14 @@ public final class ArmoryItems {
     public static final Item PUNISHER = register(
         "punisher",
         PunisherItem::new,
-        weapon(1800).repairable(Items.DIAMOND)
+        heavyWeapon(1800).repairable(Items.DIAMOND)
+            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(ArmorySkills.PUNISHER_IGNITE, SpellEngineBarrage.SPELL))
     );
     public static final Item ODACHI = register(
         "odachi",
         OdachiItem::new,
         weapon(2031).repairable(Items.NETHERITE_INGOT)
+            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(ArmorySkills.ODACHI_PIERCE, ArmorySkills.SWORDS_RACE))
     );
     public static final Item BLOOD_VESSEL_EMPTY = register(
         "blood_vessel_empty",
@@ -151,6 +163,10 @@ public final class ArmoryItems {
             .durability(durability)
             .enchantable(15)
             .component(DataComponents.WEAPON, new Weapon(1));
+    }
+
+    private static Item.Properties heavyWeapon(int durability) {
+        return weapon(durability).component(DataComponents.WEAPON, new Weapon(1, 5.0F));
     }
 
     private static Item register(String path, Function<Item.Properties, Item> factory, Item.Properties properties) {

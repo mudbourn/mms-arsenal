@@ -1,6 +1,7 @@
 package info.mudbourn.mmsarsenal.armory.item;
 
 import info.mudbourn.mmsarsenal.MmsArsenal;
+import info.mudbourn.mmsarsenal.armory.ArmoryClock;
 import info.mudbourn.mmsarsenal.armory.ArmoryComponents;
 import info.mudbourn.mmsarsenal.armory.ArmoryItems;
 import info.mudbourn.mmsarsenal.armory.ArmorySounds;
@@ -8,17 +9,15 @@ import info.mudbourn.mmsarsenal.armory.WeaponStats;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import info.mudbourn.mmsarsenal.armory.ArmoryClock;
 
 // Lit greatsword whose armor-piercing swings drain an energy reserve that refills while it rests.
 public class CrucibleItem extends ArmoryWeaponItem {
@@ -54,13 +53,10 @@ public class CrucibleItem extends ArmoryWeaponItem {
         return left;
     }
 
-    @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        ItemStack inactive = transmute(player.getItemInHand(hand), ArmoryItems.CRUCIBLE_INACTIVE);
-        player.setItemInHand(hand, inactive);
-        level.playSound(player, player.blockPosition(), ArmorySounds.CRUCIBLE_DEACTIVATE, SoundSource.PLAYERS, 1.0F, 1.0F);
-        player.getCooldowns().addCooldown(inactive, TOGGLE_COOLDOWN);
-        return InteractionResult.SUCCESS;
+    // Douses the blade back to the unlit Crucible.
+    public static void douse(ServerPlayer player, ItemStack stack) {
+        player.setItemInHand(InteractionHand.MAIN_HAND, transmute(stack, ArmoryItems.CRUCIBLE_INACTIVE));
+        player.level().playSound(null, player.blockPosition(), ArmorySounds.CRUCIBLE_DEACTIVATE, SoundSource.PLAYERS, 1.0F, 1.0F);
     }
 
     @Override

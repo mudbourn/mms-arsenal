@@ -4,6 +4,7 @@ import info.mudbourn.mmsarsenal.armory.ArmoryComponents;
 import info.mudbourn.mmsarsenal.armory.ArmoryEffects;
 import info.mudbourn.mmsarsenal.armory.ArmoryEvents;
 import info.mudbourn.mmsarsenal.armory.ArmoryItems;
+import info.mudbourn.mmsarsenal.armory.ArmorySkills;
 import info.mudbourn.mmsarsenal.armory.ArmorySounds;
 import info.mudbourn.mmsarsenal.armory.item.DragonSlayerItem;
 import info.mudbourn.mmscombat.dummy.TrainingDummy;
@@ -13,6 +14,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 import info.mudbourn.mmsarsenal.gun.Guns;
 import info.mudbourn.mmsarsenal.gun.throwable.SmokeGrenadeEntity;
+import info.mudbourn.mmsarsenal.net.DragonSlayerReleasePayload;
 import info.mudbourn.mmsarsenal.net.DragonSlayerSweepPayload;
 import info.mudbourn.mmsarsenal.net.NonexistencePayload;
 import info.mudbourn.mmsarsenal.relic.RelicItems;
@@ -39,7 +41,9 @@ public class MmsArsenal implements ModInitializer {
         ArmoryEffects.register();
         ArmoryItems.register();
         ArmoryEvents.register();
+        ArmorySkills.register();
         PayloadTypeRegistry.clientboundPlay().register(NonexistencePayload.TYPE, NonexistencePayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(DragonSlayerReleasePayload.TYPE, DragonSlayerReleasePayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(DragonSlayerSweepPayload.TYPE, DragonSlayerSweepPayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(DragonSlayerSweepPayload.TYPE, (payload, context) ->
             DragonSlayerItem.strike(context.player(), payload.targets()));

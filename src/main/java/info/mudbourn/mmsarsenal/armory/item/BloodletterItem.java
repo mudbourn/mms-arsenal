@@ -7,17 +7,15 @@ import info.mudbourn.mmsarsenal.armory.WeaponStats;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ARGB;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
-import net.minecraft.world.level.Level;
 
 import java.util.function.Consumer;
 
@@ -28,7 +26,6 @@ public class BloodletterItem extends ArmoryWeaponItem {
     private static final int BLOOD_PER_CYCLE = 10;
     private static final int BLOOD_PER_HIT = 10;
     private static final int FRAMES = 15;
-    private static final int TOGGLE_COOLDOWN = 60;
     private static final WeaponStats ACTIVE = new WeaponStats(8.0, 2.0, 1.0, 0.0);
 
     public BloodletterItem(Properties properties) {
@@ -78,31 +75,29 @@ public class BloodletterItem extends ArmoryWeaponItem {
         stack.remove(ArmoryComponents.ANIMATION_START);
     }
 
-    @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-        long now = level.getGameTime();
-        boolean activate = !isActive(stack);
-        if (activate && blood(stack, now) <= 0) {
-            return InteractionResult.PASS;
-        }
+    // Whether the power-up can be toggled: always off, and on only with blood stored.
+    public boolean skillReady(Player player, ItemStack stack) {
+        return isActive(stack) || blood(stack, player.level().getGameTime()) > 0;
+    }
 
+    // Toggles the blood power-up.
+    public void toggle(ServerPlayer player, ItemStack stack) {
+        long now = player.level().getGameTime();
+        boolean activate = !isActive(stack);
         if (activate) {
             stack.set(ArmoryComponents.ABILITY_TICK, 1);
             stack.set(ArmoryComponents.ANIMATION_START, now);
         } else {
             deactivate(stack, now);
         }
-        level.playSound(
-            player,
+        player.level().playSound(
+            null,
             player.blockPosition(),
             activate ? ArmorySounds.BLOODLETTER_ACTIVATE : ArmorySounds.BLOODLETTER_DEACTIVATE,
             SoundSource.PLAYERS,
             1.0F,
             1.0F
         );
-        player.getCooldowns().addCooldown(stack, TOGGLE_COOLDOWN);
-        return InteractionResult.SUCCESS;
     }
 
     @Override

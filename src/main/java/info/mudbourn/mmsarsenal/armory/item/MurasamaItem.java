@@ -5,9 +5,9 @@ import info.mudbourn.mmsarsenal.armory.ArmoryItems;
 import info.mudbourn.mmsarsenal.armory.ArmorySounds;
 import info.mudbourn.mmsarsenal.armory.WeaponStats;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -18,29 +18,26 @@ import net.minecraft.world.level.Level;
 public class MurasamaItem extends ArmoryWeaponItem {
 
     public static final int QUICKDRAW_TICKS = 20;
-    private static final int SHEATH_COOLDOWN = 40;
     private static final WeaponStats QUICKDRAW = new WeaponStats(12.0, 3.6, 1.4, 0.0);
 
     public MurasamaItem(Properties properties) {
         super(new WeaponStats(6.0, -3.4, -2.6, 1.0), properties);
     }
 
-    @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        if (!player.getOffhandItem().is(ArmoryItems.GUN_SHEATH)) {
-            return InteractionResult.PASS;
-        }
-        ItemStack sheathed = transmute(player.getItemInHand(hand), ArmoryItems.MURASAMA_SHEATHED);
+    // Whether the blade can be sheathed: a Gun Sheath in the off hand.
+    public static boolean skillReady(Player player, ItemStack stack) {
+        return player.getOffhandItem().is(ArmoryItems.GUN_SHEATH);
+    }
+
+    // Sheathes the blade into the off-hand Gun Sheath.
+    public static void sheathe(ServerPlayer player, ItemStack stack) {
+        ItemStack sheathed = transmute(stack, ArmoryItems.MURASAMA_SHEATHED);
         sheathed.remove(ArmoryComponents.ABILITY_TICK);
         sheathed.remove(ArmoryComponents.ANIMATION_START);
         player.getOffhandItem().shrink(1);
-        player.setItemInHand(hand, sheathed);
-        if (!player.isCreative()) {
-            player.getCooldowns().addCooldown(sheathed, SHEATH_COOLDOWN);
-        }
-        level.playSound(player, player.blockPosition(), ArmorySounds.MURASAMA_SHEATH, SoundSource.PLAYERS, 0.5F, 1.0F);
-        level.playSound(player, player.blockPosition(), ArmorySounds.MURASAMA_INSERT, SoundSource.PLAYERS, 0.5F, 1.0F);
-        return InteractionResult.SUCCESS;
+        player.setItemInHand(InteractionHand.MAIN_HAND, sheathed);
+        player.level().playSound(null, player.blockPosition(), ArmorySounds.MURASAMA_SHEATH, SoundSource.PLAYERS, 0.5F, 1.0F);
+        player.level().playSound(null, player.blockPosition(), ArmorySounds.MURASAMA_INSERT, SoundSource.PLAYERS, 0.5F, 1.0F);
     }
 
     @Override
