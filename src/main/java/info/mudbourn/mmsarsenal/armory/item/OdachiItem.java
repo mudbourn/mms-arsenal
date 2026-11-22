@@ -3,6 +3,7 @@ package info.mudbourn.mmsarsenal.armory.item;
 import info.mudbourn.mmsarsenal.armory.ArmoryComponents;
 import info.mudbourn.mmsarsenal.armory.ArmorySounds;
 import info.mudbourn.mmsarsenal.armory.WeaponStats;
+import info.mudbourn.mmsweapons.focus.Engage;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,6 +22,8 @@ public class OdachiItem extends DragonSlayerItem {
     public static final double CHARGED_RANGE = 8.0;
     private static final String PIERCE_ANIMATION = "bettercombat:two_handed_stab_right";
     private static final double LUNGE_SPEED = 1.4;
+    // Edge-to-edge spacing a close enemy is stabbed from, so the long blade reaches it instead of passing over it.
+    private static final double PIERCE_GAP = 2.0;
     private static final double LUNGE_LIFT = 0.15;
     private static final int RACE_ARMED = 1;
     private static final int RACE_STRUCK = 2;
@@ -105,13 +108,18 @@ public class OdachiItem extends DragonSlayerItem {
         return ArmorySounds.ODACHI_PIERCE;
     }
 
-    // Throws the wielder forward along their facing as the pierce is released.
+    // Places the wielder at stabbing distance from a close enemy, or else throws them forward along their facing, as the pierce is released.
     @Override
     public void release(ServerPlayer player, ItemStack stack) {
+        boolean placed = Engage.snap(player, PIERCE_GAP);
         super.release(player, stack);
+        if (placed) {
+            return;
+        }
         Vec3 look = player.getLookAngle();
         Vec3 flat = new Vec3(look.x, 0.0, look.z).normalize().scale(LUNGE_SPEED);
         player.push(flat.x, LUNGE_LIFT, flat.z);
+        info.mudbourn.mmsweapons.focus.DashStep.boost(player, 12);
         player.needsSync = true;
     }
 }

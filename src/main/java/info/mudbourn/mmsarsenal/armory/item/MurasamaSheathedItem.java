@@ -2,6 +2,7 @@ package info.mudbourn.mmsarsenal.armory.item;
 
 import info.mudbourn.mmsarsenal.armory.ArmoryItems;
 import info.mudbourn.mmsarsenal.armory.ArmorySounds;
+import info.mudbourn.mmsweapons.focus.Engage;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
@@ -20,6 +21,7 @@ import net.minecraft.world.phys.Vec3;
 public class MurasamaSheathedItem extends Item {
 
     private static final double DASH_FORCE = 2.0;
+    private static final double QUICKDRAW_GAP = 1.2;
     private static final Identifier PERISHABLE_OWNER = Identifier.fromNamespaceAndPath("mms_combat", "perishable_owner");
 
     public MurasamaSheathedItem(Properties properties) {
@@ -42,9 +44,11 @@ public class MurasamaSheathedItem extends Item {
         player.setItemInHand(InteractionHand.MAIN_HAND, drawn);
         level.playSound(null, player.blockPosition(), ArmorySounds.MURASAMA_SHOOT, SoundSource.PLAYERS, 0.5F, 1.0F);
         level.sendParticles(ParticleTypes.EXPLOSION, player.getX(), player.getY() + 1.0, player.getZ(), 1, 0.0, 0.0, 0.0, 0.0);
-        if (player.isShiftKeyDown()) {
+        // A close enemy is drawn on from cutting distance; otherwise the crouching dash carries the blade out.
+        if (player.isShiftKeyDown() && !Engage.snap(player, QUICKDRAW_GAP)) {
             Vec3 push = player.getLookAngle().scale(DASH_FORCE).add(0.0, 0.2, 0.0);
             player.push(push.x, push.y, push.z);
+            info.mudbourn.mmsweapons.focus.DashStep.boost(player, 12);
             player.needsSync = true;
         }
     }

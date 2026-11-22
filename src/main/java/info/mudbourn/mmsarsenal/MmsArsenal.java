@@ -56,7 +56,7 @@ public class MmsArsenal implements ModInitializer {
         // mms-weapons cannot see the dummy, so its focus weapons are fed dummy hits from here.
         TrainingDummy.addDamageHook((dummy, source, dealt) -> Focus.onDamage(source, dealt));
         // The Dragon Slayer and Odachi build the shared mms-weapons focus and spend it on their own attacks.
-        Focus.registerFocusWeapon(ArmoryItems.DRAGON_SLAYER);
+        Focus.registerFocusWeapon(ArmoryItems.DRAGON_SLAYER, 4);
         Focus.registerFocusWeapon(ArmoryItems.ODACHI);
         // Blade lines for focus smoke; geo models start at (0.5, 0.51, 0.5) in item space and run up in pixels.
         Focus.registerBlade(ArmoryItems.DRAGON_SLAYER, new Focus.Blade(new Vec3(0.5, 0.51 + 1.0 / 16.0, 0.5), new Vec3(0.5, 0.51 + 111.5 / 16.0, 0.5)));
