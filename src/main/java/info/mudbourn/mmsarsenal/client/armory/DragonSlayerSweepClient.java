@@ -48,6 +48,14 @@ public final class DragonSlayerSweepClient {
                 ticksUntilStrike = DragonSlayerItem.STRIKE_DELAY_TICKS;
             }
         });
+        // Sword's Race: the odachi's placed slash, swung for the local player; the server lands its hits.
+        ClientPlayNetworking.registerGlobalReceiver(info.mudbourn.mmsarsenal.net.SwordsRacePayload.TYPE, (payload, context) -> {
+            if (context.player() instanceof PlayerAttackAnimatable animatable) {
+                animatable.playAttackAnimation(DragonSlayerItem.SWEEP_ANIMATION, AnimatedHand.TWO_HANDED,
+                    DragonSlayerItem.SWEEP_LENGTH, DragonSlayerItem.SWEEP_UPSWING);
+            }
+            FocusSkill.execute((int) DragonSlayerItem.SWEEP_LENGTH);
+        });
         ClientTickEvents.END_CLIENT_TICK.register(DragonSlayerSweepClient::tick);
     }
 

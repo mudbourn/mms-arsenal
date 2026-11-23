@@ -44,6 +44,7 @@ public class MmsArsenal implements ModInitializer {
         ArmorySkills.register();
         PayloadTypeRegistry.clientboundPlay().register(NonexistencePayload.TYPE, NonexistencePayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(DragonSlayerReleasePayload.TYPE, DragonSlayerReleasePayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(info.mudbourn.mmsarsenal.net.SwordsRacePayload.TYPE, info.mudbourn.mmsarsenal.net.SwordsRacePayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(DragonSlayerSweepPayload.TYPE, DragonSlayerSweepPayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(DragonSlayerSweepPayload.TYPE, (payload, context) ->
             DragonSlayerItem.strike(context.player(), payload.targets()));
@@ -58,6 +59,10 @@ public class MmsArsenal implements ModInitializer {
         // The Dragon Slayer and Odachi build the shared mms-weapons focus and spend it on their own attacks.
         Focus.registerFocusWeapon(ArmoryItems.DRAGON_SLAYER, 4);
         Focus.registerFocusWeapon(ArmoryItems.ODACHI);
+        // The lit Crucible's right click douses it, so it is registered to keep building focus for its barrage.
+        Focus.registerFocusWeapon(ArmoryItems.CRUCIBLE);
+        // Murasama's right click sheathes it, so it is registered the same way.
+        Focus.registerFocusWeapon(ArmoryItems.MURASAMA);
         // Blade lines for focus smoke; geo models start at (0.5, 0.51, 0.5) in item space and run up in pixels.
         Focus.registerBlade(ArmoryItems.DRAGON_SLAYER, new Focus.Blade(new Vec3(0.5, 0.51 + 1.0 / 16.0, 0.5), new Vec3(0.5, 0.51 + 111.5 / 16.0, 0.5)));
         // The Odachi's blade is straight to 41px, then its last two pieces tilt 80 and 60 degrees into the curve.

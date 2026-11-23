@@ -56,13 +56,12 @@ public final class ArmoryItems {
             .enchantable(15)
             .component(DataComponents.WEAPON, new Weapon(1, 5.0F))
             .component(ArmoryComponents.USAGES, CrucibleItem.MAX_ENERGY)
-            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(ArmorySkills.CRUCIBLE_DOUSE, SpellEngineBarrage.SPELL))
+            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(SpellEngineBarrage.SPELL))
     );
     public static final Item CRUCIBLE_INACTIVE = register(
         "crucible_inactive",
         CrucibleInactiveItem::new,
         epic().overrideDescription("item.mms_arsenal.crucible")
-            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(ArmorySkills.CRUCIBLE_RELIGHT))
     );
     public static final Item EDGE_OF_EXISTENCE = register(
         "edge_of_existence",
@@ -74,13 +73,12 @@ public final class ArmoryItems {
         "murasama",
         MurasamaItem::new,
         weapon(1300).repairable(Items.ECHO_SHARD)
-            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(ArmorySkills.MURASAMA_SHEATHE, SpellEngineBarrage.SPELL))
+            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(SpellEngineBarrage.SPELL))
     );
     public static final Item MURASAMA_SHEATHED = register(
         "murasama_sheathed",
         MurasamaSheathedItem::new,
         epic().overrideDescription("item.mms_arsenal.murasama")
-            .component(SpellDataComponents.SPELL_CONTAINER, ArmorySkills.container(ArmorySkills.MURASAMA_QUICKDRAW))
     );
     public static final Item GUN_SHEATH = register(
         "gun_sheath",

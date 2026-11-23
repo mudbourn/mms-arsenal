@@ -10,7 +10,8 @@
     "MurasamaSheathedPoseMixin",
     "NonexistenceLivingMixin",
     "NonexistenceSoundMixin",
-    "NonexistenceTargetMixin"
+    "NonexistenceTargetMixin",
+    "QuickdrawNoGateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

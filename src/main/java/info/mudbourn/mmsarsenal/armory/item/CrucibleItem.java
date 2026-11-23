@@ -13,6 +13,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.LivingEntity;
@@ -53,10 +55,24 @@ public class CrucibleItem extends ArmoryWeaponItem {
         return left;
     }
 
-    // Douses the blade back to the unlit Crucible.
+    // Douses the blade back to the unlit Crucible, with a short wait before right click can relight it.
     public static void douse(ServerPlayer player, ItemStack stack) {
-        player.setItemInHand(InteractionHand.MAIN_HAND, transmute(stack, ArmoryItems.CRUCIBLE_INACTIVE));
+        ItemStack inactive = transmute(stack, ArmoryItems.CRUCIBLE_INACTIVE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, inactive);
+        player.getCooldowns().addCooldown(inactive, TOGGLE_COOLDOWN / 2);
         player.level().playSound(null, player.blockPosition(), ArmorySounds.CRUCIBLE_DEACTIVATE, SoundSource.PLAYERS, 1.0F, 1.0F);
+    }
+
+    // Right click douses the lit blade, as right click on the unlit one relights it; neither is a skill.
+    @Override
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        if (hand != InteractionHand.MAIN_HAND) {
+            return InteractionResult.PASS;
+        }
+        if (player instanceof ServerPlayer server) {
+            douse(server, player.getItemInHand(hand));
+        }
+        return InteractionResult.SUCCESS;
     }
 
     @Override

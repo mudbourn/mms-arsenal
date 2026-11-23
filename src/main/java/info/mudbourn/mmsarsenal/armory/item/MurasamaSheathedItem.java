@@ -12,6 +12,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -60,5 +62,18 @@ public class MurasamaSheathedItem extends Item {
             to.copyFrom(owner, from);
             to.copyFrom(DataComponents.LORE, from);
         }
+    }
+
+    // Right click fires the blade out for a quickdraw; it is not a skill.
+    @Override
+    public net.minecraft.world.InteractionResult use(Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (hand != InteractionHand.MAIN_HAND || !skillReady(player, stack)) {
+            return net.minecraft.world.InteractionResult.FAIL;
+        }
+        if (player instanceof ServerPlayer server) {
+            quickdraw(server, stack);
+        }
+        return net.minecraft.world.InteractionResult.SUCCESS;
     }
 }

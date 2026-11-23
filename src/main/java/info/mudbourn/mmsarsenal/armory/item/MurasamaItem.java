@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -70,5 +71,18 @@ public class MurasamaItem extends ArmoryWeaponItem {
     @Override
     protected WeaponStats bonus(ItemStack stack) {
         return stack.getOrDefault(ArmoryComponents.ABILITY_TICK, 0) > 0 ? QUICKDRAW : WeaponStats.NONE;
+    }
+
+    // Right click sheathes the blade into the off-hand Gun Sheath; it is not a skill.
+    @Override
+    public net.minecraft.world.InteractionResult use(Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (hand != InteractionHand.MAIN_HAND || !skillReady(player, stack)) {
+            return net.minecraft.world.InteractionResult.PASS;
+        }
+        if (player instanceof ServerPlayer server) {
+            sheathe(server, stack);
+        }
+        return net.minecraft.world.InteractionResult.SUCCESS;
     }
 }
