@@ -2,123 +2,123 @@
   "replace": false,
   "values": [
     {
-      "id": "mms_arsenal:corsairs_compass",
+      "id": "mms_arsenal:sea_pearl",
       "required": false
     },
     {
-      "id": "mms_arsenal:executioners_black_hood",
+      "id": "mms_arsenal:bleached_skull",
       "required": false
     },
     {
-      "id": "mms_arsenal:gamekeepers_whistle",
+      "id": "mms_arsenal:bronze_key",
       "required": false
     },
     {
-      "id": "mms_arsenal:highlanders_clan_brooch",
+      "id": "mms_arsenal:jade_cord",
       "required": false
     },
     {
-      "id": "mms_arsenal:penitents_rosary",
+      "id": "mms_arsenal:rosary",
       "required": false
     },
     {
-      "id": "mms_arsenal:ratcatchers_bell",
+      "id": "mms_arsenal:silver_coin",
       "required": false
     },
     {
-      "id": "mms_arsenal:snow_tigers_fang",
+      "id": "mms_arsenal:silver_cord_pendant",
       "required": false
     },
     {
-      "id": "mms_arsenal:winged_cavalry_plume",
+      "id": "mms_arsenal:sapphire",
       "required": false
     },
     {
-      "id": "mms_arsenal:bridgets_yo_yo_charm",
+      "id": "mms_arsenal:crimson_orb",
       "required": false
     },
     {
-      "id": "mms_arsenal:gabriels_halo",
+      "id": "mms_arsenal:heartstone_pendant",
       "required": false
     },
     {
-      "id": "mms_arsenal:griffiths_hawk_pendant",
+      "id": "mms_arsenal:sapphire_pendant",
       "required": false
     },
     {
-      "id": "mms_arsenal:mikkelas_sewing_thimble",
+      "id": "mms_arsenal:silver_band",
       "required": false
     },
     {
-      "id": "mms_arsenal:holy_reliquary",
+      "id": "mms_arsenal:blessed_pendant",
       "required": false
     },
     {
-      "id": "mms_arsenal:o_yoroi_kabuto_crest",
+      "id": "mms_arsenal:bloodstone",
       "required": false
     },
     {
-      "id": "mms_arsenal:quetzalcoatls_plume",
+      "id": "mms_arsenal:jade",
       "required": false
     },
     {
-      "id": "mms_arsenal:eclipse_legion_standard",
+      "id": "mms_arsenal:amethyst_gem",
       "required": false
     },
     {
-      "id": "mms_arsenal:heros_laurel",
+      "id": "mms_arsenal:laurel_leaf",
       "required": false
     },
     {
-      "id": "mms_arsenal:thiefs_lockpick",
+      "id": "mms_arsenal:skeleton_key",
       "required": false
     },
     {
-      "id": "mms_arsenal:white_knight_chess_piece",
+      "id": "mms_arsenal:white_diamond",
       "required": false
     },
     {
-      "id": "mms_arsenal:sunset_wing_feather",
+      "id": "mms_arsenal:sunset_diamond",
       "required": false
     },
     {
-      "id": "mms_arsenal:dark_cover_veil_pin",
+      "id": "mms_arsenal:midnight_pendant",
       "required": false
     },
     {
-      "id": "mms_arsenal:golden_execution_axe_charm",
+      "id": "mms_arsenal:yellow_diamond",
       "required": false
     },
     {
-      "id": "mms_arsenal:redeemers_censer",
+      "id": "mms_arsenal:holy_water",
       "required": false
     },
     {
-      "id": "mms_arsenal:gilded_hunt_trophy",
+      "id": "mms_arsenal:crystal_chalice",
       "required": false
     },
     {
-      "id": "mms_arsenal:crucible_knights_seal",
+      "id": "mms_arsenal:fire_opal",
       "required": false
     },
     {
-      "id": "mms_arsenal:ronins_tsuba",
+      "id": "mms_arsenal:onyx",
       "required": false
     },
     {
-      "id": "mms_arsenal:silver_knights_moon_medal",
+      "id": "mms_arsenal:moonstone",
       "required": false
     },
     {
-      "id": "mms_arsenal:feasters_tooth",
+      "id": "mms_arsenal:blood_skull",
       "required": false
     },
     {
-      "id": "mms_arsenal:grave_sentinels_candle",
+      "id": "mms_arsenal:lit_candle",
       "required": false
     },
     {
-      "id": "mms_arsenal:dawncrest_sun_medal",
+      "id": "mms_arsenal:sunstone",
       "required": false
     }
   ]

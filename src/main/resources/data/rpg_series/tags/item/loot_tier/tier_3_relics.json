@@ -2,23 +2,23 @@
   "replace": false,
   "values": [
     {
-      "id": "mms_arsenal:axolotl_knights_gill_charm",
+      "id": "mms_arsenal:rose_quartz",
       "required": false
     },
     {
-      "id": "mms_arsenal:wald_knights_oak_medallion",
+      "id": "mms_arsenal:oak_pendant",
       "required": false
     },
     {
-      "id": "mms_arsenal:exalted_aurum_crown_ring",
+      "id": "mms_arsenal:gold_band",
       "required": false
     },
     {
-      "id": "mms_arsenal:old_knights_gorget",
+      "id": "mms_arsenal:worn_emerald_pendant",
       "required": false
     },
     {
-      "id": "mms_arsenal:brets_lucky_coin",
+      "id": "mms_arsenal:lucky_coin",
       "required": false
     }
   ]

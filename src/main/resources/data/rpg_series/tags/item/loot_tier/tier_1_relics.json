@@ -2,123 +2,123 @@
   "replace": false,
   "values": [
     {
-      "id": "mms_arsenal:scaphanders_brass_valve",
+      "id": "mms_arsenal:deepwater_pendant",
       "required": false
     },
     {
-      "id": "mms_arsenal:furnace_masters_ember",
+      "id": "mms_arsenal:cinder_ring",
       "required": false
     },
     {
-      "id": "mms_arsenal:captains_signet",
+      "id": "mms_arsenal:amber_signet",
       "required": false
     },
     {
-      "id": "mms_arsenal:masquerade_mask",
+      "id": "mms_arsenal:pink_diamond",
       "required": false
     },
     {
-      "id": "mms_arsenal:mountainmans_horn",
+      "id": "mms_arsenal:big_bone",
       "required": false
     },
     {
-      "id": "mms_arsenal:norsian_knights_rune_ring",
+      "id": "mms_arsenal:rune_ring",
       "required": false
     },
     {
-      "id": "mms_arsenal:plague_doctors_censer",
+      "id": "mms_arsenal:plague_vial",
       "required": false
     },
     {
-      "id": "mms_arsenal:siege_engineers_plumb_bob",
+      "id": "mms_arsenal:siege_brick",
       "required": false
     },
     {
-      "id": "mms_arsenal:swamplanders_reed_charm",
+      "id": "mms_arsenal:marsh_blossom",
       "required": false
     },
     {
-      "id": "mms_arsenal:astolfos_hippogriff_feather",
+      "id": "mms_arsenal:white_feather",
       "required": false
     },
     {
-      "id": "mms_arsenal:felixs_cat_bell",
+      "id": "mms_arsenal:topaz",
       "required": false
     },
     {
-      "id": "mms_arsenal:giselles_ribbon",
+      "id": "mms_arsenal:wrapped_gift",
       "required": false
     },
     {
-      "id": "mms_arsenal:nikos_lightbulb",
+      "id": "mms_arsenal:glow_orb",
       "required": false
     },
     {
-      "id": "mms_arsenal:do_maru_lacing_cord",
+      "id": "mms_arsenal:sealed_orders",
       "required": false
     },
     {
-      "id": "mms_arsenal:pharaohs_ankh",
+      "id": "mms_arsenal:desert_pendant",
       "required": false
     },
     {
-      "id": "mms_arsenal:raijins_drum",
+      "id": "mms_arsenal:storm_diamond",
       "required": false
     },
     {
-      "id": "mms_arsenal:dragonslayers_scale",
+      "id": "mms_arsenal:fang_necklace",
       "required": false
     },
     {
-      "id": "mms_arsenal:wanderers_star_chart",
+      "id": "mms_arsenal:star_chart",
       "required": false
     },
     {
-      "id": "mms_arsenal:dark_lords_signet",
+      "id": "mms_arsenal:blackiron_ring",
       "required": false
     },
     {
-      "id": "mms_arsenal:fog_guard_lantern",
+      "id": "mms_arsenal:stone_orb",
       "required": false
     },
     {
-      "id": "mms_arsenal:spark_of_dawn_ember",
+      "id": "mms_arsenal:ember_stone",
       "required": false
     },
     {
-      "id": "mms_arsenal:forgotten_trace_locket",
+      "id": "mms_arsenal:pearl_choker",
       "required": false
     },
     {
-      "id": "mms_arsenal:twinned_rings",
+      "id": "mms_arsenal:twin_rings",
       "required": false
     },
     {
-      "id": "mms_arsenal:hunters_cameo",
+      "id": "mms_arsenal:hunters_pendant",
       "required": false
     },
     {
-      "id": "mms_arsenal:evening_ghost_lantern",
+      "id": "mms_arsenal:unlit_candle",
       "required": false
     },
     {
-      "id": "mms_arsenal:scarlet_rot_blossom",
+      "id": "mms_arsenal:scarlet_blossom",
       "required": false
     },
     {
-      "id": "mms_arsenal:gladiators_chain",
+      "id": "mms_arsenal:iron_ring",
       "required": false
     },
     {
-      "id": "mms_arsenal:wind_worshippers_chime",
+      "id": "mms_arsenal:wind_gem",
       "required": false
     },
     {
-      "id": "mms_arsenal:lion_knights_spearhead",
+      "id": "mms_arsenal:gilded_bar",
       "required": false
     },
     {
-      "id": "mms_arsenal:netherborn_pirates_doubloon",
+      "id": "mms_arsenal:copper_coin",
       "required": false
     }
   ]

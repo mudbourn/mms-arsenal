@@ -2,15 +2,15 @@
   "replace": false,
   "values": [
     {
-      "id": "mms_arsenal:gate_sentrys_key",
+      "id": "mms_arsenal:gate_key",
       "required": false
     },
     {
-      "id": "mms_arsenal:centurions_phalera",
+      "id": "mms_arsenal:garnet_necklace",
       "required": false
     },
     {
-      "id": "mms_arsenal:iron_plate_rivet",
+      "id": "mms_arsenal:tempered_iron_bar",
       "required": false
     }
   ]

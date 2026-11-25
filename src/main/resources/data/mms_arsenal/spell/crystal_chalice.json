@@ -1,0 +1,41 @@
+{
+  "school": "spell_power:healing",
+  "range": 0.0,
+  "tier": 7,
+  "tooltip": {
+    "show_header": false,
+    "name": {
+      "show_in_compact": false,
+      "show_in_details": false
+    },
+    "description": {
+      "color": "dark_green"
+    }
+  },
+  "type": "PASSIVE",
+  "passive": {
+    "triggers": [
+      {
+        "type": "SPELL_CAST",
+        "target_override": "CASTER"
+      }
+    ]
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "HEAL",
+        "min_power": 2.0,
+        "max_power": 2.0,
+        "heal": {
+          "spell_power_coefficient": 0.0
+        }
+      }
+    }
+  ],
+  "cost": {
+    "cooldown": {
+      "duration": 20.0
+    }
+  }
+}

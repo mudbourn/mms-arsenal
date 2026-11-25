@@ -1,11 +1,11 @@
 {
   "replace": false,
   "values": [
-    "mms_arsenal:gate_sentrys_key",
-    "mms_arsenal:siege_engineers_plumb_bob",
-    "mms_arsenal:iron_plate_rivet",
-    "mms_arsenal:do_maru_lacing_cord",
-    "mms_arsenal:thiefs_lockpick",
-    "mms_arsenal:gladiators_chain"
+    "mms_arsenal:gate_key",
+    "mms_arsenal:siege_brick",
+    "mms_arsenal:tempered_iron_bar",
+    "mms_arsenal:sealed_orders",
+    "mms_arsenal:skeleton_key",
+    "mms_arsenal:iron_ring"
   ]
 }

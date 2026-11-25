@@ -1,0 +1,46 @@
+{
+  "school": "spell_power:fire",
+  "range": 0.0,
+  "tier": 7,
+  "tooltip": {
+    "show_header": false,
+    "name": {
+      "show_in_compact": false,
+      "show_in_details": false
+    },
+    "description": {
+      "color": "dark_green"
+    }
+  },
+  "type": "PASSIVE",
+  "passive": {
+    "triggers": [
+      {
+        "type": "MELEE_IMPACT",
+        "target_conditions": [
+          {
+            "entity_type": "#minecraft:undead"
+          }
+        ]
+      }
+    ]
+  },
+  "target": {
+    "type": "FROM_TRIGGER"
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "FIRE",
+        "fire": {
+          "duration": 4.0
+        }
+      }
+    }
+  ],
+  "cost": {
+    "cooldown": {
+      "duration": 15.0
+    }
+  }
+}
